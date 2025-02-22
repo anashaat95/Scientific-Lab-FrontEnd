@@ -1,0 +1,8 @@
+      <TableCell>
+        <IconButton color="primary">
+          <EditIcon />
+        </IconButton>
+        <IconButton color="error">
+          <DeleteIcon />
+        </IconButton>
+      </TableCell>
