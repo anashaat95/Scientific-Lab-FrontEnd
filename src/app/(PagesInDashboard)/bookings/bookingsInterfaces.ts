@@ -43,3 +43,18 @@ export enum eBookingStatus {
   Completed = 2,
   Cancelled = 3,
 }
+
+export function convertBookingStatus(status: string): eBookingStatus {
+  switch (status.toLowerCase()) {
+    case "pending":
+      return eBookingStatus.Pending;
+    case "confirmed":
+      return eBookingStatus.Confirmed;
+    case "completed":
+      return eBookingStatus.Completed;
+    case "cancelled":
+      return eBookingStatus.Cancelled;
+    default:
+      return eBookingStatus.Confirmed;
+  }
+}

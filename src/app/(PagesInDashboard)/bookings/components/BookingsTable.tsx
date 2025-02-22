@@ -6,14 +6,14 @@ import CustomTableContentRow from "@/components/table/CustomTableContentRow";
 import { IFetcherData } from "@/interfaces";
 import { GetJwtTokenPayload, isAuthorized } from "@/services/jwtTokenService";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import { Box, TableCell, TableRow, Typography } from "@mui/material";
+import { Box, Chip, TableCell, TableRow, Typography } from "@mui/material";
 import dayjs from "dayjs";
 import "server-only";
 import { enUserRoles } from "../../roles/rolesInterfaces";
 import { BOOKINGS_FRONTEND_ENDPOINT } from "../bookingsConsts";
-import { IBooking } from "../bookingsInterfaces";
+import { convertBookingStatus, eBookingStatus, IBooking } from "../bookingsInterfaces";
 
-const tableHeader: Array<string> = ["Equipment", "Start", "End", "Overnight", "Notes", "Status", "Researcher", ""];
+const tableHeader: Array<string> = ["Booking", "Start", "End", "Overnight", "Notes", "Status", "Researcher", ""];
 
 const BookingsTable = async ({ data, errorMessage, isNetworkError }: IFetcherData) => {
   if (isNetworkError) {
@@ -68,7 +68,9 @@ const BookingsTable = async ({ data, errorMessage, isNetworkError }: IFetcherDat
               </CustomTableCell>
               <CustomTableCell>{booking.is_on_overnight === "True" ? "Yes" : "No"}</CustomTableCell>
               <CustomTableCell>{booking.notes}</CustomTableCell>
-              <CustomTableCell>{booking.status}</CustomTableCell>
+              <CustomTableCell>
+                <BookingStatusChip status={convertBookingStatus(booking.status)} />
+              </CustomTableCell>
               <CustomTableCell>{booking.user_name}</CustomTableCell>
             </CustomTableContentRow>
           </>
@@ -108,4 +110,29 @@ const DateCell = ({ dateStr }: { dateStr: string }) => {
       </TableCell>
     </TableRow>
   );
+};
+
+const getStatusProps = (status: eBookingStatus) => {
+  switch (status) {
+    case eBookingStatus.Completed:
+      return { label: "Completed", color: "success" };
+    case eBookingStatus.Pending:
+      return { label: "Pending", color: "warning" };
+    case eBookingStatus.Confirmed:
+      return { label: "Confirmed", color: "success" };
+    case eBookingStatus.Cancelled:
+      return { label: "Cancelled", color: "error" };
+    default:
+      return { label: "Unknown", color: "default" };
+  }
+};
+
+interface BookingStatusChipProps {
+  status: eBookingStatus;
+}
+
+export const BookingStatusChip: React.FC<BookingStatusChipProps> = ({ status }) => {
+  const { label, color } = getStatusProps(status);
+
+  return <Chip label={label} color={color as any} variant={`${status === eBookingStatus.Confirmed ? "filled" : "outlined"}`} />;
 };
