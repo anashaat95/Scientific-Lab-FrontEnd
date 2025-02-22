@@ -20,8 +20,8 @@ const MainPage = () => {
           <Logo sx={{ margin: "12px 24px" }} />
 
           <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 2, mr: "24px" }}>
-            <GoToButton>SignUp</GoToButton>
-            <GoToButton>Login</GoToButton>
+            <GoToButton href="register">SignUp</GoToButton>
+            <GoToButton href="login">Login</GoToButton>
           </Box>
         </Box>
         <Box

@@ -11,7 +11,7 @@ const CustomLoader = ({ page = false, color = undefined }: { color?: string; pag
       // position: "fixed",
       // top: 0,
       // left: 0,
-      width: "70vw",
+      width: "100vw",
       height: "70vh",
       // display: "flex",
       // justifyContent: "center",
