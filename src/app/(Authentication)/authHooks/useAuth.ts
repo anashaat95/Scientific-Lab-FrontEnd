@@ -35,6 +35,7 @@ export const useAuth = () => {
       sessionStorage.removeItem("currentUser");
       const item = sessionStorage.getItem("currentUser");
       setTimeout(() => {
+        console.log(item);
         if (!item) router.refresh();
       }, 250);
     },
