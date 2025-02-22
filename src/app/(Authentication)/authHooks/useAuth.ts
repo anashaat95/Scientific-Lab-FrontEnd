@@ -33,10 +33,7 @@ export const useAuth = () => {
     mutationFn: logoutService,
     onSuccess: () => {
       sessionStorage.removeItem("currentUser");
-      const item = sessionStorage.getItem("currentUser");
-      setTimeout(() => {
-        if (!item) router.replace("/login");
-      }, 250);
+      router.replace("/login");
     },
   });
 

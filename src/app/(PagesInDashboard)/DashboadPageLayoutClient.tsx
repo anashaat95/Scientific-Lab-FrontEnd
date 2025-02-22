@@ -10,7 +10,7 @@ import React from "react";
 import { IUser } from "./users/usersInterfaces";
 
 const DashboardPageLayoutClient = ({ currentUser, children }: { currentUser: IUser; children: React.ReactNode }) => {
-  if (typeof window !== "undefined") sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
+  sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
 
   return (
     <MainWrapper className="mainwrapper">
