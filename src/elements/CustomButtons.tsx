@@ -71,7 +71,7 @@ export const GoBackButton = ({ ...props }: ButtonProps) => {
   );
 };
 
-export const GoToButton = ({ href, children, ...props }: ButtonProps) => {
+export const GoToButton = ({ href, children, ...props }: ButtonProps & { href: string }) => {
   const router = useRouter();
   return (
     <Button variant="contained" size="large" sx={{ color: "secondary", ...props.sx }} type="button" {...props} onClick={() => router.push(href)}>
