@@ -71,6 +71,15 @@ export const GoBackButton = ({ ...props }: ButtonProps) => {
   );
 };
 
+export const GoToButton = ({ href, children, ...props }: ButtonProps) => {
+  const router = useRouter();
+  return (
+    <Button variant="contained" size="large" sx={{ color: "secondary", ...props.sx }} type="button" {...props} onClick={() => router.push(href)}>
+      {children}
+    </Button>
+  );
+};
+
 export const ToggleSidebarButton = ({ sx }: { sx?: SxProps<Theme> }) => {
   const { isSidebarOpen }: { isSidebarOpen: boolean } = useSelector((state: RootState) => state.ui);
   const dispatch: AppDispatch = useDispatch();
