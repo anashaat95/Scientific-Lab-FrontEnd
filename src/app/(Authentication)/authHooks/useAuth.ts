@@ -32,10 +32,9 @@ export const useAuth = () => {
   const logout = useMutation({
     mutationFn: logoutService,
     onSuccess: () => {
-      setTimeout(() => {
-        sessionStorage.removeItem("currentUser");
-        router.refresh();
-      }, 250);
+      console.log("Loggged out111111111");
+      sessionStorage.removeItem("currentUser");
+      router.refresh();
     },
   });
 
