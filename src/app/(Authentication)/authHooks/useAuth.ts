@@ -53,7 +53,9 @@ export const useAuth = () => {
 
   const forgetPassword = useMutation({
     mutationFn: forgetPasswordService,
-    onError: (err) => console.log(err),
+    onError: (err) => {
+      // console.log(err),
+    },
   });
 
   const resetPassword = useMutation({

@@ -6,13 +6,15 @@ import Sidebar from "@/components/sidebar/Sidebar";
 import MainWrapper from "@/components/style/MainWrapper";
 import PageWrapper from "@/components/style/PageWrapper";
 import { Box } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { IUser } from "./users/usersInterfaces";
 
 const DashboardPageLayoutClient = ({ currentUser, children }: { currentUser: IUser; children: React.ReactNode }) => {
-  setTimeout(() => {
-    if (currentUser && window !== undefined) sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
-  }, 100);
+  useEffect(() => {
+    if (typeof window !== "undefined" && currentUser) {
+      sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
+    }
+  }, [currentUser]);
 
   return (
     <MainWrapper className="mainwrapper">

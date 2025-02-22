@@ -33,7 +33,7 @@ export const GetJwtTokenPayload = async (): Promise<IJwtTokenPayload | null> => 
       await ApiClientBackEnd.post("refresh");
       accessToken = cookies().get("accessToken")?.value;
     } catch (error: any) {
-      console.log("Failure during refreshing access token", error.message);
+      // console.log("Failure during refreshing access token", error.message);
       return null;
     }
   }
@@ -42,7 +42,7 @@ export const GetJwtTokenPayload = async (): Promise<IJwtTokenPayload | null> => 
     const payload = jwt.verify(accessToken as string, JWT_SECRET as string);
 
     if (typeof payload === "string") {
-      console.log("Invalid token format, expected an object.");
+      // console.log("Invalid token format, expected an object.");
       return null;
     }
 
