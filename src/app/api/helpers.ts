@@ -30,8 +30,7 @@ export const setCookiesInResponse = ({ res, key, value, maxAge = 0 }: ISetCookie
 };
 
 export const deleteCookiesInResponse = ({ res, key }: IDeleteCookieProps) => {
-  setCookiesInResponse({ res, key: "accessToken", value: "" });
-  setCookiesInResponse({ res, key: "refreshToken", value: "" });
+  setCookiesInResponse({ res, key, value: "" });
 };
 
 export const getAuthHeaders = (req: NextRequest) => {
