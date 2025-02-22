@@ -29,7 +29,7 @@ const CompaniesTable = async ({ data, errorMessage, isNetworkError }: IFetcherDa
     <CustomTable cellHeads={tableHeader} isPending={false} endpoint={COMPANIES_FRONTEND_ENDPOINT} addAction={canAddEdit}>
       {companies?.map((company) => (
         <CustomTableContentRow key={company.id} endpoint={COMPANIES_FRONTEND_ENDPOINT} id={company.id} editAction={canAddEdit} deleteAction={isAdmin}>
-          <CustomTableCell>{company.name}</CustomTableCell>
+          <CustomTableCell sx={{ fontWeight: 700 }}>{company.name}</CustomTableCell>
           <CustomTableCell>
             {company.street}, {company.city_name}, {company.country_name}
           </CustomTableCell>

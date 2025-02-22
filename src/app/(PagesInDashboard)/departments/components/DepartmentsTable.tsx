@@ -32,7 +32,7 @@ const DepartmentsTable = async ({ data, errorMessage, isNetworkError }: IFetcher
           deleteAction={isAdmin}
           editAction={canAddEdit}
         >
-          <CustomTableCell>
+          <CustomTableCell sx={{ fontWeight: 700 }}>
             {department.name} - {department.company_name}
           </CustomTableCell>
           <CustomTableCell>{department.location}</CustomTableCell>

@@ -25,7 +25,7 @@ const CitiesTable = async ({ data, errorMessage, isNetworkError }: IFetcherData)
     <CustomTable cellHeads={tableHeader} isPending={false} endpoint={CITIES_FRONTEND_ENDPOINT} addAction={isAdmin}>
       {cities?.map((city) => (
         <CustomTableContentRow key={city.id} endpoint={CITIES_FRONTEND_ENDPOINT} id={city.id} editAction={canAddEdit} deleteAction={isAdmin}>
-          <CustomTableCell>{city.name}</CustomTableCell>
+          <CustomTableCell sx={{ fontWeight: 700 }}>{city.name}</CustomTableCell>
           <CustomTableCell>{dayjs(city.created_at).format("MMM D, YYYY")}</CustomTableCell>
           <CustomTableCell>{dayjs(city.updated_at).format("MMM D, YYYY")}</CustomTableCell>
         </CustomTableContentRow>

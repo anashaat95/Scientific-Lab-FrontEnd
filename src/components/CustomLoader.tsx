@@ -22,12 +22,12 @@ const CustomLoader = ({ page = false, color = undefined }: { color?: string; pag
       // pointerEvents: "none",
     };
   } else {
-    sxProps = { height: "75%", width: "75%" };
+    sxProps = { height: "100%", width: "100%" };
   }
 
   return (
-    <Box sx={{ height: "100%", width: "100%", display: "flex", justifyContent: "center", alignItems: "center", ...sxProps }}>
-      <CircularProgress sx={{ color: color || "primary.main" }} />
+    <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", ...sxProps }}>
+      <CircularProgress sx={{ fontSize: "12px", color: color || "primary.main" }} />
     </Box>
   );
 };

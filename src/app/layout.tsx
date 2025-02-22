@@ -13,8 +13,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <ProgressBar />
         <ReduxStoreProvider>
+          <ProgressBar />
           <RootQueryClientProvider>
             <ThemeProvider theme={baselightTheme}>
               <CssBaseline />

@@ -5,13 +5,12 @@ import CustomTableContentRow from "@/components/table/CustomTableContentRow";
 import { IFetcherData } from "@/interfaces";
 import { isAuthorized } from "@/services/jwtTokenService";
 import { Chip } from "@mui/material";
-import dayjs from "dayjs";
 import "server-only";
 import { enUserRoles } from "../../roles/rolesInterfaces";
 import { EQUIPMENTS_FRONTEND_ENDPOINT } from "../equipmentsConsts";
 import { eEquipmentStatus, IEquipment, stringToEquipmentStatus } from "../equipmentsInterfaces";
 
-const tableHeader: Array<string> = ["Name", "Bookings", "Status", "Purchase Date", "Serial No.", "Overnight", "Company", ""];
+const tableHeader: Array<string> = ["Name", "Total", "Bookings", "Status", "Overnight", "Company", ""];
 
 const EquipmentsTable = async ({ data, errorMessage, isNetworkError }: IFetcherData) => {
   if (isNetworkError) {
@@ -33,14 +32,15 @@ const EquipmentsTable = async ({ data, errorMessage, isNetworkError }: IFetcherD
           editAction={canAddEdit}
         >
           <CustomTableCell sx={{ fontWeight: "700" }}>{equipment.name}</CustomTableCell>
+          <CustomTableCell>{equipment.total_quantity}</CustomTableCell>
           <CustomTableCell>
             <strong>{equipment.reserved_quantity}</strong>
           </CustomTableCell>
           <CustomTableCell>
             <EquipmentStatusChip status={stringToEquipmentStatus(equipment.status)} />
           </CustomTableCell>
-          <CustomTableCell>{dayjs(equipment.purchase_date).format("MMM D, YYYY")}</CustomTableCell>
-          <CustomTableCell>{equipment.serial_number}</CustomTableCell>
+          {/* <CustomTableCell>{dayjs(equipment.purchase_date).format("MMM D, YYYY")}</CustomTableCell>
+          <CustomTableCell>{equipment.serial_number}</CustomTableCell> */}
           <CustomTableCell>{equipment.can_be_left_overnight === "True" ? "Yes" : "No"}</CustomTableCell>
           <CustomTableCell>{equipment.company_name}</CustomTableCell>
         </CustomTableContentRow>

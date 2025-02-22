@@ -55,9 +55,17 @@ const BookingsTable = async ({ data, errorMessage, isNetworkError }: IFetcherDat
               deleteAction={isAdmin}
               editAction={isAdmin || (canAddEdit && token?.nameid === getIdFromDtoEntityUrl(booking.user_url))}
             >
-              <CustomTableCell sx={{ fontWeight: 700 }}>{booking.equipment_name}</CustomTableCell>
-              <CustomTableCell>{dayjs(booking.start_date_time).format("h:mm A")}</CustomTableCell>
-              <CustomTableCell>{dayjs(booking.end_date_time).format("h:mm A")}</CustomTableCell>
+              <CustomTableCell sx={{ fontWeight: 700, lineHeight: "1.5" }}>{booking.equipment_name}</CustomTableCell>
+              <CustomTableCell sx={{ width: "128px" }}>
+                {dayjs(booking.start_date_time).format("MMM D")}
+                <br />
+                {dayjs(booking.start_date_time).format("h:mm A")}
+              </CustomTableCell>
+              <CustomTableCell sx={{ width: "128px" }}>
+                {dayjs(booking.end_date_time).format("MMM D")}
+                <br />
+                {dayjs(booking.end_date_time).format("h:mm A")}
+              </CustomTableCell>
               <CustomTableCell>{booking.is_on_overnight === "True" ? "Yes" : "No"}</CustomTableCell>
               <CustomTableCell>{booking.notes}</CustomTableCell>
               <CustomTableCell>{booking.status}</CustomTableCell>

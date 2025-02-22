@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import React from "react";
 
@@ -124,8 +123,8 @@ export default function NavItem({ item, level, pathDirect, hideMenu }: ItemType)
           // {...listItemProps}
           disabled={item?.disabled}
           selected={pathDirect === item?.href}
-          onClick={() => {
-            if (!lgUp) dispatch(toggleSidebar());
+          onClick={(e) => {
+            if (!lgUp) dispatch(() => toggleSidebar());
           }}
           sx={{
             "&:hover": {

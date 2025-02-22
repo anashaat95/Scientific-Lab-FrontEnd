@@ -15,7 +15,7 @@ export default function ProgressBar() {
     NProgress.start();
     const timer = setTimeout(() => {
       NProgress.done();
-    }, 500); // Finish after a delay
+    }, 250); // Finish after a delay
 
     return () => {
       clearTimeout(timer);
@@ -23,5 +23,5 @@ export default function ProgressBar() {
     };
   }, [pathname]); // Runs when pathname changes
 
-  return null; // No UI needed, NProgress handles the bar
+  return null;
 }

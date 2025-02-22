@@ -32,7 +32,7 @@ const LabsTable = async ({ data, errorMessage, isNetworkError }: IFetcherData) =
           deleteAction={isAdmin}
           editAction={isAdmin || (canAddEdit && token?.nameid === getIdFromDtoEntityUrl(lab.supervisor_url))}
         >
-          <CustomTableCell>
+          <CustomTableCell sx={{ fontWeight: "700" }}>
             {lab.name} - {lab.department_name}
           </CustomTableCell>
           <CustomTableCell>{lab.capacity}</CustomTableCell>

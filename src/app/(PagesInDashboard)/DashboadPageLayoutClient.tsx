@@ -11,7 +11,7 @@ import { IUser } from "./users/usersInterfaces";
 
 const DashboardPageLayoutClient = ({ currentUser, children }: { currentUser: IUser; children: React.ReactNode }) => {
   useEffect(() => {
-    if (typeof window !== "undefined" && currentUser) {
+    if (currentUser) {
       sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
     }
   }, [currentUser]);

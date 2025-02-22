@@ -2,10 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface UIState {
   isSidebarOpen: boolean;
+  isLoading: boolean;
 }
 
 const initialState: UIState = {
   isSidebarOpen: true,
+  isLoading: false,
 };
 
 const authSlice = createSlice({
