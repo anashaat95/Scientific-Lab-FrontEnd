@@ -51,8 +51,6 @@ export default function AddBookingForm({ equipments, equipmentsFullData, researc
 
   const selectedEquipment: IEquipment | undefined = equipmentsFullData.find((eq) => eq.id === equipment_id) ?? equipmentsFullData[0];
 
-  console.log(controlAndErrors.errors);
-
   return (
     <>
       <AddOrEditFormModal

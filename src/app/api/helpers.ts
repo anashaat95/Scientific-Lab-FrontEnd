@@ -31,6 +31,7 @@ export const setCookiesInResponse = ({ res, key, value, maxAge = 0 }: ISetCookie
 
 export const deleteCookiesInResponse = ({ res, key }: IDeleteCookieProps) => {
   setCookiesInResponse({ res, key, value: "" });
+  res.cookies.delete(key);
 };
 
 export const getAuthHeaders = (req: NextRequest) => {
@@ -58,6 +59,7 @@ export const createNextLoginResponse = async (response: AxiosResponse<any, any>,
 
   setCookiesInResponse({ res, key: "accessToken", value: accessToken.token, maxAge: accessTokenExpiryInSec });
   setCookiesInResponse({ res, key: "refreshToken", value: refreshToken.token, maxAge: refreshTokenExpiryInSec });
+  setCookiesInResponse({ res, key: "currentUser", value: JSON.stringify(data?.data?.data), maxAge: accessTokenExpiryInSec });
 
   return res;
 };

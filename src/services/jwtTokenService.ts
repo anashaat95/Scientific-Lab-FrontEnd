@@ -26,7 +26,6 @@ const isTokenExpired = (token: string): boolean => {
 
 export const GetJwtTokenPayload = async (): Promise<IJwtTokenPayload | null> => {
   let accessToken = cookies().get("accessToken")?.value;
-
   if (!accessToken) return null;
 
   if (isTokenExpired(accessToken)) {
