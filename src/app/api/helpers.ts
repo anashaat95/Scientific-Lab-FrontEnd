@@ -11,7 +11,7 @@ interface ISetCookieProps {
   res: NextResponse<any>;
   key: string;
   value: string;
-  maxAge: number;
+  maxAge?: number;
 }
 
 interface IDeleteCookieProps {
@@ -30,7 +30,8 @@ export const setCookiesInResponse = ({ res, key, value, maxAge = 0 }: ISetCookie
 };
 
 export const deleteCookiesInResponse = ({ res, key }: IDeleteCookieProps) => {
-  res.cookies.delete(key);
+  setCookiesInResponse({ res, key: "accessToken", value: "" });
+  setCookiesInResponse({ res, key: "refreshToken", value: "" });
 };
 
 export const getAuthHeaders = (req: NextRequest) => {
