@@ -1,25 +1,17 @@
 "use client";
 import { IUser } from "@/app/(PagesInDashboard)/users/usersInterfaces";
+import { RootState } from "@/store/store";
 import { Box, List } from "@mui/material";
 import { usePathname } from "next/navigation";
+import { useSelector } from "react-redux";
 import { filterMenuItemsByRole } from "./MenuItems";
 import NavGroup from "./NavGroup/NavGroup";
 import NavItem from "./NavItem";
 
 const SidebarItems = () => {
+  const { currentUser }: { currentUser: IUser } = useSelector((state: RootState) => state.auth);
   const pathname = usePathname();
   const pathDirect = "/" + pathname.split("/")[1];
-
-  const currentUserDataStr = sessionStorage.getItem("currentUser");
-  let currentUser: IUser | undefined = undefined;
-  if (currentUserDataStr) {
-    try {
-      currentUser = JSON.parse(currentUserDataStr);
-    } catch (error) {
-      currentUser = undefined;
-    }
-  }
-
   const filteredMenuitems = filterMenuItemsByRole(currentUser?.roles);
 
   return (

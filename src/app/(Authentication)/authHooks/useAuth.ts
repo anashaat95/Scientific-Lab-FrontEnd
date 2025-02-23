@@ -1,7 +1,10 @@
 "use client";
 import { IUser } from "@/app/(PagesInDashboard)/users/usersInterfaces";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { login as loginStore, logout as logoutStore } from "@/store/authSlice";
+import { AppDispatch } from "@/store/store";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
 import {
   forgetPasswordService,
   loginService,
@@ -18,12 +21,12 @@ const refreshPage = (router: any) =>
 
 export const useAuth = () => {
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const dispatch: AppDispatch = useDispatch();
 
   const login = useMutation({
     mutationFn: loginService,
     onSuccess: (data: { message: string; isAuthenticated: Boolean; currentUser?: IUser }) => {
-      if (typeof window !== "undefined") sessionStorage.setItem("currentUser", JSON.stringify(data.currentUser));
+      dispatch(loginStore(data.currentUser));
       if (data.isAuthenticated) refreshPage(router);
       if (data?.message.includes("not confirmed")) throw data;
     },
@@ -32,7 +35,7 @@ export const useAuth = () => {
   const logout = useMutation({
     mutationFn: logoutService,
     onSuccess: () => {
-      sessionStorage.clear();
+      dispatch(logoutStore());
       router.refresh();
     },
   });

@@ -3,6 +3,7 @@ import { ToggleSidebarButton } from "@/elements/CustomButtons";
 import { AppDispatch, RootState } from "@/store/store";
 import { closeSidebar } from "@/store/uiSlice";
 import { Box, Drawer, useMediaQuery } from "@mui/material";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Logo from "../Logo";
 import SidebarItems from "./SidebarItems";
@@ -59,6 +60,7 @@ const Sidebar = () => {
                 <Logo />
               </Box>
               <Box>
+                {" "}
                 <SidebarItems />
               </Box>
             </Box>

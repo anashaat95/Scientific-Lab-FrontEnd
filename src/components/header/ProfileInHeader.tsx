@@ -4,19 +4,13 @@ import { useState } from "react";
 import { useAuth } from "@/app/(Authentication)/authHooks/useAuth";
 import { IUser } from "@/app/(PagesInDashboard)/users/usersInterfaces";
 import { SubmitButton, TextButton } from "@/elements/CustomButtons";
+import { RootState } from "@/store/store";
 import { IconMail } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 
 const ProfileInHeader = () => {
-  let currentUser: IUser | undefined = undefined;
-  if (typeof window !== "undefined") {
-    try {
-      currentUser = JSON?.parse(sessionStorage.getItem("currentUser") || "");
-    } catch (error) {
-      currentUser = undefined;
-    }
-  }
-
+  const { currentUser }: { currentUser: IUser } = useSelector((state: RootState) => state.auth);
   const { logout } = useAuth();
   const router = useRouter();
 
@@ -52,9 +46,7 @@ const ProfileInHeader = () => {
           }}
         />
       </IconButton>
-      {/* ------------------------------------------- */}
-      {/* Message Dropdown */}
-      {/* ------------------------------------------- */}
+
       <Menu
         id="msgs-menu"
         anchorEl={anchorEl}

@@ -5,17 +5,17 @@ import ProgressBar from "@/components/ProgressBar";
 import Sidebar from "@/components/sidebar/Sidebar";
 import MainWrapper from "@/components/style/MainWrapper";
 import PageWrapper from "@/components/style/PageWrapper";
+import { login } from "@/store/authSlice";
+import { AppDispatch } from "@/store/store";
 import { Box } from "@mui/material";
-import React, { useEffect } from "react";
+import React from "react";
+import { useDispatch } from "react-redux";
 import "./../globals.css";
 import { IUser } from "./users/usersInterfaces";
 
 const DashboardPageLayoutClient = ({ currentUser, children }: { currentUser: IUser; children: React.ReactNode }) => {
-  useEffect(() => {
-    if (currentUser) {
-      sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
-    }
-  }, [currentUser]);
+  const dispatch: AppDispatch = useDispatch();
+  dispatch(login(currentUser));
 
   return (
     <MainWrapper className="mainwrapper">

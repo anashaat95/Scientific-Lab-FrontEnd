@@ -25,5 +25,6 @@ const authSlice = createSlice({
     },
   },
 });
+
 export const { openSidebar, closeSidebar, toggleSidebar } = authSlice.actions;
 export default authSlice.reducer;

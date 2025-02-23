@@ -1,3 +1,4 @@
+"use client";
 import { AppBar, Badge, Box, IconButton, Stack, Toolbar, Typography, styled, useMediaQuery } from "@mui/material";
 import PropTypes from "prop-types";
 
@@ -12,13 +13,11 @@ const Header = () => {
   const pathname = usePathname();
   const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up("lg"));
   const lgDown = useMediaQuery((theme: any) => theme.breakpoints.down("lg"));
-  let pageTitle = "";
+  let splittedPath = pathname.split("/");
 
-  try {
-    pageTitle = Menuitems.find((item) => item.href === pathname).title;
-  } catch (error) {
-    pageTitle = Menuitems.find((item) => item.href === `/${pathname.split("/")[1]}`).title;
-  }
+  const foundMenuItem = Menuitems.find((item) => item.href === `/${splittedPath[1]}`);
+  const pageTitle = foundMenuItem ? foundMenuItem.title : splittedPath.at(-1);
+
   const AppBarStyled = styled(AppBar)(({ theme }) => ({
     boxShadow: "none",
     background: theme.palette.background.paper,

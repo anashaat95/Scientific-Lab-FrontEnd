@@ -2,8 +2,10 @@
 import { AddOrEditFormModal } from "@/components/forms/AddOrEditFormModal";
 import { CustomFormBox } from "@/components/forms/CustomFormBox";
 import { IItemInSelect } from "@/interfaces";
+import { RootState } from "@/store/store";
 import { Grid } from "@mui/material";
 import { DefaultValues } from "react-hook-form";
+import { useSelector } from "react-redux";
 import { IEquipment } from "../../equipments/equipmentsInterfaces";
 import { IUser } from "../../users/usersInterfaces";
 import { BOOKINGS_FRONTEND_ENDPOINT } from "../bookingsConsts";
@@ -33,15 +35,7 @@ const defaultValues: DefaultValues<IAddBookingFormInput> = {
 };
 
 export default function AddBookingForm({ equipments, equipmentsFullData, researchers, yesOrNo, statuses }: IAddBookingForm) {
-  const currentUserDataStr = sessionStorage.getItem("currentUser");
-  let currentUser: IUser | undefined = undefined;
-  if (currentUserDataStr) {
-    try {
-      currentUser = JSON.parse(currentUserDataStr);
-    } catch (error) {
-      currentUser = undefined;
-    }
-  }
+  const { currentUser }: { currentUser: IUser } = useSelector((state: RootState) => state.auth);
 
   const { controlAndErrors, submit, errorMessage, isPending, isSuccess, isValid, reset, watch } = useAddBookingFormHandler({
     ...defaultValues,
