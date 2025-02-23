@@ -51,6 +51,11 @@ export const getUserByIdService = async (id: string) => {
   return response.data;
 };
 
+export const getUserByFieldService = async (field: string) => {
+  const response = await ApiClientBackEnd.get(`${USERS_BACKEND_ENDPOINT}/field/${field}`);
+  return response.data;
+};
+
 export const userExistsByEmailService = async (email: string) => {
   const response = await ApiClientBackEnd.get(`${USERS_BACKEND_ENDPOINT}/exist?Email=${email}`);
   return response.data;
