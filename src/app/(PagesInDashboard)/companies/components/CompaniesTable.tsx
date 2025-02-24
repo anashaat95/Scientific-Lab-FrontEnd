@@ -23,12 +23,18 @@ const CompaniesTable = async ({ data, errorMessage, isNetworkError }: IFetcherDa
   const companies: ICompany[] = data?.data;
 
   const isAdmin = await isAuthorized([enUserRoles.Admin.toString()]);
-  const canAddEdit = await isAuthorized([enUserRoles.Admin.toString(), enUserRoles.LabSupervisor.toString()]);
+  const canAddUpdate = await isAuthorized([enUserRoles.Admin.toString(), enUserRoles.LabSupervisor.toString()]);
 
   return (
-    <CustomTable cellHeads={tableHeader} isPending={false} endpoint={COMPANIES_FRONTEND_ENDPOINT} addAction={canAddEdit}>
+    <CustomTable cellHeads={tableHeader} isPending={false} endpoint={COMPANIES_FRONTEND_ENDPOINT} addAction={canAddUpdate}>
       {companies?.map((company) => (
-        <CustomTableContentRow key={company.id} endpoint={COMPANIES_FRONTEND_ENDPOINT} id={company.id} editAction={canAddEdit} deleteAction={isAdmin}>
+        <CustomTableContentRow
+          key={company.id}
+          endpoint={COMPANIES_FRONTEND_ENDPOINT}
+          id={company.id}
+          updateAction={canAddUpdate}
+          deleteAction={isAdmin}
+        >
           <CustomTableCell sx={{ fontWeight: 700 }}>{company.name}</CustomTableCell>
           <CustomTableCell>
             {company.street}, {company.city_name}, {company.country_name}

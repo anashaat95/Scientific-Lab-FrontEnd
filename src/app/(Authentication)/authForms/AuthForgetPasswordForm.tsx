@@ -30,7 +30,7 @@ const AuthForgetPasswordForm = ({ title, children }: { title?: string; children?
         errorMessage={errorMessage}
         isValid={isValid}
       >
-        <CustomFormBox name="email" label="Enter your email to send password reset link" type="email" {...controlAndErrors} />
+        <CustomFormBox name="email" label="Enter your email to send password reset link" type="email" disabled={isPending} {...controlAndErrors} />
       </CustomForm>
       {children}
     </>

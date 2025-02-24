@@ -26,7 +26,7 @@ const CustomLoader = ({ page = false, color = undefined }: { color?: string; pag
   }
 
   return (
-    <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", ...sxProps }}>
+    <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", zIndex: 5000, ...sxProps }}>
       <CircularProgress sx={{ fontSize: "12px", color: color || "primary.main" }} />
     </Box>
   );

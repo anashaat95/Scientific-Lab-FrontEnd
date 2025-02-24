@@ -20,17 +20,17 @@ const DepartmentsTable = async ({ data, errorMessage, isNetworkError }: IFetcher
   const departments: IDepartment[] = data?.data;
 
   const isAdmin = await isAuthorized([enUserRoles.Admin.toString()]);
-  const canAddEdit = await isAuthorized([enUserRoles.Admin.toString(), enUserRoles.LabSupervisor.toString()]);
+  const canAddUpdate = await isAuthorized([enUserRoles.Admin.toString(), enUserRoles.LabSupervisor.toString()]);
 
   return (
-    <CustomTable cellHeads={tableHeader} isPending={false} endpoint={DEPARTMENTS_FRONTEND_ENDPOINT} addAction={canAddEdit}>
+    <CustomTable cellHeads={tableHeader} isPending={false} endpoint={DEPARTMENTS_FRONTEND_ENDPOINT} addAction={canAddUpdate}>
       {departments?.map((department) => (
         <CustomTableContentRow
           key={department.id}
           endpoint={DEPARTMENTS_FRONTEND_ENDPOINT}
           id={department.id}
           deleteAction={isAdmin}
-          editAction={canAddEdit}
+          updateAction={canAddUpdate}
         >
           <CustomTableCell sx={{ fontWeight: 700 }}>
             {department.name} - {department.company_name}

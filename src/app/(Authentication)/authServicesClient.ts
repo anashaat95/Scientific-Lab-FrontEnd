@@ -31,3 +31,8 @@ export const signupService = async (data: ISignupFormInput) => {
   const response = await ApiClientFrontEnd.post("auth/signup", data);
   return response.data;
 };
+
+export const getMeClientService = async () => {
+  const response = await ApiClientFrontEnd.get("account/me");
+  return response.data;
+};

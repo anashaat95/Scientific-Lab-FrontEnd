@@ -42,7 +42,7 @@ export interface IAddUserFormInput {
   expertise_area?: string | null;
 }
 
-export interface IEditUserFormInput {
+export interface IUpdateUserFormInput {
   id: string;
   userName: string;
   first_name: string;

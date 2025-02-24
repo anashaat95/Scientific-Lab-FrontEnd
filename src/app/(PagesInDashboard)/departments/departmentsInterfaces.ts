@@ -13,7 +13,7 @@ export interface IAddDepartmentFormInput {
   company_id: string;
 }
 
-export interface IEditDepartmentFormInput {
+export interface IUpdateDepartmentFormInput {
   id: string;
   name: string;
   location: string;

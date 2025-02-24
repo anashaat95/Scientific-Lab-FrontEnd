@@ -1,5 +1,5 @@
 "use client";
-import { AddOrEditFormModal } from "@/components/forms/AddOrEditFormModal";
+import { AddOrUpdateFormModal } from "@/components/forms/AddOrUpdateFormModal";
 import { CustomFormBox } from "@/components/forms/CustomFormBox";
 import { IItemInSelect } from "@/interfaces";
 import { Grid } from "@mui/material";
@@ -26,7 +26,7 @@ export default function AddMaintenanceLogForm({ equipments, users, statuses }: I
 
   return (
     <>
-      <AddOrEditFormModal
+      <AddOrUpdateFormModal
         reset={reset}
         isValid={isValid}
         title="Add Maintenance Log"
@@ -39,13 +39,13 @@ export default function AddMaintenanceLogForm({ equipments, users, statuses }: I
       >
         <Grid container display="flex" justifyContent="center" spacing={2}>
           <Grid item xs={12} sm={12} lg={12}>
-            <CustomFormBox name="equipment_id" label="Equipment" items={equipments} {...controlAndErrors} />
-            <CustomFormBox name="technician_id" label="Technician" items={users} {...controlAndErrors} />
-            <CustomFormBox name="description" label="Description" multiline={true} {...controlAndErrors} />
-            <CustomFormBox name="status" label="Status" items={statuses} {...controlAndErrors} />
+            <CustomFormBox name="equipment_id" label="Equipment" items={equipments} disabled={isPending} {...controlAndErrors} />
+            <CustomFormBox name="technician_id" label="Technician" items={users} disabled={isPending} {...controlAndErrors} />
+            <CustomFormBox name="description" label="Description" multiline={true} disabled={isPending} {...controlAndErrors} />
+            <CustomFormBox name="status" label="Status" items={statuses} disabled={isPending} {...controlAndErrors} />
           </Grid>
         </Grid>
-      </AddOrEditFormModal>
+      </AddOrUpdateFormModal>
     </>
   );
 }

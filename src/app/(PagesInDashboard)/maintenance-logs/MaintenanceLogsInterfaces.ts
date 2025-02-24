@@ -21,7 +21,7 @@ export interface IAddMaintenanceLogFormInput {
   technician_id: string;
 }
 
-export interface IEditMaintenanceLogFormInput {
+export interface IUpdateMaintenanceLogFormInput {
   id: string;
   description: string;
   status: string | number;

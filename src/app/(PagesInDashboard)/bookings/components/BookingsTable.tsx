@@ -22,7 +22,7 @@ const BookingsTable = async ({ data, errorMessage, isNetworkError }: IFetcherDat
 
   const token = await GetJwtTokenPayload();
   const isAdmin = await isAuthorized([enUserRoles.Admin.toString()]);
-  const canAddEdit = await isAuthorized([enUserRoles.Admin.toString(), enUserRoles.LabSupervisor.toString(), enUserRoles.Researcher.toString()]);
+  const canAddUpdate = await isAuthorized([enUserRoles.Admin.toString(), enUserRoles.LabSupervisor.toString(), enUserRoles.Researcher.toString()]);
 
   const bookings: IBooking[] = data?.data;
 
@@ -32,7 +32,7 @@ const BookingsTable = async ({ data, errorMessage, isNetworkError }: IFetcherDat
   let dateComponent = <DateCell key={prevDate} dateStr={prevDate} />;
 
   return (
-    <CustomTable cellHeads={tableHeader} isPending={false} endpoint={BOOKINGS_FRONTEND_ENDPOINT} addAction={canAddEdit}>
+    <CustomTable cellHeads={tableHeader} isPending={false} endpoint={BOOKINGS_FRONTEND_ENDPOINT} addAction={canAddUpdate}>
       {dateComponent}
       {bookings?.map((booking) => {
         nextDate = new Date(booking.start_date_time).toISOString().slice(0, 7);
@@ -53,7 +53,7 @@ const BookingsTable = async ({ data, errorMessage, isNetworkError }: IFetcherDat
               endpoint={BOOKINGS_FRONTEND_ENDPOINT}
               id={booking.id}
               deleteAction={isAdmin}
-              editAction={isAdmin || (canAddEdit && token?.nameid === getIdFromDtoEntityUrl(booking.user_url))}
+              updateAction={isAdmin || (canAddUpdate && token?.nameid === getIdFromDtoEntityUrl(booking.user_url))}
             >
               <CustomTableCell sx={{ fontWeight: 700, lineHeight: "1.5" }}>{booking.equipment_name}</CustomTableCell>
               <CustomTableCell sx={{ width: "128px" }}>

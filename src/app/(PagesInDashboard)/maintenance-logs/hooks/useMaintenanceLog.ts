@@ -1,8 +1,8 @@
 "use client";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { IAddMaintenanceLogFormInput, IEditMaintenanceLogFormInput } from "../MaintenanceLogsInterfaces";
-import { addMaintenanceLogService, deleteMaintenanceLogService, editMaintenanceLogService } from "../MaintenanceLogsServicesFrontEnd";
+import { IAddMaintenanceLogFormInput, IUpdateMaintenanceLogFormInput } from "../MaintenanceLogsInterfaces";
+import { addMaintenanceLogService, deleteMaintenanceLogService, updateMaintenanceLogService } from "../MaintenanceLogsServicesFrontEnd";
 
 export const useMaintenanceLog = () => {
   const router = useRouter();
@@ -13,9 +13,9 @@ export const useMaintenanceLog = () => {
     },
   });
 
-  const editMaintenanceLog = useMutation({
-    mutationFn: (data: IEditMaintenanceLogFormInput) => {
-      return editMaintenanceLogService({ id: data.id, data });
+  const updateMaintenanceLog = useMutation({
+    mutationFn: (data: IUpdateMaintenanceLogFormInput) => {
+      return updateMaintenanceLogService({ id: data.id, data });
     },
   });
 
@@ -23,5 +23,5 @@ export const useMaintenanceLog = () => {
     mutationFn: deleteMaintenanceLogService,
   });
 
-  return { addMaintenanceLog, editMaintenanceLog, deleteMaintenanceLog };
+  return { addMaintenanceLog, updateMaintenanceLog, deleteMaintenanceLog };
 };

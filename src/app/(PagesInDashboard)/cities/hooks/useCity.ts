@@ -1,8 +1,8 @@
 "use client";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { IAddCityFormInput, IEditCityFormInput } from "../citiesInterfaces";
-import { addCityService, deleteCityService, editCityService } from "../citiesServicesFrontEnd";
+import { IAddCityFormInput, IUpdateCityFormInput } from "../citiesInterfaces";
+import { addCityService, deleteCityService, updateCityService } from "../citiesServicesFrontEnd";
 
 export const useCity = () => {
   const router = useRouter();
@@ -13,9 +13,9 @@ export const useCity = () => {
     },
   });
 
-  const editCity = useMutation({
-    mutationFn: (data: IEditCityFormInput) => {
-      return editCityService({ id: data.id, data });
+  const updateCity = useMutation({
+    mutationFn: (data: IUpdateCityFormInput) => {
+      return updateCityService({ id: data.id, data });
     },
   });
 
@@ -23,5 +23,5 @@ export const useCity = () => {
     mutationFn: deleteCityService,
   });
 
-  return { addCity, editCity, deleteCity };
+  return { addCity, updateCity, deleteCity };
 };

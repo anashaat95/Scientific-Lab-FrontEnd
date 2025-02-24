@@ -18,18 +18,18 @@ const EquipmentsTable = async ({ data, errorMessage, isNetworkError }: IFetcherD
   }
 
   const isAdmin = await isAuthorized([enUserRoles.Admin.toString()]);
-  const canAddEdit = await isAuthorized([enUserRoles.Admin.toString(), enUserRoles.LabSupervisor.toString()]);
+  const canAddUpdate = await isAuthorized([enUserRoles.Admin.toString(), enUserRoles.LabSupervisor.toString()]);
 
   const equipments: IEquipment[] = data?.data;
   return (
-    <CustomTable cellHeads={tableHeader} isPending={false} endpoint={EQUIPMENTS_FRONTEND_ENDPOINT} addAction={canAddEdit}>
+    <CustomTable cellHeads={tableHeader} isPending={false} endpoint={EQUIPMENTS_FRONTEND_ENDPOINT} addAction={canAddUpdate}>
       {equipments?.map((equipment) => (
         <CustomTableContentRow
           key={equipment.id}
           endpoint={EQUIPMENTS_FRONTEND_ENDPOINT}
           id={equipment.id}
           deleteAction={isAdmin}
-          editAction={canAddEdit}
+          updateAction={canAddUpdate}
         >
           <CustomTableCell sx={{ fontWeight: "700" }}>{equipment.name}</CustomTableCell>
           <CustomTableCell>{equipment.total_quantity}</CustomTableCell>

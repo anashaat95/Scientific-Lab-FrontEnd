@@ -34,15 +34,17 @@ const AuthLoginForm = ({ title, children }: ITitleAndChildrenProps) => {
         submitFn={submit}
         errorMessage={errorMessage}
       >
-        <CustomFormBox name="email" label="Email" type="email" {...controlAndErrors} />
-        <CustomFormBox name="password" label="Password" type="password" {...controlAndErrors} />
+        <CustomFormBox name="email" label="Email" type="email" disabled={isPending} {...controlAndErrors} />
+        <CustomFormBox name="password" label="Password" type="password" {...controlAndErrors} disabled={isPending} />
 
         <Stack justifyContent="space-between" direction="row" alignItems="center" my={2}>
           <FormGroup>
             <Controller
               name="rememberMe"
               control={controlAndErrors.control}
-              render={({ field }) => <FormControlLabel control={<Checkbox {...field} checked={field.value} />} label="Remember this Device" />}
+              render={({ field }) => (
+                <FormControlLabel control={<Checkbox {...field} checked={field.value} disabled={isPending} />} label="Remember this Device" />
+              )}
             />
           </FormGroup>
           <TextButton onClick={() => router.push("/forget-password")}>Forgot Password ?</TextButton>

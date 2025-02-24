@@ -18,19 +18,19 @@ const LabsTable = async ({ data, errorMessage, isNetworkError }: IFetcherData) =
   }
   const token = await GetJwtTokenPayload();
   const isAdmin = await isAuthorized([enUserRoles.Admin.toString()]);
-  const canAddEdit = await isAuthorized([enUserRoles.Admin.toString(), enUserRoles.LabSupervisor.toString()]);
+  const canAddUpdate = await isAuthorized([enUserRoles.Admin.toString(), enUserRoles.LabSupervisor.toString()]);
 
   const labs: ILab[] = data?.data;
 
   return (
-    <CustomTable cellHeads={tableHeader} isPending={false} endpoint={LABS_FRONTEND_ENDPOINT} addAction={canAddEdit}>
+    <CustomTable cellHeads={tableHeader} isPending={false} endpoint={LABS_FRONTEND_ENDPOINT} addAction={canAddUpdate}>
       {labs?.map((lab) => (
         <CustomTableContentRow
           key={lab.id}
           endpoint={LABS_FRONTEND_ENDPOINT}
           id={lab.id}
           deleteAction={isAdmin}
-          editAction={isAdmin || (canAddEdit && token?.nameid === getIdFromDtoEntityUrl(lab.supervisor_url))}
+          updateAction={isAdmin || (canAddUpdate && token?.nameid === getIdFromDtoEntityUrl(lab.supervisor_url))}
         >
           <CustomTableCell sx={{ fontWeight: "700" }}>
             {lab.name} - {lab.department_name}

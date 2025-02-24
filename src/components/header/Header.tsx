@@ -5,18 +5,26 @@ import PropTypes from "prop-types";
 // components
 import { ToggleSidebarButton } from "@/elements/CustomButtons";
 import { IconBellRinging } from "@tabler/icons-react";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import Menuitems from "../sidebar/MenuItems";
 import ProfileInHeader from "./ProfileInHeader";
 
 const Header = () => {
+  const params = useParams();
   const pathname = usePathname();
   const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up("lg"));
   const lgDown = useMediaQuery((theme: any) => theme.breakpoints.down("lg"));
   let splittedPath = pathname.split("/");
+  let pageTitle = undefined;
 
-  const foundMenuItem = Menuitems.find((item) => item.href === `/${splittedPath[1]}`);
-  const pageTitle = foundMenuItem ? foundMenuItem.title : splittedPath.at(-1);
+  if (params?.username) {
+    pageTitle = params?.username;
+  }
+
+  if (!pageTitle) {
+    const foundMenuItem = Menuitems.find((item) => item.href === `/${splittedPath[1]}`);
+    pageTitle = foundMenuItem ? foundMenuItem.title : splittedPath.at(-1);
+  }
 
   const AppBarStyled = styled(AppBar)(({ theme }) => ({
     boxShadow: "none",

@@ -19,12 +19,18 @@ const CountriesTable = async ({ data, errorMessage, isNetworkError }: IFetcherDa
   const countries: ICountry[] = data?.data;
 
   const isAdmin = await isAuthorized([enUserRoles.Admin.toString()]);
-  const canAddEdit = await isAuthorized([enUserRoles.Admin.toString(), enUserRoles.LabSupervisor.toString()]);
+  const canAddUpdate = await isAuthorized([enUserRoles.Admin.toString(), enUserRoles.LabSupervisor.toString()]);
 
   return (
-    <CustomTable cellHeads={tableHeader} isPending={false} endpoint={COUNTRIES_FRONTEND_ENDPOINT} addAction={canAddEdit}>
+    <CustomTable cellHeads={tableHeader} isPending={false} endpoint={COUNTRIES_FRONTEND_ENDPOINT} addAction={canAddUpdate}>
       {countries?.map((country) => (
-        <CustomTableContentRow key={country.id} endpoint={COUNTRIES_FRONTEND_ENDPOINT} id={country.id} deleteAction={isAdmin} editAction={canAddEdit}>
+        <CustomTableContentRow
+          key={country.id}
+          endpoint={COUNTRIES_FRONTEND_ENDPOINT}
+          id={country.id}
+          deleteAction={isAdmin}
+          updateAction={canAddUpdate}
+        >
           <CustomTableCell sx={{ fontWeight: 700 }}>{country.name}</CustomTableCell>
           <CustomTableCell>{dayjs(country.created_at).format("MMM D, YYYY")}</CustomTableCell>
           <CustomTableCell>{dayjs(country.updated_at).format("MMM D, YYYY")}</CustomTableCell>

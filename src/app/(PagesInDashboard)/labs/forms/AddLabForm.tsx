@@ -1,5 +1,5 @@
 "use client";
-import { AddOrEditFormModal } from "@/components/forms/AddOrEditFormModal";
+import { AddOrUpdateFormModal } from "@/components/forms/AddOrUpdateFormModal";
 import { CustomFormBox } from "@/components/forms/CustomFormBox";
 import { IItemInSelect } from "@/interfaces";
 import { Grid } from "@mui/material";
@@ -27,7 +27,7 @@ export default function AddLabForm({ departments, users }: IAddLabForm) {
 
   return (
     <>
-      <AddOrEditFormModal
+      <AddOrUpdateFormModal
         reset={reset}
         isValid={isValid}
         title="Add Lab"
@@ -40,19 +40,27 @@ export default function AddLabForm({ departments, users }: IAddLabForm) {
       >
         <Grid container display="flex" justifyContent="center" spacing={2}>
           <Grid item xs={12} sm={6} lg={6}>
-            <CustomFormBox name="name" label="Name" {...controlAndErrors} />
-            <CustomFormBox name="capacity" label="Capacity" type="number" rules={{ min: 1 }} inputProps={{ min: 1 }} {...controlAndErrors} />
+            <CustomFormBox name="name" label="Name" disabled={isPending} {...controlAndErrors} />
+            <CustomFormBox
+              name="capacity"
+              label="Capacity"
+              type="number"
+              rules={{ min: 1 }}
+              inputProps={{ min: 1 }}
+              disabled={isPending}
+              {...controlAndErrors}
+            />
           </Grid>
           <Grid item xs={12} sm={6} lg={6}>
-            <CustomFormBox name="opening_time" label="Opening Time" type="time" {...controlAndErrors} />
-            <CustomFormBox name="closing_time" label="Closing Time" type="time" {...controlAndErrors} />
+            <CustomFormBox name="opening_time" label="Opening Time" type="time" disabled={isPending} {...controlAndErrors} />
+            <CustomFormBox name="closing_time" label="Closing Time" type="time" disabled={isPending} {...controlAndErrors} />
           </Grid>
           <Grid item xs={12} sm={12} lg={12}>
-            <CustomFormBox name="supervisor_id" label="Supervisor" items={users} {...controlAndErrors} />
-            <CustomFormBox name="department_id" label="Department" items={departments} {...controlAndErrors} />
+            <CustomFormBox name="supervisor_id" label="Supervisor" items={users} disabled={isPending} {...controlAndErrors} />
+            <CustomFormBox name="department_id" label="Department" items={departments} disabled={isPending} {...controlAndErrors} />
           </Grid>
         </Grid>
-      </AddOrEditFormModal>
+      </AddOrUpdateFormModal>
     </>
   );
 }

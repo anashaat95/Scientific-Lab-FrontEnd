@@ -32,6 +32,7 @@ export interface ICustomFormControllerProps {
   multiline?: boolean;
   hidden?: boolean;
   rows?: number;
+  disabled?: boolean;
 }
 
 export interface ICustomFormBoxProps {
@@ -46,6 +47,7 @@ export interface ICustomFormBoxProps {
   multiline?: boolean;
   rows?: number;
   disabled?: boolean;
+  isPending?: boolean;
 }
 
 export interface ICustomSelectControllerProps {

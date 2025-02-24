@@ -1,8 +1,8 @@
 "use client";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { IAddCompanyFormInput, IEditCompanyFormInput } from "../companiesInterfaces";
-import { addCompanyService, deleteCompanyService, editCompanyService } from "../companiesServicesFrontEnd";
+import { IAddCompanyFormInput, IUpdateCompanyFormInput } from "../companiesInterfaces";
+import { addCompanyService, deleteCompanyService, updateCompanyService } from "../companiesServicesFrontEnd";
 
 export const useCompany = () => {
   const router = useRouter();
@@ -13,9 +13,9 @@ export const useCompany = () => {
     },
   });
 
-  const editCompany = useMutation({
-    mutationFn: (data: IEditCompanyFormInput) => {
-      return editCompanyService({ id: data.id, data });
+  const updateCompany = useMutation({
+    mutationFn: (data: IUpdateCompanyFormInput) => {
+      return updateCompanyService({ id: data.id, data });
     },
   });
 
@@ -23,5 +23,5 @@ export const useCompany = () => {
     mutationFn: deleteCompanyService,
   });
 
-  return { addCompany, editCompany, deleteCompany };
+  return { addCompany, updateCompany, deleteCompany };
 };

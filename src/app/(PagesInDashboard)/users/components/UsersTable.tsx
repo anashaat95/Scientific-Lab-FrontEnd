@@ -1,13 +1,8 @@
 import CustomMessage from "@/components/CustomMessage";
-import ResearchGateIcon from "@/components/icons/ResearchGateIcon";
-import ScopusIcon from "@/components/icons/ScopusIcon";
 import CustomTable from "@/components/table/CustomTable";
 import CustomTableCell from "@/components/table/CustomTableCell";
 import CustomTableContentRow from "@/components/table/CustomTableContentRow";
 import { IFetcherData } from "@/interfaces";
-import { faGoogleScholar } from "@fortawesome/free-brands-svg-icons";
-import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BusinessIcon from "@mui/icons-material/Business";
 import ContactPhoneIcon from "@mui/icons-material/ContactPhone";
 import EmailIcon from "@mui/icons-material/Email";
@@ -17,6 +12,7 @@ import Link from "next/link";
 import "server-only";
 import { USERS_FRONTEND_ENDPOINT } from "../usersConsts";
 import { IUser } from "../usersInterfaces";
+import UserSocialLinks from "./UserSocialLinks";
 
 const flexCenter = { display: "flex", alignItems: "center", gap: 1 };
 
@@ -71,36 +67,7 @@ const UsersTable = async ({ data, errorMessage, isNetworkError }: IFetcherData) 
           </CustomTableCell>
           <CustomTableCell>{user.expertise_area}</CustomTableCell>
           <CustomTableCell>
-            <Box display="flex" justifyContent="center" alignItems="center" gap={1}>
-              {user.google_scholar_url && (
-                <Box>
-                  <Link href={user.google_scholar_url} target="_blank">
-                    <FontAwesomeIcon icon={faGoogleScholar} style={{ color: "primary", width: "32px", height: "32px" }} />
-                  </Link>
-                </Box>
-              )}
-              {user.academia_url && (
-                <Box>
-                  <Link href={user.academia_url} target="_blank">
-                    <FontAwesomeIcon icon={faGraduationCap} style={{ color: "primary", width: "32px", height: "32px" }} />
-                  </Link>
-                </Box>
-              )}
-              {user.scopus_url && (
-                <Box>
-                  <Link href={user.scopus_url} target="_blank">
-                    <ScopusIcon size={32} />
-                  </Link>
-                </Box>
-              )}
-              {user.researcher_gate_url && (
-                <Box>
-                  <Link href={user.researcher_gate_url} target="_blank">
-                    <ResearchGateIcon size={32} />
-                  </Link>
-                </Box>
-              )}
-            </Box>
+            <UserSocialLinks user={user} />
           </CustomTableCell>
         </CustomTableContentRow>
       ))}

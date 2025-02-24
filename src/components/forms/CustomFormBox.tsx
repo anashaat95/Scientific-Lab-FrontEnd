@@ -34,6 +34,7 @@ export const CustomFormBox: React.FC<ICustomFormBoxProps> = ({
             inputProps={inputProps}
             multiline={multiline}
             rows={rows}
+            disabled={disabled}
           />
         )}
       </FormControl>

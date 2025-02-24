@@ -19,18 +19,18 @@ const MaintenanceLogsTable = async ({ data, errorMessage, isNetworkError }: IFet
 
   const token = await GetJwtTokenPayload();
   const isAdmin = await isAuthorized([enUserRoles.Admin.toString()]);
-  const canAddEdit = await isAuthorized([enUserRoles.Admin.toString(), enUserRoles.LabSupervisor.toString()]);
+  const canAddUpdate = await isAuthorized([enUserRoles.Admin.toString(), enUserRoles.LabSupervisor.toString()]);
 
   const maintenanceLogs: IMaintenanceLog[] = data?.data;
 
   return (
-    <CustomTable cellHeads={tableHeader} isPending={false} endpoint={MAINTENANCE_LOGS_FRONTEND_ENDPOINT} addAction={canAddEdit}>
+    <CustomTable cellHeads={tableHeader} isPending={false} endpoint={MAINTENANCE_LOGS_FRONTEND_ENDPOINT} addAction={canAddUpdate}>
       {maintenanceLogs?.map((maintenanceLog) => (
         <CustomTableContentRow
           key={maintenanceLog.id}
           endpoint={MAINTENANCE_LOGS_FRONTEND_ENDPOINT}
           id={maintenanceLog.id}
-          editAction={isAdmin || (canAddEdit && token?.nameid === getIdFromDtoEntityUrl(maintenanceLog.technician_url))}
+          updateAction={isAdmin || (canAddUpdate && token?.nameid === getIdFromDtoEntityUrl(maintenanceLog.technician_url))}
           deleteAction={isAdmin}
         >
           <CustomTableCell>{maintenanceLog.equipment_name}</CustomTableCell>

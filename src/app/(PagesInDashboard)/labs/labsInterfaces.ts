@@ -20,7 +20,7 @@ export interface IAddLabFormInput {
   department_id: string;
 }
 
-export interface IEditLabFormInput {
+export interface IUpdateLabFormInput {
   id: string;
   name: string;
   capacity: string;

@@ -1,5 +1,5 @@
 "use client";
-import { AddOrEditFormModal } from "@/components/forms/AddOrEditFormModal";
+import { AddOrUpdateFormModal } from "@/components/forms/AddOrUpdateFormModal";
 import { CustomFormBox } from "@/components/forms/CustomFormBox";
 import { IItemInSelect } from "@/interfaces";
 import { RootState } from "@/store/store";
@@ -47,7 +47,7 @@ export default function AddBookingForm({ equipments, equipmentsFullData, researc
 
   return (
     <>
-      <AddOrEditFormModal
+      <AddOrUpdateFormModal
         reset={reset}
         isValid={isValid}
         title="Add Booking"
@@ -60,14 +60,15 @@ export default function AddBookingForm({ equipments, equipmentsFullData, researc
       >
         <Grid container display="flex" justifyContent="center" spacing={2}>
           <Grid item xs={12} sm={12} lg={12}>
-            <CustomFormBox name="equipment_id" label="Equipment" items={equipments} {...controlAndErrors} />
-            {/* <CustomFormBox name="user_id" label="Researcher" items={researchers} {...controlAndErrors} /> */}
+            <CustomFormBox name="equipment_id" label="Equipment" items={equipments} disabled={isPending} {...controlAndErrors} />
+            {/* <CustomFormBox name="user_id" label="Researcher" items={researchers}      disabled={isPending}  {...controlAndErrors} /> */}
           </Grid>
           <Grid item xs={12} sm={6} lg={6}>
             <CustomFormBox
               name="start_date_time"
               label="Start"
               type="datetime-local"
+              disabled={isPending}
               {...controlAndErrors}
               // inputProps={{
               //   min: `${today}T09:00`,
@@ -78,7 +79,7 @@ export default function AddBookingForm({ equipments, equipmentsFullData, researc
               name="is_on_overnight"
               label="OverNight"
               items={yesOrNo}
-              disabled={selectedEquipment?.can_be_left_overnight === "False"}
+              disabled={selectedEquipment?.can_be_left_overnight === "False" || isPending}
               {...controlAndErrors}
             />
           </Grid>
@@ -87,19 +88,20 @@ export default function AddBookingForm({ equipments, equipmentsFullData, researc
               name="end_date_time"
               label="End"
               type="datetime-local"
+              disabled={isPending}
               {...controlAndErrors}
               // inputProps={{
               //   min: `${today}T09:00`,
               //   max: `${today}T10:00`,
               // }}
             />
-            <CustomFormBox name="status" label="Status" items={statuses} {...controlAndErrors} />
+            <CustomFormBox name="status" label="Status" items={statuses} disabled={isPending} {...controlAndErrors} />
           </Grid>
           <Grid item xs={12} sm={12} lg={12}>
-            <CustomFormBox name="notes" label="notes" multiline={true} {...controlAndErrors} />
+            <CustomFormBox name="notes" label="notes" multiline={true} disabled={isPending} {...controlAndErrors} />
           </Grid>
         </Grid>
-      </AddOrEditFormModal>
+      </AddOrUpdateFormModal>
     </>
   );
 }

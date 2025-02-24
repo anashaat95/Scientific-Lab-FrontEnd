@@ -1,5 +1,5 @@
 "use client";
-import { AddOrEditFormModal } from "@/components/forms/AddOrEditFormModal";
+import { AddOrUpdateFormModal } from "@/components/forms/AddOrUpdateFormModal";
 import { CustomFormBox } from "@/components/forms/CustomFormBox";
 import { IItemInSelect } from "@/interfaces";
 import { Grid } from "@mui/material";
@@ -27,7 +27,7 @@ export default function AddCompanyForm({ cities, countries }: IAddCompanyForm) {
 
   return (
     <>
-      <AddOrEditFormModal
+      <AddOrUpdateFormModal
         isValid={isValid}
         reset={reset}
         title="Add Company"
@@ -41,20 +41,20 @@ export default function AddCompanyForm({ cities, countries }: IAddCompanyForm) {
         <Grid container display="flex" justifyContent="center" spacing={2}>
           <Grid container display="flex" justifyContent="center" spacing={2}>
             <Grid item xs={12} sm={6} lg={6}>
-              <CustomFormBox name="name" label="Name" {...controlAndErrors} />
-              <CustomFormBox name="zipCode" label="Zip Code" {...controlAndErrors} />
+              <CustomFormBox name="name" label="Name" disabled={isPending} {...controlAndErrors} />
+              <CustomFormBox name="zipCode" label="Zip Code" disabled={isPending} {...controlAndErrors} />
             </Grid>
             <Grid item xs={12} sm={6} lg={6}>
-              <CustomFormBox name="street" label="Street" {...controlAndErrors} />
-              <CustomFormBox name="website" label="Website" type="url" {...controlAndErrors} />
+              <CustomFormBox name="street" label="Street" disabled={isPending} {...controlAndErrors} />
+              <CustomFormBox name="website" label="Website" type="url" disabled={isPending} {...controlAndErrors} />
             </Grid>
             <Grid item xs={12} sm={12} lg={12}>
-              <CustomFormBox name="city_id" label="City Id" items={cities} {...controlAndErrors} />
-              <CustomFormBox name="country_id" label="Country Id" items={countries} {...controlAndErrors} />
+              <CustomFormBox name="city_id" label="City Id" items={cities} disabled={isPending} {...controlAndErrors} />
+              <CustomFormBox name="country_id" label="Country Id" items={countries} disabled={isPending} {...controlAndErrors} />
             </Grid>
           </Grid>
         </Grid>
-      </AddOrEditFormModal>
+      </AddOrUpdateFormModal>
     </>
   );
 }

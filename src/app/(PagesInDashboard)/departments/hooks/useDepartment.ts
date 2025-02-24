@@ -1,8 +1,8 @@
 "use client";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { IAddDepartmentFormInput, IEditDepartmentFormInput } from "../departmentsInterfaces";
-import { addDepartmentService, deleteDepartmentService, editDepartmentService } from "../departmentsServicesFrontEnd";
+import { IAddDepartmentFormInput, IUpdateDepartmentFormInput } from "../departmentsInterfaces";
+import { addDepartmentService, deleteDepartmentService, updateDepartmentService } from "../departmentsServicesFrontEnd";
 
 export const useDepartment = () => {
   const router = useRouter();
@@ -13,9 +13,9 @@ export const useDepartment = () => {
     },
   });
 
-  const editDepartment = useMutation({
-    mutationFn: (data: IEditDepartmentFormInput) => {
-      return editDepartmentService({ id: data.id, data });
+  const updateDepartment = useMutation({
+    mutationFn: (data: IUpdateDepartmentFormInput) => {
+      return updateDepartmentService({ id: data.id, data });
     },
   });
 
@@ -23,5 +23,5 @@ export const useDepartment = () => {
     mutationFn: deleteDepartmentService,
   });
 
-  return { addDepartment, editDepartment, deleteDepartment };
+  return { addDepartment, updateDepartment, deleteDepartment };
 };

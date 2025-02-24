@@ -33,7 +33,13 @@ const AuthResendEmailForm = ({ title, children }: { title?: string; children?: R
         submitFn={submit}
         errorMessage={errorMessage}
       >
-        <CustomFormBox name="email" label="Enter your email to receive a new confirmation link" type="email" {...controlAndErrors} />
+        <CustomFormBox
+          name="email"
+          label="Enter your email to receive a new confirmation link"
+          type="email"
+          disabled={isPending}
+          {...controlAndErrors}
+        />
       </CustomForm>
       {children}
     </>

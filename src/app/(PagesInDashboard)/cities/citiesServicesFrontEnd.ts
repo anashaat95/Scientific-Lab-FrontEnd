@@ -1,6 +1,6 @@
 import ApiClientFrontEnd from "@/clients/ApiClientFrontEnd";
 import { IHaveIdEntity } from "@/interfaces";
-import { IAddCityFormInput, IEditCityFormInput } from "./citiesInterfaces";
+import { IAddCityFormInput, IUpdateCityFormInput } from "./citiesInterfaces";
 
 const ENDPOINT = "city";
 
@@ -9,7 +9,7 @@ export const addCityService = async (data: IAddCityFormInput) => {
   return response.data;
 };
 
-export const editCityService = async ({ id, data }: { id: string; data: IEditCityFormInput }) => {
+export const updateCityService = async ({ id, data }: { id: string; data: IUpdateCityFormInput }) => {
   if (!id) throw new Error("You must provide Id");
   const response = await ApiClientFrontEnd.put(`${ENDPOINT}/${id}`, data);
   return response.data;

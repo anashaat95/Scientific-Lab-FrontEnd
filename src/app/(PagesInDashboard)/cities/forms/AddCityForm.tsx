@@ -1,5 +1,5 @@
 "use client";
-import { AddOrEditFormModal } from "@/components/forms/AddOrEditFormModal";
+import { AddOrUpdateFormModal } from "@/components/forms/AddOrUpdateFormModal";
 import { CustomFormBox } from "@/components/forms/CustomFormBox";
 import { Grid } from "@mui/material";
 import { DefaultValues } from "react-hook-form";
@@ -16,7 +16,7 @@ export default function AddCityForm() {
 
   return (
     <>
-      <AddOrEditFormModal
+      <AddOrUpdateFormModal
         isValid={isValid}
         reset={reset}
         title="Add City"
@@ -29,10 +29,10 @@ export default function AddCityForm() {
       >
         <Grid container display="flex" justifyContent="center" spacing={2}>
           <Grid item xs={12} sm={12} lg={12}>
-            <CustomFormBox name="name" label="City Name" {...controlAndErrors} />
+            <CustomFormBox name="name" label="City Name" disabled={isPending} {...controlAndErrors} />
           </Grid>
         </Grid>
-      </AddOrEditFormModal>
+      </AddOrUpdateFormModal>
     </>
   );
 }

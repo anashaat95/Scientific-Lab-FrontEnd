@@ -1,5 +1,5 @@
 "use client";
-import { AddOrEditFormModal } from "@/components/forms/AddOrEditFormModal";
+import { AddOrUpdateFormModal } from "@/components/forms/AddOrUpdateFormModal";
 import { CustomFormBox } from "@/components/forms/CustomFormBox";
 import { IItemInSelect } from "@/interfaces";
 import { Grid } from "@mui/material";
@@ -23,7 +23,7 @@ export default function AddDepartmentForm({ companies }: IAddDepartmentForm) {
 
   return (
     <>
-      <AddOrEditFormModal
+      <AddOrUpdateFormModal
         reset={reset}
         isValid={isValid}
         title="Add Department"
@@ -36,12 +36,12 @@ export default function AddDepartmentForm({ companies }: IAddDepartmentForm) {
       >
         <Grid container display="flex" justifyContent="center" spacing={2}>
           <Grid item xs={12} sm={12} lg={12}>
-            <CustomFormBox name="name" label="Name" {...controlAndErrors} />
-            <CustomFormBox name="location" label="Location" {...controlAndErrors} />
-            <CustomFormBox name="company_id" label="Company" items={companies} {...controlAndErrors} />
+            <CustomFormBox name="name" label="Name" disabled={isPending} {...controlAndErrors} />
+            <CustomFormBox name="location" label="Location" disabled={isPending} {...controlAndErrors} />
+            <CustomFormBox name="company_id" label="Company" items={companies} disabled={isPending} {...controlAndErrors} />
           </Grid>
         </Grid>
-      </AddOrEditFormModal>
+      </AddOrUpdateFormModal>
     </>
   );
 }

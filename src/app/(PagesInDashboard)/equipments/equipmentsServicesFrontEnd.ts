@@ -1,14 +1,14 @@
 import ApiClientFrontEnd from "@/clients/ApiClientFrontEnd";
 import { IHaveIdEntity } from "@/interfaces";
 import { EQUIPMENTS_BACKEND_ENDPOINT } from "./equipmentsConsts";
-import { IAddEquipmentFormInput, IEditEquipmentFormInput } from "./equipmentsInterfaces";
+import { IAddEquipmentFormInput, IUpdateEquipmentFormInput } from "./equipmentsInterfaces";
 
 export const addEquipmentService = async (data: IAddEquipmentFormInput) => {
   const response = await ApiClientFrontEnd.post(EQUIPMENTS_BACKEND_ENDPOINT, data);
   return response.data;
 };
 
-export const editEquipmentService = async ({ id, data }: { id: string; data: IEditEquipmentFormInput }) => {
+export const updateEquipmentService = async ({ id, data }: { id: string; data: IUpdateEquipmentFormInput }) => {
   if (!id) throw new Error("You must provide Id");
   const response = await ApiClientFrontEnd.put(`${EQUIPMENTS_BACKEND_ENDPOINT}/${id}`, data);
   return response.data;

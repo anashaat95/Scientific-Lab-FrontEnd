@@ -20,7 +20,7 @@ export interface IAddCompanyFormInput {
   country_id: string;
 }
 
-export interface IEditCompanyFormInput {
+export interface IUpdateCompanyFormInput {
   id: string;
   name: string;
   street: string;

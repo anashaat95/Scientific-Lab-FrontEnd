@@ -1,8 +1,8 @@
 "use client";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { IAddBookingFormInput, IEditBookingFormInput } from "../bookingsInterfaces";
-import { addBookingService, deleteBookingService, editBookingService } from "../bookingsServicesFrontEnd";
+import { IAddBookingFormInput, IUpdateBookingFormInput } from "../bookingsInterfaces";
+import { addBookingService, deleteBookingService, updateBookingService } from "../bookingsServicesFrontEnd";
 
 export const useBooking = () => {
   const router = useRouter();
@@ -13,9 +13,9 @@ export const useBooking = () => {
     },
   });
 
-  const editBooking = useMutation({
-    mutationFn: (data: IEditBookingFormInput) => {
-      return editBookingService({ id: data.id, data });
+  const updateBooking = useMutation({
+    mutationFn: (data: IUpdateBookingFormInput) => {
+      return updateBookingService({ id: data.id, data });
     },
   });
 
@@ -23,5 +23,5 @@ export const useBooking = () => {
     mutationFn: deleteBookingService,
   });
 
-  return { addBooking, editBooking, deleteBooking };
+  return { addBooking, updateBooking, deleteBooking };
 };

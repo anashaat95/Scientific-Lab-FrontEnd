@@ -1,8 +1,8 @@
 "use client";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { IAddCountryFormInput, IEditCountryFormInput } from "../countriesInterfaces";
-import { addCountryService, deleteCountryService, editCountryService } from "../countriesServicesFrontEnd";
+import { IAddCountryFormInput, IUpdateCountryFormInput } from "../countriesInterfaces";
+import { addCountryService, deleteCountryService, updateCountryService } from "../countriesServicesFrontEnd";
 
 export const useCountry = () => {
   const router = useRouter();
@@ -13,9 +13,9 @@ export const useCountry = () => {
     },
   });
 
-  const editCountry = useMutation({
-    mutationFn: (data: IEditCountryFormInput) => {
-      return editCountryService({ id: data.id, data });
+  const updateCountry = useMutation({
+    mutationFn: (data: IUpdateCountryFormInput) => {
+      return updateCountryService({ id: data.id, data });
     },
   });
 
@@ -23,5 +23,5 @@ export const useCountry = () => {
     mutationFn: deleteCountryService,
   });
 
-  return { addCountry, editCountry, deleteCountry };
+  return { addCountry, updateCountry, deleteCountry };
 };

@@ -11,7 +11,7 @@ export const addUserService = async (data: IAddUserFormInput) => {
   return response.data;
 };
 
-export const editUserService = async ({ id, data }: { id: string; data: ISignupFormInput }) => {
+export const updateUserService = async ({ id, data }: { id: string; data: ISignupFormInput }) => {
   if (!id) throw new Error("You must provide Id");
   const response = await ApiClientFrontEnd.put(`${USERS_BACKEND_ENDPOINT}/${id}`, data);
   return response.data;

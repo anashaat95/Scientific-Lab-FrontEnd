@@ -22,7 +22,7 @@ export interface IAddBookingFormInput {
   equipment_id: string;
 }
 
-export interface IEditBookingFormInput {
+export interface IUpdateBookingFormInput {
   id: string;
   start_date_time: string;
   end_date_time: string;

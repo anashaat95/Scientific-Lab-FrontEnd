@@ -44,7 +44,7 @@ const AuthPasswordResetFromTokenForm = ({ title, user_id, token, children }: IPa
         submitFn={submit}
         errorMessage={errorMessage}
       >
-        <CustomFormBox name="new_password" label="New Password" type="password" {...controlAndErrors} />
+        <CustomFormBox name="new_password" label="New Password" type="password" disabled={isPending} {...controlAndErrors} />
         <CustomFormBox name="confirm_new_password" label="Confirm New Password" type="password" {...controlAndErrors} />
       </CustomForm>
       {children}

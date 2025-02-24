@@ -8,7 +8,7 @@ export interface IAddCountryFormInput {
   name: string;
 }
 
-export interface IEditCountryFormInput {
+export interface IUpdateCountryFormInput {
   id: string;
   name: string;
 }

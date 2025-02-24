@@ -1,8 +1,8 @@
 "use client";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { IAddEquipmentFormInput, IEditEquipmentFormInput } from "../equipmentsInterfaces";
-import { addEquipmentService, deleteEquipmentService, editEquipmentService } from "../equipmentsServicesFrontEnd";
+import { IAddEquipmentFormInput, IUpdateEquipmentFormInput } from "../equipmentsInterfaces";
+import { addEquipmentService, deleteEquipmentService, updateEquipmentService } from "../equipmentsServicesFrontEnd";
 
 export const useEquipment = () => {
   const router = useRouter();
@@ -13,9 +13,9 @@ export const useEquipment = () => {
     },
   });
 
-  const editEquipment = useMutation({
-    mutationFn: (data: IEditEquipmentFormInput) => {
-      return editEquipmentService({ id: data.id, data });
+  const updateEquipment = useMutation({
+    mutationFn: (data: IUpdateEquipmentFormInput) => {
+      return updateEquipmentService({ id: data.id, data });
     },
   });
 
@@ -23,5 +23,5 @@ export const useEquipment = () => {
     mutationFn: deleteEquipmentService,
   });
 
-  return { addEquipment, editEquipment, deleteEquipment };
+  return { addEquipment, updateEquipment, deleteEquipment };
 };

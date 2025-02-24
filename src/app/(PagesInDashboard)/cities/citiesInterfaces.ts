@@ -8,7 +8,7 @@ export interface IAddCityFormInput {
   name: string;
 }
 
-export interface IEditCityFormInput {
+export interface IUpdateCityFormInput {
   id: string;
   name: string;
 }

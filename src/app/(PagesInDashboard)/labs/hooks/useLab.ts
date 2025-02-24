@@ -1,8 +1,8 @@
 "use client";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { IAddLabFormInput, IEditLabFormInput } from "../labsInterfaces";
-import { addLabService, deleteLabService, editLabService } from "../labsServicesFrontEnd";
+import { IAddLabFormInput, IUpdateLabFormInput } from "../labsInterfaces";
+import { addLabService, deleteLabService, updateLabService } from "../labsServicesFrontEnd";
 
 export const useLab = () => {
   const router = useRouter();
@@ -13,9 +13,9 @@ export const useLab = () => {
     },
   });
 
-  const editLab = useMutation({
-    mutationFn: (data: IEditLabFormInput) => {
-      return editLabService({ id: data.id, data });
+  const updateLab = useMutation({
+    mutationFn: (data: IUpdateLabFormInput) => {
+      return updateLabService({ id: data.id, data });
     },
   });
 
@@ -23,5 +23,5 @@ export const useLab = () => {
     mutationFn: deleteLabService,
   });
 
-  return { addLab, editLab, deleteLab };
+  return { addLab, updateLab, deleteLab };
 };

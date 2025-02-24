@@ -1,7 +1,7 @@
 import "server-only";
 import AddCityFormServer from "../../forms/AddCityFormServer";
-const EditUserPage = () => {
+const UpdateUserPage = () => {
   return <AddCityFormServer />;
 };
 
-export default EditUserPage;
+export default UpdateUserPage;

@@ -31,7 +31,7 @@ export interface IAddEquipmentFormInput {
   image_url?: string | null;
 }
 
-export interface IEditEquipmentFormInput {
+export interface IUpdateEquipmentFormInput {
   id: string;
   name: string;
   total_quantity: string;
