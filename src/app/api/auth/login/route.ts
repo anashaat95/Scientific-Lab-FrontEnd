@@ -10,6 +10,10 @@ export async function POST(req: Request) {
 
   try {
     const response = await ApiClientBackEnd.post("auth/login", { email, password, rememberMe });
+    if (response.data?.message?.includes("confirmed")) {
+      response.data.statusCode = 404;
+      throw response;
+    }
 
     return await createNextLoginResponse(response, rememberMe);
   } catch (error: any) {

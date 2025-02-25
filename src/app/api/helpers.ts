@@ -40,7 +40,6 @@ export const getAuthHeaders = (req: NextRequest) => {
 };
 
 export const createNextLoginResponse = async (response: AxiosResponse<any, any>, rememberMe: Boolean) => {
-  if (response.data?.message?.includes("confirmed")) throw response.data;
   const { accessToken, refreshToken }: ILoginResponse = response.data?.data;
 
   const accessTokenExpiryInSec = timeMinusNowInSeconds(accessToken.expiresIn);
@@ -66,6 +65,7 @@ export const createNextLoginResponse = async (response: AxiosResponse<any, any>,
 
 export const generateErrorResponse = async (error: any) => {
   let errorMessage = "";
+
   if (error.code === "ECONNREFUSED") {
     errorMessage = "Network error: the backend server is not responding. Please contact the administrator";
     error.status = 500;
@@ -73,6 +73,8 @@ export const generateErrorResponse = async (error: any) => {
     errorMessage = (await error.response?.data?.title) + " | " + JSON.stringify(await error.response?.data?.errors);
   } else if (await error.response?.data?.message) {
     errorMessage = (await error.response?.data?.message) + "\n" + (await error.response?.data?.details);
+  } else if (await error.data?.message) {
+    errorMessage = error.data?.message;
   } else {
     errorMessage = await error.response?.data?.error;
   }

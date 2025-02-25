@@ -21,8 +21,13 @@ const useFormHandler = <TFormData extends IFormInput>({ defaultValues, onSubmit,
       await onSubmit(data);
       return true;
     } catch (error: any) {
+      console.log(error);
       setErrorMessage(
-        (await error?.response?.data?.message) || (await error?.response?.data?.error) || error?.message || "Error! Please contact the administrator"
+        (await error?.response?.data?.message) ||
+          (await error?.response?.data?.error) ||
+          error?.message ||
+          error?.error ||
+          "Error! Please contact the administrator"
       );
       return false;
     }

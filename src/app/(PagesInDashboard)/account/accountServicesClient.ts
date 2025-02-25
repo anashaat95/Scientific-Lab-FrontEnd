@@ -13,7 +13,6 @@ export const updateEmailService = async (data: IUpdateMyEmailForm) => {
 };
 
 export const updateUsernameService = async (data: IUpdateMyUsernameForm) => {
-  console.log(data);
   const response = await ApiClientFrontEnd.put(`account/update-username`, data);
   return response.data;
 };

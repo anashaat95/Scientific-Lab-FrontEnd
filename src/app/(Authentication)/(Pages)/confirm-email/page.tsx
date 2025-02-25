@@ -1,7 +1,6 @@
 import "server-only";
 
 // components
-import { ILoginResponse } from "@/app/api/interfaces";
 import { IFetcherData } from "@/interfaces";
 import { fetcherFn } from "@/services/sharedServices";
 import { redirect } from "next/navigation";
@@ -14,6 +13,7 @@ const ConfirmEmail = async ({ searchParams }: { searchParams: IUserIdAndTokenInp
   const { user_id, token } = searchParams;
   if (!user_id || !token) redirect("/login");
   const data: IFetcherData = await fetcherFn(() => confirmEmailService({ user_id, token }));
+
   return (
     <AuthPageLayoutServer title="Confirm Email" description="this is page for email confirmation">
       <ConfirmEmailMessage {...data} />

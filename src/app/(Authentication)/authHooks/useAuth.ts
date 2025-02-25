@@ -1,5 +1,4 @@
 "use client";
-import { IUser } from "@/app/(PagesInDashboard)/users/usersInterfaces";
 import { login as loginStore, logout as logoutStore } from "@/store/authSlice";
 import { AppDispatch } from "@/store/store";
 import { useMutation } from "@tanstack/react-query";
@@ -25,10 +24,11 @@ export const useAuth = () => {
 
   const login = useMutation({
     mutationFn: loginService,
-    onSuccess: (data: { message: string; isAuthenticated: Boolean; currentUser?: IUser }) => {
+    onSuccess: (data: any) => {
       dispatch(loginStore(data.currentUser));
       if (data.isAuthenticated) refreshPage(router);
-      if (data?.message.includes("not confirmed")) throw data;
+      console.log(data?.error.includes("not confirmed"));
+      if (data?.error.includes("not confirmed")) throw data;
     },
   });
 
