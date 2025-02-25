@@ -22,6 +22,12 @@ export interface IUserIdAndTokenInput extends IFormInput {
   token?: string | null;
 }
 
+export interface IUserIdTokenNewEmailInput extends IFormInput {
+  user_id?: string | null;
+  token?: string | null;
+  new_email?: string | null;
+}
+
 export interface IEmailInput extends IFormInput {
   email?: string | null;
 }

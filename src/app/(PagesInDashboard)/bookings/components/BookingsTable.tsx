@@ -80,6 +80,7 @@ const BookingsTable = async ({ data, errorMessage, isNetworkError }: IFetcherDat
                     color: "#000",
                     "&:hover": {
                       color: "#0074BA",
+                      transition: "color ease-in 0.3s",
                     },
                   }}
                 >
