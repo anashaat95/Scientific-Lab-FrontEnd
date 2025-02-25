@@ -2,6 +2,7 @@
 import { HeadingText } from "@/elements/HeadingText";
 
 // components
+import { CustomAlert } from "@/components/Alert";
 import CustomLoader from "@/components/CustomLoader";
 import CustomMessage from "@/components/CustomMessage";
 import { SubmitButton } from "@/elements/CustomButtons";
@@ -10,7 +11,7 @@ import { Stack } from "@mui/material";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-const ConfirmUpdatedEmailMessage = ({ isError, isSuccess }: IFetcherData) => {
+const ConfirmUpdatedEmailMessage = ({ errorMessage, isError, isSuccess }: IFetcherData) => {
   const router = useRouter();
 
   let messageTitle = <React.Fragment>Confirming Your Email...</React.Fragment>;
@@ -23,7 +24,12 @@ const ConfirmUpdatedEmailMessage = ({ isError, isSuccess }: IFetcherData) => {
     messageTitle = <>Email Confirmation Failed</>;
     messageComponent = (
       <>
-        <HeadingText>The confirmation link may have expired or is invalid. Login again and update your email from your account</HeadingText>
+        <HeadingText>
+          <CustomAlert type="error" sx={{ fontSize: "16px", lineHeight: "1.3", fontWeight: "500" }}>
+            The confirmation link may have expired or is invalid. Login again and update your email from your account
+          </CustomAlert>
+        </HeadingText>
+
         <SubmitButton onClick={() => router.push("/login")}>Login</SubmitButton>
       </>
     );

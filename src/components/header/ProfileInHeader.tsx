@@ -22,6 +22,9 @@ const ProfileInHeader = () => {
     setAnchorEl(null);
   };
 
+  let profileImageUrl = "/images/profile/user-1.jpg";
+  if (currentUser?.image_url && currentUser?.image_url.trim().length > 0) profileImageUrl = currentUser?.image_url;
+
   return (
     <Box>
       <IconButton
@@ -38,7 +41,7 @@ const ProfileInHeader = () => {
         onClick={handleClick}
       >
         <Avatar
-          src={currentUser?.image_url ?? "/images/profile/user-1.jpg"}
+          src={profileImageUrl}
           alt="image"
           sx={{
             width: 35,

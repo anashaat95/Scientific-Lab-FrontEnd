@@ -19,7 +19,7 @@ export const fetcherFn = async (serviceFn: () => Promise<any>): Promise<IFetcher
     data.isSuccess = true;
     return data;
   } catch (error: any) {
-    data.errorMessage = (await error?.response?.data?.message) || error?.message;
+    data.errorMessage = (await error?.response?.data?.message) + "\n" + (await error?.response?.data?.details) || error?.message;
     data.isError = true;
 
     if (data.errorMessage?.includes("Network error")) data.isNetworkError = true;

@@ -25,13 +25,16 @@ const ProfilePage = async ({ params }: ProfilePageProps) => {
   const isAdmin = await isAuthorized([enUserRoles.Admin.toString()]);
   const isSameUser = token?.nameid === user.id;
 
+  let profileImageUrl = "/images/profile/user-1.jpg";
+  if (user?.image_url && user?.image_url.trim().length > 0) profileImageUrl = user?.image_url;
+
   return (
     <PageContainer title={`${user.userName} | Profile`} description={`${user.userName} Profile Page`}>
       <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" gap={2}>
         <Card sx={{ width: "100%", maxWidth: 600, margin: "auto", mt: 4, p: 2, display: "flex", justifyContent: "center" }} elevation={9}>
           <CardContent>
             <Box display="flex" alignItems="center" gap={3}>
-              <Avatar src={user?.image_url ?? "/images/profile/user-1.jpg"} sx={{ width: 180, height: 180, mb: 2 }}>
+              <Avatar src={profileImageUrl} sx={{ width: 180, height: 180, mb: 2 }}>
                 {user.first_name} {user.last_name}
               </Avatar>
               <Box>
