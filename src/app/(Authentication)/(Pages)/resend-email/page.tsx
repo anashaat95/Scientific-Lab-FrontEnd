@@ -8,7 +8,7 @@ import AuthPageLayoutServer from "../../AuthPageLayoutServer";
 
 const ResendEmailPage = () => {
   return (
-    <AuthPageLayoutServer title="Confirm Email" description="This is page for email confirmation">
+    <AuthPageLayoutServer title="Resend Email" description="This is page for sending email confirmation">
       <Stack display="flex" direction="column" justifyContent="center" alignItems="center" gap={4}>
         <AuthResendEmailForm />
       </Stack>
