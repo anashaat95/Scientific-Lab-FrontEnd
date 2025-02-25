@@ -5,21 +5,18 @@ import PropTypes from "prop-types";
 // components
 import { ToggleSidebarButton } from "@/elements/CustomButtons";
 import { IconBellRinging } from "@tabler/icons-react";
-import { useParams, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Menuitems from "../sidebar/MenuItems";
 import ProfileInHeader from "./ProfileInHeader";
 
 const Header = () => {
-  const params = useParams();
   const pathname = usePathname();
   const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up("lg"));
   const lgDown = useMediaQuery((theme: any) => theme.breakpoints.down("lg"));
   let splittedPath = pathname.split("/");
   let pageTitle = undefined;
 
-  if (params?.username) {
-    pageTitle = params?.username;
-  }
+  if (splittedPath[1] === "account") pageTitle = "Profile";
 
   if (!pageTitle) {
     const foundMenuItem = Menuitems.find((item) => item.href === `/${splittedPath[1]}`);

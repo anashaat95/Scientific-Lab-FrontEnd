@@ -10,11 +10,11 @@ const PersonalDataUpdateFormClient = ({ currentUser }: { currentUser: IUser }) =
   const { controlAndErrors, submit, errorMessage, isPending, isValid, isSuccess, reset } = useUpdateMyPersonalDataFormHandler(currentUser);
 
   return (
-    <Grid container spacing={0} justifyContent="center" sx={{ height: "100%" }}>
+    <Grid container spacing={0} justifyContent="center">
       <Grid item xs={12} sm={8} md={12} lg={12} xl={12}>
-        <Card elevation={9} sx={{ p: 4, zIndex: 1, maxWidth: "1200px" }}>
+        <Card elevation={9} sx={{ p: 4, zIndex: 1 }}>
           <Typography variant="h2" color="primary" mb={4}>
-            Update Your Personal Data
+            Update Personal Data
           </Typography>
           <CustomForm
             isValid={isValid}

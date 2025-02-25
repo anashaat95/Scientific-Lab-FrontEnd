@@ -3,17 +3,22 @@ import { getMeClientService } from "@/app/(Authentication)/authServicesClient";
 import { updateCurrentUser } from "@/store/authSlice";
 import { AppDispatch } from "@/store/store";
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { updateEmailService, updatePersonalDataService } from "../accountServicesClient";
+import { toast } from "react-toastify";
+import { updateEmailService, updatePasswordService, updatePersonalDataService, updateUsernameService } from "../accountServicesClient";
 
 export const useAccount = () => {
   const dispatch: AppDispatch = useDispatch();
+  const router = useRouter();
 
   const updateMyPersonalData = useMutation({
     mutationFn: updatePersonalDataService,
     onSuccess: async () => {
       const data = await getMeClientService();
       dispatch(updateCurrentUser(data?.data));
+      toast.success("Your personal data updated successfully");
+      router.refresh();
     },
   });
 
@@ -22,8 +27,30 @@ export const useAccount = () => {
     onSuccess: async () => {
       const data = await getMeClientService();
       dispatch(updateCurrentUser(data?.data));
+      toast.success(`A confirmation sent successfully to the new mail. See it and click confirm to update your email in the system`);
+      router.refresh();
     },
   });
 
-  return { updateMyPersonalData, updateMyEmail };
+  const updateMyUsername = useMutation({
+    mutationFn: updateUsernameService,
+    onSuccess: async () => {
+      const data = await getMeClientService();
+      dispatch(updateCurrentUser(data?.data));
+      toast.success("Username updated successfully");
+      router.refresh();
+    },
+  });
+
+  const updateMyPassword = useMutation({
+    mutationFn: updatePasswordService,
+    onSuccess: async () => {
+      const data = await getMeClientService();
+      dispatch(updateCurrentUser(data?.data));
+      toast.success("Your password updated successfully");
+      router.refresh();
+    },
+  });
+
+  return { updateMyPersonalData, updateMyEmail, updateMyUsername, updateMyPassword };
 };

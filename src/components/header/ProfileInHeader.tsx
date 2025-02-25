@@ -66,7 +66,7 @@ const ProfileInHeader = () => {
             <IconMail width={20} />
           </ListItemIcon>
           <ListItemText>
-            <TextButton onClick={() => router.push(`/account/${currentUser?.userName}`)}>My Account</TextButton>
+            <TextButton onClick={() => router.push(`/account/${currentUser?.id}`)}>My Account</TextButton>
           </ListItemText>
         </MenuItem>
 

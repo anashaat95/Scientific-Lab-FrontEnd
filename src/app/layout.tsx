@@ -15,7 +15,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <RootQueryClientProvider>
             <ThemeProvider theme={baselightTheme}>
               <CssBaseline />
-
               <HelmetProvider>{children}</HelmetProvider>
             </ThemeProvider>
           </RootQueryClientProvider>

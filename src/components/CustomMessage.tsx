@@ -7,12 +7,14 @@ import { Stack } from "@mui/material";
 import { NormalButton } from "@/elements/CustomButtons";
 import { HeadingText } from "@/elements/HeadingText";
 import { SignalWifiOff } from "@mui/icons-material";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import DoNotDisturbOffIcon from "@mui/icons-material/DoNotDisturbOff";
 import { useRouter } from "next/navigation";
+
 import React from "react";
 interface ICustomMessageProps {
   title?: React.ReactNode;
-  type?: "info" | "email" | "error" | "network" | "access_denied";
+  type?: "info" | "email" | "error" | "network" | "access_denied" | "success";
   children: React.ReactNode;
 }
 
@@ -38,6 +40,9 @@ const CustomMessage = ({ title, type = "email", children }: ICustomMessageProps)
 
     case "access_denied":
       icon = <DoNotDisturbOffIcon color="error" sx={{ fontSize: 60 }} />;
+      break;
+    case "success":
+      icon = <CheckCircleIcon color="success" sx={{ fontSize: 60 }} />;
       break;
     default:
       icon = <EmailIcon color="primary" sx={{ fontSize: 60 }} />;

@@ -17,6 +17,7 @@ export const CustomFormBox: React.FC<ICustomFormBoxProps> = ({
   multiline = false,
   rows = 3,
   disabled,
+  autoComplete,
 }) => {
   return (
     <Box display="flex" flexDirection="column" gap="0.3rem" mb={2} width={"100%"}>
@@ -35,6 +36,7 @@ export const CustomFormBox: React.FC<ICustomFormBoxProps> = ({
             multiline={multiline}
             rows={rows}
             disabled={disabled}
+            autoComplete={autoComplete}
           />
         )}
       </FormControl>

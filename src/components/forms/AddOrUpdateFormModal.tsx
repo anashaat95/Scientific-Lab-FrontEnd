@@ -2,7 +2,7 @@
 import { SubmitButton } from "@/elements/CustomButtons";
 import { Stack } from "@mui/material";
 import { useRouter } from "next/navigation";
-import { FormEvent, useEffect } from "react";
+import { FormEvent } from "react";
 import { UseFormReset } from "react-hook-form";
 import { CustomAlert } from "../Alert";
 import CustomLoader from "../CustomLoader";
@@ -39,13 +39,12 @@ export const AddOrUpdateFormModal: React.FC<IAddOrUpdateFormModal> = ({
     await submitFn();
   };
 
-  useEffect(() => {
-    if (isSuccess) {
-      router.refresh();
-      router.push(backUrl);
-      //setTimeout(() => reset(), 1000);
-    }
-  }, [isSuccess, backUrl, router, reset]);
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     router.refresh();
+  //     router.push(backUrl);
+  //   }
+  // }, [isSuccess, backUrl, router, reset]);
 
   return (
     <>
@@ -57,6 +56,7 @@ export const AddOrUpdateFormModal: React.FC<IAddOrUpdateFormModal> = ({
             {isPending ? <CustomLoader color="primary" /> : submitButtonText}
           </SubmitButton>
         )}
+        isSuccess={isSuccess}
       >
         <form id={`${submitButtonText}-form`} onSubmit={handleSubmit}>
           <Stack marginY={2}>

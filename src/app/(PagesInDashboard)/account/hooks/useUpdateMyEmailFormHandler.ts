@@ -10,7 +10,10 @@ const useUpdateMyEmailFormHandler = (defaultValues: DefaultValues<IUpdateMyEmail
   const { updateMyEmail } = useAccount();
   const { controlAndErrors, submit, errorMessage, isValid, reset } = useFormHandler({
     defaultValues,
-    onSubmit: async (data) => await updateMyEmail.mutateAsync(data),
+    onSubmit: async (data) => {
+      await updateMyEmail.mutateAsync(data);
+      return data;
+    },
     validationSchema,
   });
 

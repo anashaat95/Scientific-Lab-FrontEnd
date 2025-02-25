@@ -10,6 +10,7 @@ import { AppDispatch } from "@/store/store";
 import { Box } from "@mui/material";
 import React from "react";
 import { useDispatch } from "react-redux";
+import { ToastContainer } from "react-toastify";
 import "./../globals.css";
 import { IUser } from "./users/usersInterfaces";
 
@@ -19,6 +20,7 @@ const DashboardPageLayoutClient = ({ currentUser, children }: { currentUser: IUs
 
   return (
     <MainWrapper className="mainwrapper">
+      <ToastContainer position="top-center" autoClose={2000} />
       <ProgressBar />
       <Sidebar />
       <PageWrapper className="page-wrapper">

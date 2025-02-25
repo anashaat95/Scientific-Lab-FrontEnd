@@ -16,3 +16,13 @@ export interface IUpdateMyPersonalDataForm extends IFormInput {
 export interface IUpdateMyEmailForm extends IFormInput {
   new_email?: string | null;
 }
+
+export interface IUpdateMyUsernameForm extends IFormInput {
+  username?: string | null;
+}
+
+export interface IUpdateMyPasswordForm extends IFormInput {
+  old_password?: string | null;
+  new_password?: string | null;
+  confirm_new_password?: string | null;
+}

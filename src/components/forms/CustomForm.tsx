@@ -21,8 +21,8 @@ export interface ICustomForm {
 
 const CustomForm = ({ title, errorMessage, isPending, submitButtonText, isSuccess, isValid, submitFn, children, reset }: ICustomForm) => {
   useEffect(() => {
-    if (isSuccess) setTimeout(() => reset(), 1000);
-  }, [isSuccess, reset]);
+    if (isSuccess && submitButtonText.toLowerCase().includes("add")) setTimeout(() => reset(), 1000);
+  }, [isSuccess, reset, submitButtonText]);
 
   return (
     <>

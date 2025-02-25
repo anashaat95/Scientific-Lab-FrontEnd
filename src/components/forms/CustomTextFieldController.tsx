@@ -13,6 +13,7 @@ export const CustomTextFieldController: React.FC<ICustomFormControllerProps> = (
   multiline = false,
   rows = 3,
   disabled,
+  autoComplete,
 }) => {
   return (
     <Controller
@@ -32,6 +33,7 @@ export const CustomTextFieldController: React.FC<ICustomFormControllerProps> = (
             multiline={multiline}
             rows={multiline ? rows : undefined}
             disabled={disabled}
+            autoComplete={autoComplete}
           />
 
           <Box height="10px">{errors[name] && <FormHelperText error>{errors[name]?.message?.toString() || undefined}</FormHelperText>}</Box>

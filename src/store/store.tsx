@@ -3,10 +3,10 @@
 const { configureStore } = require("@reduxjs/toolkit");
 import React from "react";
 import { Provider } from "react-redux";
-import auhtReducer from "./authSlice";
+import authReducer from "./authSlice";
 import uiReducer from "./uiSlice";
 
-const store = configureStore({ reducer: { ui: uiReducer, auth: auhtReducer } });
+const store = configureStore({ reducer: { ui: uiReducer, auth: authReducer } });
 
 export const ReduxStoreProvider = ({ children }: { children: React.ReactNode }) => {
   return <Provider store={store}>{children}</Provider>;

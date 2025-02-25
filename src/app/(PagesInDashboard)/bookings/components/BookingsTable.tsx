@@ -3,6 +3,7 @@ import CustomMessage from "@/components/CustomMessage";
 import CustomTable from "@/components/table/CustomTable";
 import CustomTableCell from "@/components/table/CustomTableCell";
 import CustomTableContentRow from "@/components/table/CustomTableContentRow";
+import { GoToButton } from "@/elements/CustomButtons";
 import { IFetcherData } from "@/interfaces";
 import { GetJwtTokenPayload, isAuthorized } from "@/services/jwtTokenService";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
@@ -71,7 +72,20 @@ const BookingsTable = async ({ data, errorMessage, isNetworkError }: IFetcherDat
               <CustomTableCell>
                 <BookingStatusChip status={convertBookingStatus(booking.status)} />
               </CustomTableCell>
-              <CustomTableCell>{booking.user_name}</CustomTableCell>
+              <CustomTableCell>
+                <GoToButton
+                  variant="text"
+                  href={`/account/${getIdFromDtoEntityUrl(booking.user_url)}`}
+                  sx={{
+                    color: "#000",
+                    "&:hover": {
+                      color: "#0074BA",
+                    },
+                  }}
+                >
+                  {booking.user_name}
+                </GoToButton>
+              </CustomTableCell>
             </CustomTableContentRow>
           </>
         );

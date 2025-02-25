@@ -1,8 +1,7 @@
 import { SubmitButton } from "@/elements/CustomButtons";
 import { HeadingText } from "@/elements/HeadingText";
 import { Stack } from "@mui/material";
-import { useRouter } from "next/navigation";
-import { FormEvent, useEffect } from "react";
+import { FormEvent } from "react";
 import { CustomAlert } from "../Alert";
 import CustomLoader from "../CustomLoader";
 import { CustomFormModal } from "./CustomFormModal";
@@ -24,23 +23,16 @@ export const DeleteFormModal: React.FC<IDeleteFormModal> = ({
   errorMessage,
   submitFn,
 }) => {
-  const router = useRouter();
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await submitFn();
   };
 
-  useEffect(() => {
-    if (isSuccess) {
-      router.refresh();
-      router.push(endpoint);
-    }
-  }, [isSuccess, endpoint, router]);
-
   return (
     <CustomFormModal
       title="Confirm Deletion"
       endpoint={endpoint}
+      isSuccess={isSuccess}
       ActionButton={() => (
         <SubmitButton form="delete-modal" color="error">
           {isPending ? <CustomLoader color="secondary.light" /> : "Delete"}

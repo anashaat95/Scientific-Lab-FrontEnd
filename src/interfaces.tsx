@@ -33,6 +33,7 @@ export interface ICustomFormControllerProps {
   hidden?: boolean;
   rows?: number;
   disabled?: boolean;
+  autoComplete?: "new-password";
 }
 
 export interface ICustomFormBoxProps {
@@ -48,6 +49,7 @@ export interface ICustomFormBoxProps {
   rows?: number;
   disabled?: boolean;
   isPending?: boolean;
+  autoComplete?: "new-password";
 }
 
 export interface ICustomSelectControllerProps {

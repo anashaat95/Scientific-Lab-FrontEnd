@@ -2,10 +2,11 @@ import ApiClientBackEnd from "@/clients/ApiClientBackEnd";
 import { NextResponse } from "next/server";
 import { generateErrorResponse } from "../../helpers";
 
-// Get ME
-export async function GET() {
+//Update username
+export async function PUT(req: Request) {
+  const data = await req.json();
   try {
-    const response = await ApiClientBackEnd.get(`me`);
+    const response = await ApiClientBackEnd.put(`auth/update-profile`, data);
     return NextResponse.json(response.data);
   } catch (error: any) {
     return generateErrorResponse(error);
