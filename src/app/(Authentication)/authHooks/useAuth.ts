@@ -49,7 +49,7 @@ export const useAuth = () => {
   const resendConfirmEmail = useMutation({
     mutationFn: resendConfirmationEmailService,
     onSuccess: async (data: any) => {
-      if (data?.message.includes("confirmed")) throw data;
+      if (data?.message?.includes("confirmed")) throw data;
     },
   });
 

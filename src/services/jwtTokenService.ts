@@ -59,7 +59,7 @@ export const isAuthorized = async (roles: string[]): Promise<Boolean> => {
   if (!token) return false;
   const currentUserRoles = token["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
 
-  if (roles.some((role) => currentUserRoles.includes(enUserRoles[Number(role)]))) return true;
+  if (roles.some((role) => currentUserRoles?.includes(enUserRoles[Number(role)]))) return true;
 
   return false;
 };

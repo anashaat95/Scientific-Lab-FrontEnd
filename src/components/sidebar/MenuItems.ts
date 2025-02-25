@@ -107,7 +107,7 @@ const Menuitems: Array<any> = [
 export default Menuitems;
 
 const filterItems = (excludedTitles: string[]) => {
-  return Menuitems.filter((item) => !excludedTitles.includes(item.title));
+  return Menuitems.filter((item) => !excludedTitles?.includes(item.title));
 };
 
 export const filterMenuItemsByRole = (uRoles?: string | string[] | null): Array<any> => {
