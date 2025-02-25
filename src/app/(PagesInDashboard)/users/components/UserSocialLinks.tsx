@@ -8,10 +8,11 @@ import { IUser } from "../usersInterfaces";
 const iconStyles = {
   width: 42,
   height: 42,
+  color: "#3390c8",
   transition: "transform 0.2s ease-in-out, color 0.2s",
   "&:hover": {
     transform: "scale(1.1)",
-    color: "#3390c8",
+    color: "#1f5678",
   },
 };
 

@@ -2,6 +2,7 @@ import "server-only";
 
 import { IUser } from "@/app/(PagesInDashboard)/users/usersInterfaces";
 import CustomLoader from "@/components/CustomLoader";
+import { GoBackButton } from "@/elements/CustomButtons";
 import { IFetcherData } from "@/interfaces";
 import { fetcherFn } from "@/services/sharedServices";
 import { Box } from "@mui/material";
@@ -20,6 +21,7 @@ const ProfileUpdateFormServer = async ({ params }: ProfilePageProps) => {
 
   return (
     <Suspense fallback={<CustomLoader page={true} />}>
+      <GoBackButton sx={{ mb: 3 }} />
       <Box display="flex" flexDirection="column" justifyContent="center" gap={3}>
         <Box display="flex" justifyContent="center" gap={3} flexGrow={1}>
           <UpdateUsernameFormClient username={currentUser.userName} />

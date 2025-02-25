@@ -27,7 +27,6 @@ export const useAuth = () => {
     onSuccess: (data: any) => {
       dispatch(loginStore(data.currentUser));
       if (data.isAuthenticated) refreshPage(router);
-      console.log(data?.error.includes("not confirmed"));
       if (data?.error?.includes("not confirmed")) throw data;
     },
   });
