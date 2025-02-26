@@ -28,7 +28,7 @@ export const CustomTextFieldController: React.FC<ICustomFormControllerProps> = (
             variant="outlined"
             fullWidth
             type={type}
-            error={!!errors[name]}
+            error={!!errors?.[name]}
             inputProps={inputProps}
             multiline={multiline}
             rows={multiline ? rows : undefined}
@@ -36,7 +36,7 @@ export const CustomTextFieldController: React.FC<ICustomFormControllerProps> = (
             autoComplete={autoComplete}
           />
 
-          <Box height="10px">{errors[name] && <FormHelperText error>{errors[name]?.message?.toString() || undefined}</FormHelperText>}</Box>
+          <Box height="10px">{errors?.[name] && <FormHelperText error>{errors?.[name]?.message?.toString() || undefined}</FormHelperText>}</Box>
         </>
       )}
     />

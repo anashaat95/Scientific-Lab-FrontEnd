@@ -6,6 +6,11 @@ export const getAllEquipmentsService = async () => {
   return response.data;
 };
 
+export const getAllEquipmentsWithBookingsService = async () => {
+  const response = await ApiClientBackEnd.get(`${EQUIPMENTS_BACKEND_ENDPOINT}/bookings`);
+  return response.data;
+};
+
 export const getAllEquipmentsOptionsService = async () => {
   const response = await ApiClientBackEnd.get(EQUIPMENTS_BACKEND_ENDPOINT + "/options");
   return response.data;
@@ -13,5 +18,10 @@ export const getAllEquipmentsOptionsService = async () => {
 
 export const getEquipmentByIdService = async (id: string) => {
   const response = await ApiClientBackEnd.get(`${EQUIPMENTS_BACKEND_ENDPOINT}/${id}`);
+  return response.data;
+};
+
+export const getEquipmentWithBookingsByIdService = async (id: string) => {
+  const response = await ApiClientBackEnd.get(`${EQUIPMENTS_BACKEND_ENDPOINT}/${id}/bookings`);
   return response.data;
 };

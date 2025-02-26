@@ -1,4 +1,5 @@
 import { IEntity } from "@/interfaces";
+import { IBooking } from "../bookings/bookingsInterfaces";
 
 export interface IEquipment extends IEntity {
   name: string;
@@ -15,6 +16,7 @@ export interface IEquipment extends IEntity {
 
   company_url: string;
   company_name: string;
+  bookings?: IBooking[];
 }
 
 export interface IAddEquipmentFormInput {
@@ -71,19 +73,15 @@ export enum eEquipmentType {
 
 export enum eEquipmentStatus {
   Available = 0,
-  FullyBooked = 1,
-  NotWorking = 2,
-  Decommissioned = 3,
-  InMaintenance = 4,
+  NotWorking = 1,
+  Decommissioned = 2,
+  InMaintenance = 3,
 }
 
 export const stringToEquipmentStatus = (status: string): eEquipmentStatus => {
   switch (status.toLowerCase()) {
     case "available":
       return eEquipmentStatus.Available;
-    case "fullybooked":
-    case "fully booked":
-      return eEquipmentStatus.FullyBooked;
     case "notworking":
     case "not working":
       return eEquipmentStatus.NotWorking;

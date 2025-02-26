@@ -8,7 +8,9 @@ import { fetcherFn } from "@/services/sharedServices";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { eEquipmentStatus, IEquipment } from "../../equipments/equipmentsInterfaces";
-import { getAllEquipmentsService } from "../../equipments/equipmentsServicesBackEnd";
+import { getAllEquipmentsWithBookingsService } from "../../equipments/equipmentsServicesBackEnd";
+import { ILab } from "../../labs/labsInterfaces";
+import { getLabByNameService } from "../../labs/labsServicesBackEnd";
 import { enUserRoles } from "../../roles/rolesInterfaces";
 import { BOOKINGS_FRONTEND_ENDPOINT } from "../bookingsConsts";
 import { eBookingStatus } from "../bookingsInterfaces";
@@ -25,7 +27,7 @@ const AddBookingFormServer = async () => {
   if (!isAllowed) redirect(BOOKINGS_FRONTEND_ENDPOINT);
 
   const options: { researchers: IItemInSelect[]; equipments: IItemInSelect[] } = { researchers: [], equipments: [] };
-  const { data: equipmentsFullData }: IFetcherData = await fetcherFn(getAllEquipmentsService);
+  const { data: equipmentsFullData }: IFetcherData = await fetcherFn(getAllEquipmentsWithBookingsService);
 
   equipmentsFullData.data.forEach((equipment: IEquipment) => {
     if (equipment.status === eEquipmentStatus[eEquipmentStatus.Available]) {
@@ -33,9 +35,18 @@ const AddBookingFormServer = async () => {
     }
   });
 
+  const labData: IFetcherData = await fetcherFn(() => getLabByNameService("Pharmaceutics Lab"));
+  const pharmaceuticsLab: ILab = labData?.data?.data;
+
   return (
     <Suspense fallback={<CustomLoader page={true} />}>
-      <AddBookingForm equipmentsFullData={equipmentsFullData.data} {...options} statuses={[statuses[0], statuses[1]]} yesOrNo={yesOrNo} />
+      <AddBookingForm
+        lab={pharmaceuticsLab}
+        equipmentsFullData={equipmentsFullData.data}
+        statuses={[statuses[0], statuses[1]]}
+        yesOrNo={yesOrNo}
+        {...options}
+      />
     </Suspense>
   );
 };

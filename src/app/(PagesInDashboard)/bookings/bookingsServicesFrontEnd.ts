@@ -1,14 +1,14 @@
 import ApiClientFrontEnd from "@/clients/ApiClientFrontEnd";
 import { IHaveIdEntity } from "@/interfaces";
 import { BOOKINGS_BACKEND_ENDPOINT } from "./bookingsConsts";
-import { IAddBookingFormInput, IUpdateBookingFormInput } from "./bookingsInterfaces";
+import { IAddBookingDataForServer, IUpdateBookingDataForServer } from "./bookingsInterfaces";
 
-export const addBookingService = async (data: IAddBookingFormInput) => {
+export const addBookingService = async (data: IAddBookingDataForServer) => {
   const response = await ApiClientFrontEnd.post(BOOKINGS_BACKEND_ENDPOINT, data);
   return response.data;
 };
 
-export const updateBookingService = async ({ id, data }: { id: string; data: IUpdateBookingFormInput }) => {
+export const updateBookingService = async ({ id, data }: { id: string; data: IUpdateBookingDataForServer }) => {
   if (!id) throw new Error("You must provide Id");
   const response = await ApiClientFrontEnd.put(`${BOOKINGS_BACKEND_ENDPOINT}/${id}`, data);
   return response.data;

@@ -11,6 +11,8 @@ const useFormHandler = <TFormData extends IFormInput>({ defaultValues, onSubmit,
     handleSubmit,
     reset,
     watch,
+    setValue,
+    setError,
     formState: { errors: formErrors, isValid },
   } = useForm<TFormData>({ defaultValues, resolver: yupResolver(validationSchema) as any, mode: "all" });
   const router = useRouter();
@@ -41,6 +43,8 @@ const useFormHandler = <TFormData extends IFormInput>({ defaultValues, onSubmit,
     isValid,
     reset,
     watch,
+    setValue,
+    setError,
   };
 };
 

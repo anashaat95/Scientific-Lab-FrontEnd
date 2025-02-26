@@ -1,4 +1,4 @@
-import { getIdFromDtoEntityUrl } from "@/app/helpers";
+import { formatDateTime, getIdFromDtoEntityUrl } from "@/app/helpers";
 import CustomMessage from "@/components/CustomMessage";
 import CustomTable from "@/components/table/CustomTable";
 import CustomTableCell from "@/components/table/CustomTableCell";
@@ -7,14 +7,17 @@ import { GoToButton } from "@/elements/CustomButtons";
 import { IFetcherData } from "@/interfaces";
 import { GetJwtTokenPayload, isAuthorized } from "@/services/jwtTokenService";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import { Box, Chip, TableCell, TableRow, Typography } from "@mui/material";
+import { Box, TableCell, TableRow, Typography } from "@mui/material";
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 import "server-only";
 import { enUserRoles } from "../../roles/rolesInterfaces";
 import { BOOKINGS_FRONTEND_ENDPOINT } from "../bookingsConsts";
-import { convertBookingStatus, eBookingStatus, IBooking } from "../bookingsInterfaces";
+import { convertBookingStatus, IBooking } from "../bookingsInterfaces";
+import { BookingStatusChip } from "./BookingStatusChip";
 
-const tableHeader: Array<string> = ["Booking", "Start", "End", "Overnight", "Notes", "Status", "Researcher", ""];
+dayjs.extend(utc);
+const tableHeader: Array<string> = ["Booking", "Start", "End", "Overnight", "Notes", "Status", "Researcher", "Created", ""];
 
 const BookingsTable = async ({ data, errorMessage, isNetworkError }: IFetcherData) => {
   if (isNetworkError) {
@@ -25,26 +28,27 @@ const BookingsTable = async ({ data, errorMessage, isNetworkError }: IFetcherDat
   const isAdmin = await isAuthorized([enUserRoles.Admin.toString()]);
   const canAddUpdate = await isAuthorized([enUserRoles.Admin.toString(), enUserRoles.LabSupervisor.toString(), enUserRoles.Researcher.toString()]);
 
-  const bookings: IBooking[] = data?.data;
+  const bookings: IBooking[] = data?.data?.sort((a: IBooking, b: IBooking) => dayjs(b.start_date_time).isAfter(dayjs(a.start_date_time)));
+  console.log(data?.data);
 
-  let prevDate = new Date(bookings[0].start_date_time).toISOString().slice(0, 7);
-  let nextDate = "";
+  let prevDate = dayjs(bookings?.[0].start_date_time);
+  let nextDate = dayjs();
 
-  let dateComponent = <DateCell key={prevDate} dateStr={prevDate} />;
+  let dateComponent = <DateCell key={prevDate.toISOString()} date={prevDate} />;
 
   return (
     <CustomTable cellHeads={tableHeader} isPending={false} endpoint={BOOKINGS_FRONTEND_ENDPOINT} addAction={canAddUpdate}>
       {dateComponent}
       {bookings?.map((booking) => {
-        nextDate = new Date(booking.start_date_time).toISOString().slice(0, 7);
-        if (nextDate != prevDate) {
-          dateComponent = <DateCell key={nextDate} dateStr={nextDate} />;
+        nextDate = dayjs(booking.start_date_time);
+        if (nextDate.get("year") !== prevDate.get("year") || nextDate.get("month") !== prevDate.get("month")) {
+          dateComponent = <DateCell key={nextDate.toISOString()} date={nextDate} />;
         } else {
           dateComponent = <></>;
         }
 
         prevDate = nextDate;
-        nextDate = "";
+        nextDate = dayjs();
 
         return (
           <>
@@ -87,6 +91,8 @@ const BookingsTable = async ({ data, errorMessage, isNetworkError }: IFetcherDat
                   {booking.user_name}
                 </GoToButton>
               </CustomTableCell>
+
+              <CustomTableCell>{formatDateTime(booking.created_at)}</CustomTableCell>
             </CustomTableContentRow>
           </>
         );
@@ -94,10 +100,11 @@ const BookingsTable = async ({ data, errorMessage, isNetworkError }: IFetcherDat
     </CustomTable>
   );
 };
+// 2025-02-25T00:01:47.6829093
 
 export default BookingsTable;
 
-const DateCell = ({ dateStr }: { dateStr: string }) => {
+const DateCell = ({ date }: { date: dayjs.Dayjs }) => {
   return (
     <TableRow className="table-row">
       <TableCell colSpan={tableHeader.length}>
@@ -119,35 +126,10 @@ const DateCell = ({ dateStr }: { dateStr: string }) => {
               marginLeft: "10px",
             }}
           >
-            {dayjs(dateStr).format("MMM, YYYY")}
+            {date.format("MMM, YYYY")}
           </Typography>
         </Box>
       </TableCell>
     </TableRow>
   );
-};
-
-const getStatusProps = (status: eBookingStatus) => {
-  switch (status) {
-    case eBookingStatus.Completed:
-      return { label: "Completed", color: "success" };
-    case eBookingStatus.Pending:
-      return { label: "Pending", color: "warning" };
-    case eBookingStatus.Confirmed:
-      return { label: "Confirmed", color: "success" };
-    case eBookingStatus.Cancelled:
-      return { label: "Cancelled", color: "error" };
-    default:
-      return { label: "Unknown", color: "default" };
-  }
-};
-
-interface BookingStatusChipProps {
-  status: eBookingStatus;
-}
-
-export const BookingStatusChip: React.FC<BookingStatusChipProps> = ({ status }) => {
-  const { label, color } = getStatusProps(status);
-
-  return <Chip label={label} color={color as any} variant={`${status === eBookingStatus.Confirmed ? "filled" : "outlined"}`} />;
 };

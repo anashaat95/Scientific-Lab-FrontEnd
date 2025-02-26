@@ -1,4 +1,5 @@
 import { IEntity } from "@/interfaces";
+import dayjs from "dayjs";
 
 export interface IBooking extends IEntity {
   start_date_time: string;
@@ -13,6 +14,18 @@ export interface IBooking extends IEntity {
 }
 
 export interface IAddBookingFormInput {
+  start_time: dayjs.Dayjs;
+  end_time: dayjs.Dayjs;
+  start_date: dayjs.Dayjs;
+  end_date: dayjs.Dayjs;
+  is_on_overnight: string;
+  notes: string;
+  status: string | number;
+  user_id: string;
+  equipment_id: string;
+}
+
+export interface IAddBookingDataForServer {
   start_date_time: string;
   end_date_time: string;
   is_on_overnight: Boolean;
@@ -23,6 +36,32 @@ export interface IAddBookingFormInput {
 }
 
 export interface IUpdateBookingFormInput {
+  id: string;
+  start_time: dayjs.Dayjs;
+  end_time: dayjs.Dayjs;
+  start_date: dayjs.Dayjs;
+  end_date: dayjs.Dayjs;
+  is_on_overnight: string;
+  notes: string;
+  status: string | number;
+  user_id: string;
+  equipment_id: string;
+}
+
+export interface IUpdateBookingFormInputFromServer {
+  id: string;
+  start_time: string;
+  end_time: string;
+  start_date: string;
+  end_date: string;
+  is_on_overnight: string;
+  notes: string;
+  status: string | number;
+  user_id: string;
+  equipment_id: string;
+}
+
+export interface IUpdateBookingDataForServer {
   id: string;
   start_date_time: string;
   end_date_time: string;

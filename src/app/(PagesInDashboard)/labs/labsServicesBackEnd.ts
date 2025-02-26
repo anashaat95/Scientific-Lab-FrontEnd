@@ -15,3 +15,8 @@ export const getLabByIdService = async (id: string) => {
   const response = await ApiClientBackEnd.get(`${LABS_BACKEND_ENDPOINT}/${id}`);
   return response.data;
 };
+
+export const getLabByNameService = async (name: string) => {
+  const response = await ApiClientBackEnd.get(`${LABS_BACKEND_ENDPOINT}/query/${name}`);
+  return response.data;
+};

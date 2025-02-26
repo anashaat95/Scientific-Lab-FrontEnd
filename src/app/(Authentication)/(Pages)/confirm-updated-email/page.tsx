@@ -13,7 +13,6 @@ const ConfirmUpdatedEmail = async ({ searchParams }: { searchParams: IUserIdToke
   const { user_id, token, new_email } = searchParams;
   if (!user_id || !token || !new_email) redirect("/login");
   const data: IFetcherData = await fetcherFn(() => confirmUpdatedEmailService({ user_id, token, new_email }));
-  console.log(data);
 
   return (
     <AuthPageLayoutServer title="Confirm New Email" description="this is page for new email confirmation">

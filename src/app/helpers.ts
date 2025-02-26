@@ -1,4 +1,5 @@
 import { IItemInSelect } from "@/interfaces";
+import dayjs from "dayjs";
 
 export const formatDate = (date: string | Date) => {
   if (!date) return "N/A";
@@ -80,4 +81,13 @@ export const timeMinusNowInSeconds = (dateStr: string): number => {
   const providedTimestamp = new Date(dateStr).getTime();
   const nowTimestamp = new Date().getTime();
   return (providedTimestamp - nowTimestamp) / 1000;
+};
+
+export const convertdbTimeToDayjsTime = (dbTime: string): dayjs.Dayjs => {
+  return dayjs(dbTime, "HH:mm");
+};
+
+// Check if the Day.js object is valid before passing it to the TimePicker
+export const isValidDayjs = (value: any): boolean => {
+  return dayjs.isDayjs(value) && value?.isValid();
 };

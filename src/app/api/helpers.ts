@@ -64,6 +64,7 @@ export const createNextLoginResponse = async (response: AxiosResponse<any, any>,
 };
 
 export const generateErrorResponse = async (error: any) => {
+  console.log(error);
   let errorMessage = "";
 
   if (error.code === "ECONNREFUSED") {
@@ -72,7 +73,7 @@ export const generateErrorResponse = async (error: any) => {
   } else if (await error.response?.data?.title) {
     errorMessage = (await error.response?.data?.title) + " | " + JSON.stringify(await error.response?.data?.errors);
   } else if (await error.response?.data?.message) {
-    errorMessage = (await error.response?.data?.message) + "\n" + (await error.response?.data?.details);
+    errorMessage = (await error.response?.data?.message) + "\n" + ((await error.response?.data?.details) ?? "");
   } else if (await error.data?.message) {
     errorMessage = error.data?.message;
   } else {
