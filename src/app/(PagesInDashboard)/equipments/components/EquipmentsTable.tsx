@@ -55,8 +55,6 @@ const getStatusProps = (status: eEquipmentStatus) => {
   switch (status) {
     case eEquipmentStatus.Available:
       return { label: "Available", color: "success" };
-    case eEquipmentStatus.FullyBooked:
-      return { label: "Fully Booked", color: "warning" };
     case eEquipmentStatus.NotWorking:
       return { label: "Not Working", color: "error" };
     case eEquipmentStatus.Decommissioned:
