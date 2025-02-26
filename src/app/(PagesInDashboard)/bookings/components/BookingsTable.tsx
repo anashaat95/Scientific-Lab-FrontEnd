@@ -28,8 +28,9 @@ const BookingsTable = async ({ data, errorMessage, isNetworkError }: IFetcherDat
   const isAdmin = await isAuthorized([enUserRoles.Admin.toString()]);
   const canAddUpdate = await isAuthorized([enUserRoles.Admin.toString(), enUserRoles.LabSupervisor.toString(), enUserRoles.Researcher.toString()]);
 
-  const bookings: IBooking[] = data?.data?.sort((a: IBooking, b: IBooking) => dayjs(b.start_date_time).isAfter(dayjs(a.start_date_time)));
-  console.log(data?.data);
+  const bookings: IBooking[] = data?.data?.sort(
+    (a: IBooking, b: IBooking) => new Date(b.start_date_time).getTime() - new Date(a.start_date_time).getTime()
+  );
 
   let prevDate = dayjs(bookings?.[0].start_date_time);
   let nextDate = dayjs();

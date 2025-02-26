@@ -64,7 +64,6 @@ export const createNextLoginResponse = async (response: AxiosResponse<any, any>,
 };
 
 export const generateErrorResponse = async (error: any) => {
-  console.log(error);
   let errorMessage = "";
 
   if (error.code === "ECONNREFUSED") {
