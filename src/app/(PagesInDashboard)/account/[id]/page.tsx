@@ -23,7 +23,7 @@ const ProfilePage = async ({ params }: ProfilePageProps) => {
 
   const token = await GetJwtTokenPayload();
   const isAdmin = await isAuthorized([enUserRoles.Admin.toString()]);
-  const isSameUser = token?.nameid === user.id;
+  const isSameUser = token?.sub === user.id;
 
   let profileImageUrl = "/images/profile/user-1.jpg";
   if (user?.image_url && user?.image_url.trim().length > 0) profileImageUrl = user?.image_url;

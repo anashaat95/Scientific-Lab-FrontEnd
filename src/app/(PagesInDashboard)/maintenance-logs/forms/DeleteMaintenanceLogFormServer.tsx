@@ -23,7 +23,7 @@ const DeleteMaintenanceLogFormServer = async ({ id }: { id: string }) => {
   if (!maintenanceLog) redirect(MAINTENANCE_LOGS_FRONTEND_ENDPOINT);
 
   const token = await GetJwtTokenPayload();
-  const isCreatedByUser = token?.nameid === getIdFromDtoEntityUrl(maintenanceLog.technician_url);
+  const isCreatedByUser = token?.sub === getIdFromDtoEntityUrl(maintenanceLog.technician_url);
   if (!isCreatedByUser && !isAllowed) redirect(MAINTENANCE_LOGS_FRONTEND_ENDPOINT);
 
   return (

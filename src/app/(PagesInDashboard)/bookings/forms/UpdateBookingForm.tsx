@@ -1,4 +1,5 @@
 "use client";
+import { disableFridays, enableTimeSelectionDuringLabOpening, getMinAndMaxDateForBookings } from "@/app/helpers";
 import { AddOrUpdateFormModal } from "@/components/forms/AddOrUpdateFormModal";
 import { CustomDatePicker } from "@/components/forms/CustomDatePicker";
 import { CustomFormBox } from "@/components/forms/CustomFormBox";
@@ -61,20 +62,7 @@ export default function UpdateBookingForm({ lab, bookedEquipment, equipments, ye
   const labOpeningTime = dayjs("07:00", "HH:mm");
   const labClosingTime = dayjs(lab.closing_time, "HH:mm").add(-1, "minute");
 
-  const shouldDisableTime = (value: dayjs.Dayjs, view: TimeView) => {
-    const selectedHour = value.hour();
-    return selectedHour < labOpeningTime.hour() || selectedHour > labClosingTime.hour();
-  };
-
-  const daysUntilFriday = 5 - today.day();
-  const nextWeekFriday = today.add(daysUntilFriday > 0 ? daysUntilFriday : daysUntilFriday + 7, "day");
-
-  const minDate = today; // Saturday = 6
-  const maxDate = nextWeekFriday.add(6, "day");
-
-  const shouldDisableDate = (date: dayjs.Dayjs): boolean => {
-    return date.day() === 5;
-  };
+  const shouldDisableTime = (value: dayjs.Dayjs, view: TimeView) => enableTimeSelectionDuringLabOpening(value, view, labOpeningTime, labClosingTime);
 
   return (
     <AddOrUpdateFormModal
@@ -96,9 +84,8 @@ export default function UpdateBookingForm({ lab, bookedEquipment, equipments, ye
           <CustomDatePicker
             name="start_date"
             label={`${is_on_overnight ? "Start " : " "}Date`}
-            shouldDisableDate={shouldDisableDate}
-            minDate={minDate}
-            maxDate={maxDate}
+            shouldDisableDate={disableFridays}
+            {...getMinAndMaxDateForBookings()}
             {...controlAndErrors}
           />
         </Grid>
@@ -107,9 +94,8 @@ export default function UpdateBookingForm({ lab, bookedEquipment, equipments, ye
             <CustomDatePicker
               name="end_date"
               label="End Date"
-              shouldDisableDate={shouldDisableDate}
-              minDate={minDate}
-              maxDate={maxDate}
+              shouldDisableDate={disableFridays}
+              {...getMinAndMaxDateForBookings()}
               {...controlAndErrors}
             />
           </Grid>
@@ -118,11 +104,11 @@ export default function UpdateBookingForm({ lab, bookedEquipment, equipments, ye
 
         <Grid item xs={12} sm={6} lg={6}>
           <CustomTimePicker
-            shouldDisableTime={shouldDisableTime}
             name="start_time"
             label="Start Time"
             fallBackValue={booking.start_time}
             setValue={setValue}
+            shouldDisableTime={shouldDisableTime}
             {...controlAndErrors}
           />
         </Grid>

@@ -1,4 +1,5 @@
 import { IItemInSelect } from "@/interfaces";
+import { TimeView } from "@mui/x-date-pickers/models";
 import dayjs from "dayjs";
 
 export const formatDate = (date: string | Date) => {
@@ -90,4 +91,27 @@ export const convertdbTimeToDayjsTime = (dbTime: string): dayjs.Dayjs => {
 // Check if the Day.js object is valid before passing it to the TimePicker
 export const isValidDayjs = (value: any): boolean => {
   return dayjs.isDayjs(value) && value?.isValid();
+};
+
+export const enableTimeSelectionDuringLabOpening = (value: dayjs.Dayjs, view: TimeView, labOpeningTime: dayjs.Dayjs, labClosingTime: dayjs.Dayjs) => {
+  const selectedHour = value.hour();
+  return selectedHour < labOpeningTime.hour() || selectedHour > labClosingTime.hour();
+};
+
+export const disableFridays = (date: dayjs.Dayjs): boolean => {
+  return date.day() === 5;
+};
+
+export const addDayIfFriday = (date: dayjs.Dayjs) => {
+  return date.day() === 5 ? date.add(1, "day") : date;
+};
+
+export const getMinAndMaxDateForBookings = () => {
+  const today = dayjs();
+  const daysUntilFriday = 5 - today.day();
+  const nextWeekFriday = today.add(daysUntilFriday > 0 ? daysUntilFriday : daysUntilFriday + 7, "day");
+
+  const minDate = today;
+  const maxDate = nextWeekFriday.add(6, "day");
+  return { minDate, maxDate };
 };

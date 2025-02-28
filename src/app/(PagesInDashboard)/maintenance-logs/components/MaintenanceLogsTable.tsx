@@ -30,7 +30,7 @@ const MaintenanceLogsTable = async ({ data, errorMessage, isNetworkError }: IFet
           key={maintenanceLog.id}
           endpoint={MAINTENANCE_LOGS_FRONTEND_ENDPOINT}
           id={maintenanceLog.id}
-          updateAction={isAdmin || (canAddUpdate && token?.nameid === getIdFromDtoEntityUrl(maintenanceLog.technician_url))}
+          updateAction={isAdmin || (canAddUpdate && token?.sub === getIdFromDtoEntityUrl(maintenanceLog.technician_url))}
           deleteAction={isAdmin}
         >
           <CustomTableCell>{maintenanceLog.equipment_name}</CustomTableCell>

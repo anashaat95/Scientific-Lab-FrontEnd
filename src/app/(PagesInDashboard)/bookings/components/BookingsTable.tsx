@@ -13,7 +13,7 @@ import utc from "dayjs/plugin/utc";
 import "server-only";
 import { enUserRoles } from "../../roles/rolesInterfaces";
 import { BOOKINGS_FRONTEND_ENDPOINT } from "../bookingsConsts";
-import { convertBookingStatus, IBooking } from "../bookingsInterfaces";
+import { convertBookingStatus, eBookingStatus, IBooking } from "../bookingsInterfaces";
 import { BookingStatusChip } from "./BookingStatusChip";
 
 dayjs.extend(utc);
@@ -59,7 +59,12 @@ const BookingsTable = async ({ data, errorMessage, isNetworkError }: IFetcherDat
               endpoint={BOOKINGS_FRONTEND_ENDPOINT}
               id={booking.id}
               deleteAction={isAdmin}
-              updateAction={isAdmin || (canAddUpdate && token?.nameid === getIdFromDtoEntityUrl(booking.user_url))}
+              updateAction={
+                isAdmin ||
+                (canAddUpdate &&
+                  token?.sub === getIdFromDtoEntityUrl(booking.user_url) &&
+                  convertBookingStatus(booking.status) !== eBookingStatus.Cancelled)
+              }
             >
               <CustomTableCell sx={{ fontWeight: 700, lineHeight: "1.5" }}>{booking.equipment_name}</CustomTableCell>
               <CustomTableCell sx={{ width: "128px" }}>

@@ -14,7 +14,7 @@ import { ILab } from "../../labs/labsInterfaces";
 import { getLabByNameService } from "../../labs/labsServicesBackEnd";
 import { enUserRoles } from "../../roles/rolesInterfaces";
 import { BOOKINGS_FRONTEND_ENDPOINT } from "../bookingsConsts";
-import { eBookingStatus, IBooking, IUpdateBookingFormInputFromServer } from "../bookingsInterfaces";
+import { convertBookingStatus, eBookingStatus, IBooking, IUpdateBookingFormInputFromServer } from "../bookingsInterfaces";
 import { getBookingByIdService } from "../bookingsServicesBackEnd";
 import UpdateBookingForm from "./UpdateBookingForm";
 
@@ -25,6 +25,7 @@ const yesOrNo: IItemInSelect[] = [
 ];
 
 const UpdateBookingFormServer = async ({ id }: { id: string }) => {
+  const isAdmin = await isAuthorized([enUserRoles.Admin.toString()]);
   const isAllowed = await isAuthorized([enUserRoles.Admin.toString(), enUserRoles.LabSupervisor.toString(), enUserRoles.Researcher.toString()]);
   if (!isAllowed) redirect(BOOKINGS_FRONTEND_ENDPOINT);
 
@@ -32,9 +33,10 @@ const UpdateBookingFormServer = async ({ id }: { id: string }) => {
   const booking: IBooking = bookingData.data?.data;
 
   if (!booking) redirect(BOOKINGS_FRONTEND_ENDPOINT);
+  if (!isAdmin && convertBookingStatus(booking.status) === eBookingStatus.Cancelled) return;
 
   const token = await GetJwtTokenPayload();
-  const isCreatedByUser = token?.nameid === getIdFromDtoEntityUrl(booking.user_url);
+  const isCreatedByUser = token?.sub === getIdFromDtoEntityUrl(booking.user_url);
   if (!isCreatedByUser && !isAllowed) redirect(BOOKINGS_FRONTEND_ENDPOINT);
 
   const options: { researchers: IItemInSelect[]; equipments: IItemInSelect[] } = { researchers: [], equipments: [] };

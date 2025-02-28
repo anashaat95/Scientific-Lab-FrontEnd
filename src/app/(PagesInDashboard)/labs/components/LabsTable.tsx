@@ -30,7 +30,7 @@ const LabsTable = async ({ data, errorMessage, isNetworkError }: IFetcherData) =
           endpoint={LABS_FRONTEND_ENDPOINT}
           id={lab.id}
           deleteAction={isAdmin}
-          updateAction={isAdmin || (canAddUpdate && token?.nameid === getIdFromDtoEntityUrl(lab.supervisor_url))}
+          updateAction={isAdmin || (canAddUpdate && token?.sub === getIdFromDtoEntityUrl(lab.supervisor_url))}
         >
           <CustomTableCell sx={{ fontWeight: "700" }}>
             {lab.name} - {lab.department_name}

@@ -16,7 +16,7 @@ const ProfileUpdatePage = async ({ params }: ProfilePageProps) => {
 
   const token = await GetJwtTokenPayload();
   const isAdmin = await isAuthorized([enUserRoles.Admin.toString()]);
-  const isSameUser = token?.nameid === currentUser.id;
+  const isSameUser = token?.sub === currentUser.id;
 
   if (!isAdmin && !isSameUser) {
     return <AccessDeniedMessage />;

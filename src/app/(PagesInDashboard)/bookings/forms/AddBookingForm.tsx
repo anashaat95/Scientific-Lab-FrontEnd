@@ -1,4 +1,5 @@
 "use client";
+import { addDayIfFriday, disableFridays, enableTimeSelectionDuringLabOpening, getMinAndMaxDateForBookings } from "@/app/helpers";
 import { AddOrUpdateFormModal } from "@/components/forms/AddOrUpdateFormModal";
 import { CustomDatePicker } from "@/components/forms/CustomDatePicker";
 import { CustomFormBox } from "@/components/forms/CustomFormBox";
@@ -52,14 +53,15 @@ export default function AddBookingForm({ lab, equipments, equipmentsFullData, re
   const { controlAndErrors, submit, errorMessage, isPending, isSuccess, isValid, reset, watch, setValue, setError } = useAddBookingFormHandler({
     ...defaultValues,
     user_id: currentUser?.id,
-    start_date: today,
-    end_date: today,
+    start_date: addDayIfFriday(today),
+    end_date: addDayIfFriday(today),
   });
 
   const equipment_id = watch("equipment_id");
   const start_date = watch("start_date");
   const start_time = watch("start_time");
   const is_on_overnight = JSON.parse(watch("is_on_overnight"));
+  const selectedEquipment: IEquipment | undefined = equipmentsFullData.find((eq) => eq.id === equipment_id) ?? equipmentsFullData[0];
 
   useEffect(() => {
     if (start_time) {
@@ -75,28 +77,14 @@ export default function AddBookingForm({ lab, equipments, equipmentsFullData, re
     }
   }, [start_date, setValue]);
 
-  const selectedEquipment: IEquipment | undefined = equipmentsFullData.find((eq) => eq.id === equipment_id) ?? equipmentsFullData[0];
-  const labOpeningTime = dayjs("07:00", "HH:mm");
-  const labClosingTime = dayjs(lab.closing_time, "HH:mm").add(-1, "minute");
-
-  const shouldDisableTime = (value: dayjs.Dayjs, view: TimeView) => {
-    const selectedHour = value.hour();
-    return selectedHour < labOpeningTime.hour() || selectedHour > labClosingTime.hour();
-  };
-
-  const daysUntilFriday = 5 - today.day();
-  const nextWeekFriday = today.add(daysUntilFriday > 0 ? daysUntilFriday : daysUntilFriday + 7, "day");
-
-  const minDate = today; // Saturday = 6
-  const maxDate = nextWeekFriday.add(6, "day");
-
-  const shouldDisableDate = (date: dayjs.Dayjs): boolean => {
-    return date.day() === 5;
-  };
-
   useEffect(() => {
     setValue("is_on_overnight", JSON.stringify(selectedEquipment.can_be_left_overnight === "True"));
   }, [selectedEquipment.can_be_left_overnight, setValue]);
+
+  const labOpeningTime = dayjs("07:00", "HH:mm");
+  const labClosingTime = dayjs(lab.closing_time, "HH:mm").add(-1, "minute");
+
+  const shouldDisableTime = (value: dayjs.Dayjs, view: TimeView) => enableTimeSelectionDuringLabOpening(value, view, labOpeningTime, labClosingTime);
 
   return (
     <>
@@ -120,9 +108,8 @@ export default function AddBookingForm({ lab, equipments, equipmentsFullData, re
             <CustomDatePicker
               name="start_date"
               label={`${is_on_overnight ? "Start " : " "}Date`}
-              shouldDisableDate={shouldDisableDate}
-              minDate={minDate}
-              maxDate={maxDate}
+              shouldDisableDate={disableFridays}
+              {...getMinAndMaxDateForBookings()}
               {...controlAndErrors}
             />
           </Grid>
@@ -131,9 +118,8 @@ export default function AddBookingForm({ lab, equipments, equipmentsFullData, re
               <CustomDatePicker
                 name="end_date"
                 label="End Date"
-                shouldDisableDate={shouldDisableDate}
-                minDate={minDate}
-                maxDate={maxDate}
+                shouldDisableDate={disableFridays}
+                {...getMinAndMaxDateForBookings()}
                 {...controlAndErrors}
               />
             </Grid>
