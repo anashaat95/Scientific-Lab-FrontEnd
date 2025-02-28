@@ -24,7 +24,8 @@ const MaintenanceLogsTable = async ({ data, errorMessage, isNetworkError }: IFet
 
   const maintenanceLogs: IMaintenanceLog[] = data?.data;
 
-  if (maintenanceLogs?.length === 0) return <StartAddElementRightNow title="Maintenance Logs" endpoint={MAINTENANCE_LOGS_FRONTEND_ENDPOINT} />;
+  if (maintenanceLogs?.length === 0)
+    return <StartAddElementRightNow title="Maintenance Logs" canAdd={canAddUpdate} endpoint={MAINTENANCE_LOGS_FRONTEND_ENDPOINT} />;
 
   return (
     <CustomTable cellHeads={tableHeader} isPending={false} endpoint={MAINTENANCE_LOGS_FRONTEND_ENDPOINT} addAction={canAddUpdate}>

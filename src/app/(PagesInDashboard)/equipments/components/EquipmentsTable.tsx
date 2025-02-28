@@ -24,7 +24,7 @@ const EquipmentsTable = async ({ data, errorMessage, isNetworkError }: IFetcherD
 
   const equipments: IEquipment[] = data?.data;
 
-  if (equipments?.length === 0) return <StartAddElementRightNow title="Equipments" endpoint={EQUIPMENTS_FRONTEND_ENDPOINT} />;
+  if (equipments?.length === 0) return <StartAddElementRightNow title="Equipments" canAdd={canAddUpdate} endpoint={EQUIPMENTS_FRONTEND_ENDPOINT} />;
 
   return (
     <CustomTable cellHeads={tableHeader} isPending={false} endpoint={EQUIPMENTS_FRONTEND_ENDPOINT} addAction={canAddUpdate}>
