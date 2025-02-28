@@ -1,4 +1,5 @@
 #nprogress .bar {
   height: 5px;
   background: linear-gradient(to right, #4f46e5, #0074BA);
+  width: 95%;
 }

@@ -20,13 +20,13 @@ const EquipmentAvatar = ({ equipment }: { equipment: IEquipment }) => {
             top: 0,
             left: "100%",
             ml: 1,
-            zIndex: 10,
+            zIndex: 20000,
             width: 250,
             height: 250,
             bgcolor: "background.paper",
-            borderRadius: 2,
+            // borderRadius: 1,
             boxShadow: 3,
-            overflow: "hidden",
+            // overflow: "hidden",
             border: "1px solid #ddd",
           }}
         >
