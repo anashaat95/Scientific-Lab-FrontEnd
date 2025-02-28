@@ -4,6 +4,9 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  images: {
+    domains: ["res.cloudinary.com"], // Allow Cloudinary images
+  },
   // experimental: { appDir: true },
 };
 

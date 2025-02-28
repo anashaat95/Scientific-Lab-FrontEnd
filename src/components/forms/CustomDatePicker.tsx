@@ -27,7 +27,7 @@ export const CustomDatePicker = ({
   minDate?: dayjs.Dayjs;
   maxDate?: dayjs.Dayjs;
   format?: string;
-  shouldDisableDate: (date: dayjs.Dayjs) => boolean;
+  shouldDisableDate?: (date: dayjs.Dayjs) => boolean;
 }) => {
   return (
     <FormControl fullWidth disabled={disabled}>

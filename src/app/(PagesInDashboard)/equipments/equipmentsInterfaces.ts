@@ -1,4 +1,5 @@
 import { IEntity } from "@/interfaces";
+import dayjs from "dayjs";
 import { IBooking } from "../bookings/bookingsInterfaces";
 
 export interface IEquipment extends IEntity {
@@ -24,13 +25,13 @@ export interface IAddEquipmentFormInput {
   total_quantity: string;
   type: string | number;
   status: string | number;
-  purchase_date: string;
+  purchase_date: dayjs.Dayjs;
   serial_number: string;
   specifications: string;
   description: string;
   CanBeLeftOverNight: Boolean;
   company_id: string;
-  image_url?: string | null;
+  image?: File | null;
 }
 
 export interface IUpdateEquipmentFormInput {
@@ -39,13 +40,13 @@ export interface IUpdateEquipmentFormInput {
   total_quantity: string;
   type: string | number;
   status: string | number;
-  purchase_date: string;
+  purchase_date: dayjs.Dayjs;
   serial_number: string;
   specifications: string;
   description: string;
   CanBeLeftOverNight: Boolean;
   company_id: string;
-  image_url?: string | null;
+  image?: File | string | null;
 }
 
 export interface IDeleteEquipmentFormInput {
@@ -73,18 +74,14 @@ export enum eEquipmentType {
 
 export enum eEquipmentStatus {
   Available = 0,
-  NotWorking = 1,
-  Decommissioned = 2,
-  InMaintenance = 3,
+  Decommissioned = 1,
+  InMaintenance = 2,
 }
 
 export const stringToEquipmentStatus = (status: string): eEquipmentStatus => {
   switch (status.toLowerCase()) {
     case "available":
       return eEquipmentStatus.Available;
-    case "notworking":
-    case "not working":
-      return eEquipmentStatus.NotWorking;
     case "decommissioned":
       return eEquipmentStatus.Decommissioned;
     case "inmaintenance":

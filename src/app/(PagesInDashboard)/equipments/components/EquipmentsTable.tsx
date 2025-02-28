@@ -9,8 +9,9 @@ import "server-only";
 import { enUserRoles } from "../../roles/rolesInterfaces";
 import { EQUIPMENTS_FRONTEND_ENDPOINT } from "../equipmentsConsts";
 import { eEquipmentStatus, IEquipment, stringToEquipmentStatus } from "../equipmentsInterfaces";
+import EquipmentImage from "./EquipmentImage";
 
-const tableHeader: Array<string> = ["Name", "Total", "Bookings", "Status", "Overnight", "Company", ""];
+const tableHeader: Array<string> = ["", "Name", "Total", "Bookings", "Status", "Overnight", "Company", ""];
 
 const EquipmentsTable = async ({ data, errorMessage, isNetworkError }: IFetcherData) => {
   if (isNetworkError) {
@@ -31,6 +32,9 @@ const EquipmentsTable = async ({ data, errorMessage, isNetworkError }: IFetcherD
           deleteAction={isAdmin}
           updateAction={canAddUpdate}
         >
+          <CustomTableCell>
+            <EquipmentImage equipment={equipment} />
+          </CustomTableCell>
           <CustomTableCell sx={{ fontWeight: "700" }}>{equipment.name}</CustomTableCell>
           <CustomTableCell>{equipment.total_quantity}</CustomTableCell>
           <CustomTableCell>
@@ -55,8 +59,6 @@ const getStatusProps = (status: eEquipmentStatus) => {
   switch (status) {
     case eEquipmentStatus.Available:
       return { label: "Available", color: "success" };
-    case eEquipmentStatus.NotWorking:
-      return { label: "Not Working", color: "error" };
     case eEquipmentStatus.Decommissioned:
       return { label: "Decommissioned", color: "default" };
     case eEquipmentStatus.InMaintenance:

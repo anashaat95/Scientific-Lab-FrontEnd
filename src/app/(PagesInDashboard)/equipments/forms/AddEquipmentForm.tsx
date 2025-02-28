@@ -1,9 +1,12 @@
 "use client";
+import { addDayIfFriday } from "@/app/helpers";
 import { AddOrUpdateFormModal } from "@/components/forms/AddOrUpdateFormModal";
 import { CustomDatePicker } from "@/components/forms/CustomDatePicker";
 import { CustomFormBox } from "@/components/forms/CustomFormBox";
+import { CustomImageFieldController } from "@/components/forms/CustomImageFieldController";
 import { IItemInSelect } from "@/interfaces";
 import { Grid } from "@mui/material";
+import dayjs from "dayjs";
 import { DefaultValues } from "react-hook-form";
 import { EQUIPMENTS_FRONTEND_ENDPOINT } from "../equipmentsConsts";
 import { IAddEquipmentFormInput } from "../equipmentsInterfaces";
@@ -21,12 +24,12 @@ const defaultValues: DefaultValues<IAddEquipmentFormInput> = {
   total_quantity: "1",
   type: 0,
   status: 0,
-  purchase_date: new Date().toISOString().split("T")[0],
+  purchase_date: addDayIfFriday(dayjs()),
   serial_number: "",
   specifications: "",
   description: "",
   CanBeLeftOverNight: false,
-  image_url: "",
+  image: null,
   company_id: "",
 };
 
@@ -69,10 +72,9 @@ export default function AddEquipmentForm({ companies, yesOrNo, statuses, types }
           </Grid>
           <Grid item xs={12} sm={6} lg={6}>
             <CustomDatePicker name="purchase_date" label="Purchase Date" disabled={isPending} {...controlAndErrors} />
-            <CustomFormBox name="purchase_date" label="Purchase Date" type="date" disabled={isPending} {...controlAndErrors} />
           </Grid>
           <Grid item xs={12} sm={6} lg={6}>
-            <CustomFormBox name="image_url" label="Image Url" disabled={isPending} {...controlAndErrors} />
+            <CustomImageFieldController name="image" disabled={isPending} imageAlt="Image" imageUrl="/images/tools.png" {...controlAndErrors} />
           </Grid>
           <Grid item xs={12} sm={6} lg={6}>
             <CustomFormBox name="serial_number" label="Serial Number" disabled={isPending} {...controlAndErrors} />
@@ -83,11 +85,10 @@ export default function AddEquipmentForm({ companies, yesOrNo, statuses, types }
           <Grid item xs={12} sm={12} lg={12}>
             <CustomFormBox name="company_id" label="Company" items={companies} disabled={isPending} {...controlAndErrors} />{" "}
           </Grid>
-          <Grid item xs={12} sm={6} lg={6}>
+          <Grid item xs={12} sm={12} lg={12}>
             <CustomFormBox name="description" label="Description" multiline={true} disabled={isPending} {...controlAndErrors} />{" "}
           </Grid>
-
-          <Grid item xs={12} sm={6} lg={6}>
+          <Grid item xs={12} sm={12} lg={12}>
             <CustomFormBox name="specifications" label="Specifications" multiline={true} rows={2} disabled={isPending} {...controlAndErrors} />
           </Grid>
         </Grid>
