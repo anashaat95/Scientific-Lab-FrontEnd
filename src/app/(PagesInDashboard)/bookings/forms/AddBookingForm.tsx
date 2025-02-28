@@ -61,7 +61,7 @@ export default function AddBookingForm({ lab, equipments, equipmentsFullData, re
   const start_date = watch("start_date");
   const start_time = watch("start_time");
   const is_on_overnight = JSON.parse(watch("is_on_overnight"));
-  const selectedEquipment: IEquipment | undefined = equipmentsFullData.find((eq) => eq.id === equipment_id) ?? equipmentsFullData[0];
+  const selectedEquipment: IEquipment | undefined = equipmentsFullData?.find((eq) => eq.id === equipment_id) ?? equipmentsFullData[0];
 
   useEffect(() => {
     if (start_time) {
@@ -78,8 +78,8 @@ export default function AddBookingForm({ lab, equipments, equipmentsFullData, re
   }, [start_date, setValue]);
 
   useEffect(() => {
-    setValue("is_on_overnight", JSON.stringify(selectedEquipment.can_be_left_overnight === "True"));
-  }, [selectedEquipment.can_be_left_overnight, setValue]);
+    setValue("is_on_overnight", JSON.stringify(selectedEquipment?.can_be_left_overnight === "True"));
+  }, [selectedEquipment?.can_be_left_overnight, setValue]);
 
   const labOpeningTime = dayjs("07:00", "HH:mm");
   const labClosingTime = dayjs(lab.closing_time, "HH:mm").add(-1, "minute");

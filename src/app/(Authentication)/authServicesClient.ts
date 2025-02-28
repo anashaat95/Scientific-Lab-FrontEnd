@@ -28,7 +28,13 @@ export const resendConfirmationEmailService = async (data: IEmailInput) => {
 };
 
 export const signupService = async (data: ISignupFormInput) => {
-  const response = await ApiClientFrontEnd.post("auth/signup", data);
+  const formData = new FormData();
+
+  Object.entries(data).forEach(([key, value]) => {
+    if (value !== null) formData.append(key, value);
+  });
+
+  const response = await ApiClientFrontEnd.post("auth/signup", formData, { headers: { "Content-Type": "multipart/form-data" } });
   return response.data;
 };
 

@@ -1,4 +1,5 @@
 import CustomMessage from "@/components/CustomMessage";
+import StartAddElementRightNow from "@/components/StartAddElementRightNow";
 import CustomTable from "@/components/table/CustomTable";
 import CustomTableCell from "@/components/table/CustomTableCell";
 import CustomTableContentRow from "@/components/table/CustomTableContentRow";
@@ -16,10 +17,13 @@ const CountriesTable = async ({ data, errorMessage, isNetworkError }: IFetcherDa
   if (isNetworkError) {
     return <CustomMessage type={isNetworkError ? "network" : "error"}>{errorMessage}</CustomMessage>;
   }
-  const countries: ICountry[] = data?.data;
 
   const isAdmin = await isAuthorized([enUserRoles.Admin.toString()]);
   const canAddUpdate = await isAuthorized([enUserRoles.Admin.toString(), enUserRoles.LabSupervisor.toString()]);
+
+  const countries: ICountry[] = data?.data;
+
+  if (countries?.length === 0) return <StartAddElementRightNow title="Countries" endpoint={COUNTRIES_FRONTEND_ENDPOINT} />;
 
   return (
     <CustomTable cellHeads={tableHeader} isPending={false} endpoint={COUNTRIES_FRONTEND_ENDPOINT} addAction={canAddUpdate}>

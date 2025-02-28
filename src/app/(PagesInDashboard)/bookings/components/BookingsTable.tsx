@@ -1,15 +1,14 @@
 import { formatDateTime, getIdFromDtoEntityUrl } from "@/app/helpers";
 import CustomMessage from "@/components/CustomMessage";
-import { GoToPage } from "@/components/GoToPage";
+import StartAddElementRightNow from "@/components/StartAddElementRightNow";
 import CustomTable from "@/components/table/CustomTable";
 import CustomTableCell from "@/components/table/CustomTableCell";
 import CustomTableContentRow from "@/components/table/CustomTableContentRow";
 import { GoToButton } from "@/elements/CustomButtons";
 import { IFetcherData } from "@/interfaces";
 import { GetJwtTokenPayload, isAuthorized } from "@/services/jwtTokenService";
-import AddIcon from "@mui/icons-material/Add";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import { Box, IconButton, TableCell, TableRow, Typography } from "@mui/material";
+import { Box, TableCell, TableRow, Typography } from "@mui/material";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import "server-only";
@@ -26,17 +25,7 @@ const BookingsTable = async ({ data, errorMessage, isNetworkError }: IFetcherDat
     return <CustomMessage type={isNetworkError ? "network" : "error"}>{errorMessage}</CustomMessage>;
   }
 
-  if (data?.data?.length === 0)
-    return (
-      <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" width="60vw" height="50vh">
-        <Typography variant="h2">No Bookings yet. Start add right now.</Typography>{" "}
-        <GoToPage href={`${BOOKINGS_FRONTEND_ENDPOINT}/add`}>
-          <IconButton color="primary">
-            <AddIcon sx={{ fontSize: "48px" }} />
-          </IconButton>
-        </GoToPage>
-      </Box>
-    );
+  if (data?.data?.length === 0) return <StartAddElementRightNow title="Bookings" endpoint={BOOKINGS_FRONTEND_ENDPOINT} />;
 
   const token = await GetJwtTokenPayload();
   const isAdmin = await isAuthorized([enUserRoles.Admin.toString()]);

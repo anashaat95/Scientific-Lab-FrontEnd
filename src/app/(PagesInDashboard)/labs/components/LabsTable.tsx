@@ -1,5 +1,6 @@
 import { convertTimeInAMorPM, formatDate, getIdFromDtoEntityUrl } from "@/app/helpers";
 import CustomMessage from "@/components/CustomMessage";
+import StartAddElementRightNow from "@/components/StartAddElementRightNow";
 import CustomTable from "@/components/table/CustomTable";
 import CustomTableCell from "@/components/table/CustomTableCell";
 import CustomTableContentRow from "@/components/table/CustomTableContentRow";
@@ -21,6 +22,8 @@ const LabsTable = async ({ data, errorMessage, isNetworkError }: IFetcherData) =
   const canAddUpdate = await isAuthorized([enUserRoles.Admin.toString(), enUserRoles.LabSupervisor.toString()]);
 
   const labs: ILab[] = data?.data;
+
+  if (labs?.length === 0) return <StartAddElementRightNow title="Labs" endpoint={LABS_FRONTEND_ENDPOINT} />;
 
   return (
     <CustomTable cellHeads={tableHeader} isPending={false} endpoint={LABS_FRONTEND_ENDPOINT} addAction={canAddUpdate}>

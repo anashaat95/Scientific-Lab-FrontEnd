@@ -1,5 +1,6 @@
 import { formatDate } from "@/app/helpers";
 import CustomMessage from "@/components/CustomMessage";
+import StartAddElementRightNow from "@/components/StartAddElementRightNow";
 import CustomTable from "@/components/table/CustomTable";
 import CustomTableCell from "@/components/table/CustomTableCell";
 import CustomTableContentRow from "@/components/table/CustomTableContentRow";
@@ -17,10 +18,12 @@ const DepartmentsTable = async ({ data, errorMessage, isNetworkError }: IFetcher
     return <CustomMessage type={isNetworkError ? "network" : "error"}>{errorMessage}</CustomMessage>;
   }
 
-  const departments: IDepartment[] = data?.data;
-
   const isAdmin = await isAuthorized([enUserRoles.Admin.toString()]);
   const canAddUpdate = await isAuthorized([enUserRoles.Admin.toString(), enUserRoles.LabSupervisor.toString()]);
+
+  const departments: IDepartment[] = data?.data;
+
+  if (departments?.length === 0) return <StartAddElementRightNow title="Departments" endpoint={DEPARTMENTS_FRONTEND_ENDPOINT} />;
 
   return (
     <CustomTable cellHeads={tableHeader} isPending={false} endpoint={DEPARTMENTS_FRONTEND_ENDPOINT} addAction={canAddUpdate}>

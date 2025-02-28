@@ -40,7 +40,6 @@ export default function UpdateBookingForm({ lab, bookedEquipment, equipments, ye
     equipment_id: booking.equipment_id,
   });
 
-  const today = dayjs();
   const start_date = watch("start_date");
   const start_time = watch("start_time");
   const is_on_overnight = JSON.parse(watch("is_on_overnight"));

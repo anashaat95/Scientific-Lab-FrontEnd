@@ -1,5 +1,6 @@
 import { getIdFromDtoEntityUrl } from "@/app/helpers";
 import CustomMessage from "@/components/CustomMessage";
+import StartAddElementRightNow from "@/components/StartAddElementRightNow";
 import CustomTable from "@/components/table/CustomTable";
 import CustomTableCell from "@/components/table/CustomTableCell";
 import CustomTableContentRow from "@/components/table/CustomTableContentRow";
@@ -26,6 +27,8 @@ const UsersTable = async ({ data, errorMessage, isNetworkError }: IFetcherData) 
   }
 
   const users: IUser[] = data?.data;
+
+  if (users?.length === 0) return <StartAddElementRightNow title="Users" endpoint={USERS_FRONTEND_ENDPOINT} />;
 
   return (
     <CustomTable cellHeads={tableHeader} isPending={false} endpoint={USERS_FRONTEND_ENDPOINT}>

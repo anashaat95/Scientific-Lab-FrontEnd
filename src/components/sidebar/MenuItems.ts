@@ -34,6 +34,7 @@ const Menuitems: Array<any> = [
   {
     navlabel: true,
     subheader: "Home",
+    authz: "all",
   },
 
   {
@@ -50,6 +51,29 @@ const Menuitems: Array<any> = [
   },
   {
     id: uniqueId(),
+    title: "Equipments",
+    icon: IconDeviceImac,
+    href: "/equipments",
+  },
+  {
+    id: uniqueId(),
+    title: "Maintenance Logs",
+    icon: IconWallpaper,
+    href: "/maintenance-logs",
+  },
+  {
+    navlabel: true,
+    subheader: "Lab Supervisor Area",
+    authz: "supervisor",
+  },
+  {
+    id: uniqueId(),
+    title: "Countries",
+    icon: IconWorld,
+    href: "/countries",
+  },
+  {
+    id: uniqueId(),
     title: "Cities",
     icon: IconBuildingCommunity,
     href: "/cities",
@@ -62,21 +86,9 @@ const Menuitems: Array<any> = [
   },
   {
     id: uniqueId(),
-    title: "Countries",
-    icon: IconWorld,
-    href: "/countries",
-  },
-  {
-    id: uniqueId(),
     title: "Departments",
     icon: IconBuildingWarehouse,
     href: "/departments",
-  },
-  {
-    id: uniqueId(),
-    title: "Equipments",
-    icon: IconDeviceImac,
-    href: "/equipments",
   },
   {
     id: uniqueId(),
@@ -85,10 +97,9 @@ const Menuitems: Array<any> = [
     href: "/labs",
   },
   {
-    id: uniqueId(),
-    title: "Maintenance Logs",
-    icon: IconWallpaper,
-    href: "/maintenance-logs",
+    navlabel: true,
+    subheader: "Admin Area",
+    authz: "admin",
   },
   {
     id: uniqueId(),
@@ -106,31 +117,24 @@ const Menuitems: Array<any> = [
 
 export default Menuitems;
 
-const filterItems = (excludedTitles: string[]) => {
-  return Menuitems.filter((item) => !excludedTitles?.includes(item.title));
-};
-
-export const filterMenuItemsByRole = (uRoles?: string | string[] | null): Array<any> => {
-  let userRoles: string[] = [];
-
-  if (typeof uRoles === "string") userRoles.push(uRoles);
-  else if (Array.isArray(uRoles)) userRoles.push(...uRoles);
-
-  if (userRoles?.some((role) => role === enUserRoles[enUserRoles.Admin])) {
+export const filterMenuItemsByRole = (userRoles?: string | null): Array<any> => {
+  if (userRoles?.includes(enUserRoles[enUserRoles.Admin])) {
     return Menuitems;
   }
 
-  let excludedTitles: string[] = [];
+  const ItemsBasedOnRoles = [];
 
-  if (userRoles?.some((role) => role === enUserRoles[enUserRoles.LabSupervisor])) {
-    excludedTitles = ["Users", "Roles"];
-  } else if (userRoles?.some((role) => role === enUserRoles[enUserRoles.Researcher])) {
-    excludedTitles = ["Roles", "Users", "Labs", "Departments", "Countries", "Companies", "Cities"];
-  } else if (userRoles?.some((role) => role === enUserRoles[enUserRoles.Technician])) {
-    excludedTitles = ["Roles", "Users", "Labs", "Departments", "Countries", "Companies", "Cities"];
-  } else if (userRoles?.some((role) => role === enUserRoles[enUserRoles.User])) {
-    excludedTitles = ["Roles", "Users", "Labs", "Departments", "Countries", "Companies", "Cities"];
+  for (let index = 0; index < Menuitems.length; index++) {
+    const item = Menuitems[index];
+    if (userRoles?.includes(enUserRoles[enUserRoles.LabSupervisor])) {
+      if (item.authz === "admin") break;
+      ItemsBasedOnRoles.push(item);
+      continue;
+    }
+
+    if (item.authz === "supervisor") break;
+    ItemsBasedOnRoles.push(item);
   }
 
-  return filterItems(excludedTitles);
+  return ItemsBasedOnRoles;
 };

@@ -1,4 +1,5 @@
 import CustomMessage from "@/components/CustomMessage";
+import StartAddElementRightNow from "@/components/StartAddElementRightNow";
 import CustomTable from "@/components/table/CustomTable";
 import CustomTableCell from "@/components/table/CustomTableCell";
 import CustomTableContentRow from "@/components/table/CustomTableContentRow";
@@ -22,6 +23,9 @@ const EquipmentsTable = async ({ data, errorMessage, isNetworkError }: IFetcherD
   const canAddUpdate = await isAuthorized([enUserRoles.Admin.toString(), enUserRoles.LabSupervisor.toString()]);
 
   const equipments: IEquipment[] = data?.data;
+
+  if (equipments?.length === 0) return <StartAddElementRightNow title="Equipments" endpoint={EQUIPMENTS_FRONTEND_ENDPOINT} />;
+
   return (
     <CustomTable cellHeads={tableHeader} isPending={false} endpoint={EQUIPMENTS_FRONTEND_ENDPOINT} addAction={canAddUpdate}>
       {equipments?.map((equipment) => (

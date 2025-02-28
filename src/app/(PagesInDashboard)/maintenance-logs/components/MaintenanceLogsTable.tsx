@@ -1,5 +1,6 @@
 import { formatDate, getIdFromDtoEntityUrl } from "@/app/helpers";
 import CustomMessage from "@/components/CustomMessage";
+import StartAddElementRightNow from "@/components/StartAddElementRightNow";
 import CustomTable from "@/components/table/CustomTable";
 import CustomTableCell from "@/components/table/CustomTableCell";
 import CustomTableContentRow from "@/components/table/CustomTableContentRow";
@@ -22,6 +23,8 @@ const MaintenanceLogsTable = async ({ data, errorMessage, isNetworkError }: IFet
   const canAddUpdate = await isAuthorized([enUserRoles.Admin.toString(), enUserRoles.LabSupervisor.toString()]);
 
   const maintenanceLogs: IMaintenanceLog[] = data?.data;
+
+  if (maintenanceLogs?.length === 0) return <StartAddElementRightNow title="Maintenance Logs" endpoint={MAINTENANCE_LOGS_FRONTEND_ENDPOINT} />;
 
   return (
     <CustomTable cellHeads={tableHeader} isPending={false} endpoint={MAINTENANCE_LOGS_FRONTEND_ENDPOINT} addAction={canAddUpdate}>
