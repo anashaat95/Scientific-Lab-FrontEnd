@@ -39,7 +39,7 @@ const BookingsTable = async ({ data, errorMessage, isNetworkError }: IFetcherDat
 
   return (
     <CustomTable cellHeads={tableHeader} isPending={false} endpoint={BOOKINGS_FRONTEND_ENDPOINT} addAction={canAddUpdate}>
-      {dateComponent}
+      {bookings.length > 0 && dateComponent}
       {bookings?.map((booking) => {
         nextDate = dayjs(booking.start_date_time);
         if (nextDate.get("year") !== prevDate.get("year") || nextDate.get("month") !== prevDate.get("month")) {
