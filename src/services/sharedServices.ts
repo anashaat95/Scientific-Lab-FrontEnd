@@ -9,6 +9,7 @@ import {
   getAllTechniciansOptionsService,
   getAllUsersOptionsService,
 } from "@/app/(PagesInDashboard)/users/usersServicesBackEnd";
+import { getErrorMessageWithStatusCode } from "@/app/api/helpers";
 import { IEntitySelectOption, IFetcherData, IItemInSelect } from "@/interfaces";
 import "server-only";
 
@@ -19,7 +20,8 @@ export const fetcherFn = async (serviceFn: () => Promise<any>): Promise<IFetcher
     data.isSuccess = true;
     return data;
   } catch (error: any) {
-    data.errorMessage = (await error?.response?.data?.message) + "\n" + (await error?.response?.data?.details) || error?.message;
+    let { errorMessage }: { errorMessage: string } = await getErrorMessageWithStatusCode(error);
+    data.errorMessage = errorMessage;
     data.isError = true;
 
     if (data.errorMessage?.includes("Network error")) data.isNetworkError = true;

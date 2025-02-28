@@ -18,7 +18,6 @@ export const useAccount = () => {
       const data = await getMeClientService();
       dispatch(updateCurrentUser(data?.data));
       toast.success("Your personal data updated successfully");
-      router.refresh();
     },
   });
 
@@ -28,7 +27,6 @@ export const useAccount = () => {
       const data = await getMeClientService();
       dispatch(updateCurrentUser(data?.data));
       toast.success(`A confirmation sent successfully to the new mail. See it and click confirm to update your email in the system`);
-      router.refresh();
     },
   });
 
@@ -38,7 +36,6 @@ export const useAccount = () => {
       const data = await getMeClientService();
       dispatch(updateCurrentUser(data?.data));
       toast.success("Username updated successfully");
-      router.refresh();
     },
   });
 
@@ -48,7 +45,6 @@ export const useAccount = () => {
       const data = await getMeClientService();
       dispatch(updateCurrentUser(data?.data));
       toast.success("Your password updated successfully");
-      router.refresh();
     },
   });
 

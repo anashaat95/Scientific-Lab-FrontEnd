@@ -32,12 +32,6 @@ const validationSchema = yup.object().shape({
 
   department_id: yup.string().required("Department is required"),
 
-  image_url: yup
-    .string()
-    .nullable()
-    .test("is-valid-url-or-empty", "Invalid URL", (value) => !value || urlPattern.test(value))
-    .notRequired(),
-
   google_scholar_url: yup
     .string()
     .nullable()

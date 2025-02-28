@@ -64,6 +64,11 @@ export const createNextLoginResponse = async (response: AxiosResponse<any, any>,
 };
 
 export const generateErrorResponse = async (error: any) => {
+  let { errorMessage, status }: { errorMessage: string; status: number } = await getErrorMessageWithStatusCode(error);
+  return new NextResponse(JSON.stringify({ error: errorMessage }), { status: status });
+};
+
+export const getErrorMessageWithStatusCode = async (error: any): Promise<{ errorMessage: string; status: number }> => {
   let errorMessage = "";
 
   if (error.code === "ECONNREFUSED") {
@@ -79,5 +84,5 @@ export const generateErrorResponse = async (error: any) => {
     errorMessage = await error.response?.data?.error;
   }
 
-  return new NextResponse(JSON.stringify({ error: errorMessage }), { status: error.status });
+  return { errorMessage, status: error.status };
 };

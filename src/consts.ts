@@ -11,4 +11,6 @@ export const DESCRIPTION_MIN = Number(process.env.NEXT_PUBLIC_MIN_DESCRIPTION) |
 export const DESCRIPTION_MAX = Number(process.env.NEXT_PUBLIC_MAX_DESCRIPTION) || 4000;
 export const JWT_SECRET = process.env.APP_JWT_SECRET;
 
+export const DEFAULT_PASSWORD = process.env.NEXT_PUBLIC_DEFAULT_PASSWORD || "";
+
 export const urlPattern = /^(https?:\/\/)?([\w.-]+)\.([a-z]{2,})(\/.*)?$/i;

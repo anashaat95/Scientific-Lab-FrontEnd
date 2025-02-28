@@ -6,10 +6,10 @@ import { generateErrorResponse } from "../../helpers";
 export async function PUT(req: Request, { params }: { params: { id: string } }) {
   const { id } = params;
 
-  const data = await req.json();
+  const data = await req.formData();
 
   try {
-    const response = await ApiClientBackEnd.put(`user/${id}`, data);
+    const response = await ApiClientBackEnd.put(`user/${id}`, data, { headers: { "Content-Type": "multipart/form-data" } });
     return NextResponse.json(response.data);
   } catch (error: any) {
     return generateErrorResponse(error);

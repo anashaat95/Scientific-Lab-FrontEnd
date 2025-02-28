@@ -1,5 +1,4 @@
 "use client";
-import { convertdbTimeToDayjsTime } from "@/app/helpers";
 import { AddOrUpdateFormModal } from "@/components/forms/AddOrUpdateFormModal";
 import { CustomDatePicker } from "@/components/forms/CustomDatePicker";
 import { CustomFormBox } from "@/components/forms/CustomFormBox";
@@ -10,6 +9,7 @@ import { Grid } from "@mui/material";
 import { TimeView } from "@mui/x-date-pickers/models";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
+import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import { useEffect } from "react";
 import { DefaultValues } from "react-hook-form";
 import { useSelector } from "react-redux";
@@ -21,6 +21,7 @@ import { IAddBookingFormInput } from "../bookingsInterfaces";
 import ListBookingsOfEquipment from "../components/ListBookingsOfEquipment";
 import useAddBookingFormHandler from "../hooks/useAddBookingFormHandler";
 
+dayjs.extend(isSameOrAfter);
 dayjs.extend(isBetween);
 
 interface IAddBookingForm {
@@ -62,7 +63,7 @@ export default function AddBookingForm({ lab, equipments, equipmentsFullData, re
 
   useEffect(() => {
     if (start_time) {
-      const new_end_time = start_time.add(1, "hour");
+      const new_end_time = start_time.add(59, "minute");
       setValue("end_time", new_end_time);
     }
   }, [start_time, setValue]);
@@ -75,24 +76,12 @@ export default function AddBookingForm({ lab, equipments, equipmentsFullData, re
   }, [start_date, setValue]);
 
   const selectedEquipment: IEquipment | undefined = equipmentsFullData.find((eq) => eq.id === equipment_id) ?? equipmentsFullData[0];
-
-  const labOpeningTime = convertdbTimeToDayjsTime(lab.opening_time);
-  const labClosingTime = convertdbTimeToDayjsTime(lab.closing_time);
+  const labOpeningTime = dayjs("07:00", "HH:mm");
+  const labClosingTime = dayjs(lab.closing_time, "HH:mm").add(-1, "minute");
 
   const shouldDisableTime = (value: dayjs.Dayjs, view: TimeView) => {
-    const hour = value.hour();
-    const minute = value.minute();
-
-    if (view === "hours") {
-      return hour < dayjs("07:00 AM", "HH:mm A").hour() || hour > labClosingTime.hour();
-    }
-
-    if (view === "minutes") {
-      if (hour === dayjs("07:00 AM", "HH:mm A").hour() && minute < dayjs("07:00 AM", "HH:mm A").minute()) return true;
-      if (hour === labClosingTime.hour() && minute > labClosingTime.minute()) return true;
-    }
-
-    return false;
+    const selectedHour = value.hour();
+    return selectedHour < labOpeningTime.hour() || selectedHour > labClosingTime.hour();
   };
 
   const daysUntilFriday = 5 - today.day();

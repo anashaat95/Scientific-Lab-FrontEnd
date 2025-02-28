@@ -25,7 +25,7 @@ export interface ICustomFormLabelProps {
 export interface ICustomFormControllerProps {
   name: string;
   type?: React.HTMLInputTypeAttribute | undefined;
-  control: any;
+  control?: any;
   errors: any;
   rules?: object;
   inputProps?: InputBaseComponentProps;

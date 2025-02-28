@@ -44,12 +44,6 @@ const validationSchema = yup.object().shape({
     .max(NAME_MAX, `Expertise area must be at most ${NAME_MAX} characters`)
     .optional(),
 
-  image_url: yup
-    .string()
-    .nullable()
-    .test("is-valid-url-or-empty", "Invalid URL", (value) => !value || urlPattern.test(value))
-    .notRequired(),
-
   google_scholar_url: yup
     .string()
     .nullable()

@@ -5,7 +5,7 @@ import CustomLoader from "@/components/CustomLoader";
 import { GoBackButton } from "@/elements/CustomButtons";
 import { IFetcherData } from "@/interfaces";
 import { fetcherFn } from "@/services/sharedServices";
-import { Box } from "@mui/material";
+import { Grid } from "@mui/material";
 import { Suspense } from "react";
 import { getUserByIdService } from "../../users/usersServicesBackEnd";
 import { ProfilePageProps } from "../[id]/page";
@@ -22,16 +22,20 @@ const ProfileUpdateFormServer = async ({ params }: ProfilePageProps) => {
   return (
     <Suspense fallback={<CustomLoader page={true} />}>
       <GoBackButton sx={{ mb: 3 }} />
-      <Box display="flex" flexDirection="column" justifyContent="center" gap={3}>
-        <Box display="flex" justifyContent="center" gap={3} flexGrow={1}>
+      <Grid container xs={12} sm={12} md={12} lg={12} xl={12} gap={2}>
+        <Grid item xs={12} sm={12} md={12} lg={5.9} xl={5.9}>
           <UpdateUsernameFormClient username={currentUser.userName} />
+        </Grid>
+        <Grid item xs={12} sm={12} md={12} lg={5.9} xl={5.9}>
           <UpdateEmailFormClient email={currentUser.email} />
-        </Box>
-        <Box display="flex" justifyContent="center" gap={3} flexGrow={1}>
+        </Grid>
+        <Grid item xs={12} sm={12} md={12} lg={5.9} xl={5.9}>
           <PersonalDataUpdateFormClient currentUser={currentUser} />
+        </Grid>
+        <Grid item xs={12} sm={12} md={12} lg={5.9} xl={5.9}>
           <UpdatePasswordFormClient username={currentUser.userName} />
-        </Box>
-      </Box>
+        </Grid>
+      </Grid>
     </Suspense>
   );
 };

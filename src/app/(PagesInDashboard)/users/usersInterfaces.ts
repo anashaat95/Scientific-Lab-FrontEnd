@@ -31,7 +31,7 @@ export interface IAddUserFormInput {
   password: string;
   confirm_password: string;
   phone_number?: string | null;
-  image_url?: string | null;
+  image?: File | null;
   company_id: string;
   department_id: string;
   lab_id?: string;
@@ -49,7 +49,7 @@ export interface IUpdateUserFormInput {
   last_name: string;
   email: string;
   phone_number?: string | null;
-  image_url?: string | null;
+  image?: File | string | null;
   company_id: string;
   department_id: string;
   lab_id?: string;

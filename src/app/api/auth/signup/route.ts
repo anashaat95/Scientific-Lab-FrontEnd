@@ -6,7 +6,7 @@ import { generateErrorResponse } from "../../helpers";
 export async function POST(req: Request) {
   const data = await req.json();
   try {
-    const response = await ApiClientBackEnd.post(`auth/signup`, data);
+    const response = await ApiClientBackEnd.post(`auth/signup`, { Date: data });
     response.data.email = data.email;
     return NextResponse.json(response.data);
   } catch (error: any) {

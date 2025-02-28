@@ -9,12 +9,12 @@ export const CustomSelectController: React.FC<ICustomSelectControllerProps> = ({
       name={name}
       control={control}
       rules={rules}
-      render={({ field }) => <CustomField field={field} name={name} items={items} errors={errors} control={control} />}
+      render={({ field }) => <CustomSelectField field={field} name={name} items={items} errors={errors} control={control} />}
     />
   );
 };
 
-const CustomField = ({ field, name, items, errors }: { field: ControllerRenderProps<FieldValues, string> } & ICustomSelectControllerProps) => {
+const CustomSelectField = ({ field, name, items, errors }: { field: ControllerRenderProps<FieldValues, string> } & ICustomSelectControllerProps) => {
   useEffect(() => {
     if (!field.value && items.length > 0) {
       const id = setTimeout(() => field.onChange(items[0].value), 0);

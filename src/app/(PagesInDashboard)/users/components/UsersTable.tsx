@@ -1,7 +1,9 @@
+import { getIdFromDtoEntityUrl } from "@/app/helpers";
 import CustomMessage from "@/components/CustomMessage";
 import CustomTable from "@/components/table/CustomTable";
 import CustomTableCell from "@/components/table/CustomTableCell";
 import CustomTableContentRow from "@/components/table/CustomTableContentRow";
+import { GoToButton } from "@/elements/CustomButtons";
 import { IFetcherData } from "@/interfaces";
 import BusinessIcon from "@mui/icons-material/Business";
 import ContactPhoneIcon from "@mui/icons-material/ContactPhone";
@@ -29,7 +31,21 @@ const UsersTable = async ({ data, errorMessage, isNetworkError }: IFetcherData) 
     <CustomTable cellHeads={tableHeader} isPending={false} endpoint={USERS_FRONTEND_ENDPOINT}>
       {users?.map((user) => (
         <CustomTableContentRow key={user.id} endpoint={USERS_FRONTEND_ENDPOINT} id={user.id}>
-          <CustomTableCell>{user.userName}</CustomTableCell>
+          <CustomTableCell>
+            <GoToButton
+              variant="text"
+              href={`/account/${getIdFromDtoEntityUrl(user.id)}`}
+              sx={{
+                color: "#000",
+                "&:hover": {
+                  color: "#0074BA",
+                  transition: "color ease-in 0.3s",
+                },
+              }}
+            >
+              {user.userName}
+            </GoToButton>
+          </CustomTableCell>
           <CustomTableCell>
             {user.first_name} {user.last_name}
           </CustomTableCell>

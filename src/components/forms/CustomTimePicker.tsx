@@ -38,17 +38,17 @@ export const CustomTimePicker = ({
         control={control}
         rules={rules}
         render={({ field }) => {
-          field.value = dayjs(field.value, "HH:mm A");
+          field.value = dayjs(field.value, "hh:mm A");
           const fieldValue = isValidDayjs(field.value)
             ? field.value
             : setValue
-            ? setValue(field.name, dayjs(fallBackValue, "HH:mm A"))
-            : dayjs(fallBackValue, "HH:mm A");
+            ? setValue(field.name, dayjs(fallBackValue, "hh:mm A"))
+            : dayjs(fallBackValue, "hh:mm A");
 
           return (
             <>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <TimePicker {...field} shouldDisableTime={shouldDisableTime} views={["hours", "minutes"]} value={fieldValue} />
+                <TimePicker {...field} shouldDisableTime={shouldDisableTime} views={["hours", "minutes"]} value={fieldValue} ampm />
               </LocalizationProvider>
 
               <Box height="10px">{errors[name] && <FormHelperText error>{errors[name]?.message?.toString() || undefined}</FormHelperText>}</Box>

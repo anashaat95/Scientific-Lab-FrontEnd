@@ -18,12 +18,6 @@ const validationSchema = yup.object().shape({
     .max(NAME_MAX, `Last name must be at most ${NAME_MAX} characters`)
     .required("Last name is required"),
 
-  image_url: yup
-    .string()
-    .nullable()
-    .test("is-valid-url-or-empty", "Invalid URL", (value) => !value || urlPattern.test(value))
-    .notRequired(),
-
   google_scholar_url: yup
     .string()
     .nullable()
@@ -61,9 +55,11 @@ const validationSchema = yup.object().shape({
 
 const useUpdateMyPersonalDataFormHandler = (defaultValues: DefaultValues<IUpdateMyPersonalDataForm>) => {
   const { updateMyPersonalData } = useAccount();
-  const { controlAndErrors, submit, errorMessage, isValid, reset } = useFormHandler({
+  const { controlAndErrors, submit, errorMessage, isValid, reset, setValue } = useFormHandler({
     defaultValues,
-    onSubmit: async (data) => await updateMyPersonalData.mutateAsync(data),
+    onSubmit: async (data) => {
+      await updateMyPersonalData.mutateAsync(data);
+    },
     validationSchema,
   });
 
@@ -75,6 +71,7 @@ const useUpdateMyPersonalDataFormHandler = (defaultValues: DefaultValues<IUpdate
     isSuccess: updateMyPersonalData.isSuccess,
     isValid,
     reset,
+    setValue,
   };
 };
 

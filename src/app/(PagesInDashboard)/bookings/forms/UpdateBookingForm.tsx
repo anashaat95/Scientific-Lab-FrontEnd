@@ -1,5 +1,4 @@
 "use client";
-import { convertdbTimeToDayjsTime } from "@/app/helpers";
 import { AddOrUpdateFormModal } from "@/components/forms/AddOrUpdateFormModal";
 import { CustomDatePicker } from "@/components/forms/CustomDatePicker";
 import { CustomFormBox } from "@/components/forms/CustomFormBox";
@@ -59,23 +58,12 @@ export default function UpdateBookingForm({ lab, bookedEquipment, equipments, ye
     }
   }, [start_date, setValue]);
 
-  const labOpeningTime = convertdbTimeToDayjsTime(lab.opening_time);
-  const labClosingTime = convertdbTimeToDayjsTime(lab.closing_time);
+  const labOpeningTime = dayjs("07:00", "HH:mm");
+  const labClosingTime = dayjs(lab.closing_time, "HH:mm").add(-1, "minute");
 
   const shouldDisableTime = (value: dayjs.Dayjs, view: TimeView) => {
-    const hour = value.hour();
-    const minute = value.minute();
-
-    if (view === "hours") {
-      return hour < dayjs("07:00 AM", "HH:mm A").hour() || hour > labClosingTime.hour();
-    }
-
-    if (view === "minutes") {
-      if (hour === dayjs("07:00 AM", "HH:mm A").hour() && minute < dayjs("07:00 AM", "HH:mm A").minute()) return true;
-      if (hour === labClosingTime.hour() && minute > labClosingTime.minute()) return true;
-    }
-
-    return false;
+    const selectedHour = value.hour();
+    return selectedHour < labOpeningTime.hour() || selectedHour > labClosingTime.hour();
   };
 
   const daysUntilFriday = 5 - today.day();

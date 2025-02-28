@@ -1,20 +1,27 @@
 import "server-only";
 
 import { IUser } from "@/app/(PagesInDashboard)/users/usersInterfaces";
+import { getUserByIdService } from "@/app/(PagesInDashboard)/users/usersServicesBackEnd";
 import { GetJwtTokenPayload } from "@/services/jwtTokenService";
-import { cookies } from "next/headers";
+import { fetcherFn } from "@/services/sharedServices";
+import { Box } from "@mui/material";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import CustomLoader from "./CustomLoader";
+import CustomMessage from "./CustomMessage";
 
 const CheckIsLoggedIn = async ({ children }: { children: (currentUser: IUser) => React.ReactNode }) => {
   const token = await GetJwtTokenPayload();
   if (!token) redirect("/login");
 
-  const data = cookies().get("currentUser")?.value;
-  if (!data) redirect("/login");
-
-  const currentUser: IUser = JSON.parse(data);
+  const data = await fetcherFn(() => getUserByIdService(token.sub));
+  if (data.isError)
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" width="95vw" height="95vh">
+        <CustomMessage type={data.isNetworkError ? "network" : "error"}>{data.errorMessage}</CustomMessage>
+      </Box>
+    );
+  const currentUser: IUser = data?.data?.data;
   return <Suspense fallback={<CustomLoader page={true} />}>{children(currentUser)}</Suspense>;
 };
 
