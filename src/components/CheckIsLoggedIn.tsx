@@ -12,7 +12,7 @@ import CustomMessage from "./CustomMessage";
 
 const CheckIsLoggedIn = async ({ children }: { children: (currentUser: IUser) => React.ReactNode }) => {
   const token = await GetJwtTokenPayload();
-  if (!token) redirect("/login");
+  if (!token) return redirect("/login");
 
   const data = await fetcherFn(() => getUserByIdService(token.sub));
   if (data.isError)
@@ -22,6 +22,8 @@ const CheckIsLoggedIn = async ({ children }: { children: (currentUser: IUser) =>
       </Box>
     );
   const currentUser: IUser = data?.data?.data;
+  if (!currentUser) redirect("/login");
+
   return <Suspense fallback={<CustomLoader page={true} />}>{children(currentUser)}</Suspense>;
 };
 
