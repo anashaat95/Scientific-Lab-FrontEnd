@@ -32,7 +32,7 @@ const BookingsTable = async ({ data, errorMessage, isNetworkError }: IFetcherDat
     (a: IBooking, b: IBooking) => new Date(b.start_date_time).getTime() - new Date(a.start_date_time).getTime()
   );
 
-  let prevDate = dayjs(bookings?.[0].start_date_time);
+  let prevDate = dayjs(bookings?.[0]?.start_date_time);
   let nextDate = dayjs();
 
   let dateComponent = <DateCell key={prevDate.toISOString()} date={prevDate} />;
