@@ -20,17 +20,17 @@ const EquipmentAvatar = ({ equipment }: { equipment: IEquipment }) => {
             top: 0,
             left: "100%",
             ml: 1,
-            zIndex: 20000,
+            zIndex: 5000,
             width: 250,
             height: 250,
             bgcolor: "background.paper",
             // borderRadius: 1,
             boxShadow: 3,
-            // overflow: "hidden",
+            overflow: "visible",
             border: "1px solid #ddd",
           }}
         >
-          <Image src={imageUrl} alt={equipment.name} width={250} height={250} style={{ objectFit: "cover" }} />
+          <Image src={imageUrl} alt={equipment.name} width={250} height={250} style={{ objectFit: "contain" }} />
         </Box>
       )}
     </Box>
