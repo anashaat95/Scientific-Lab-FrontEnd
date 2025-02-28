@@ -52,12 +52,12 @@ const ConvertEquipmentToUpdateEquipmentForm = (equipment: IEquipment): IUpdateEq
     total_quantity: equipment.total_quantity,
     type: eEquipmentType[equipment.type as keyof typeof eEquipmentType],
     status: eEquipmentStatus[equipment.status as keyof typeof eEquipmentStatus],
-    purchase_date: equipment.purchase_date.split("T").at(0) || "",
+    purchase_date: equipment.purchase_date,
     serial_number: equipment.serial_number,
     specifications: equipment.specifications,
     description: equipment.description,
     CanBeLeftOverNight: equipment.can_be_left_overnight === "True",
-    image_url: equipment.image_url || "",
+    image: equipment.image_url || "",
     company_id: getIdFromDtoEntityUrl(equipment.company_url),
   };
 };

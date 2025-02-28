@@ -40,7 +40,7 @@ export interface IUpdateEquipmentFormInput {
   total_quantity: string;
   type: string | number;
   status: string | number;
-  purchase_date: dayjs.Dayjs;
+  purchase_date: string | dayjs.Dayjs;
   serial_number: string;
   specifications: string;
   description: string;
