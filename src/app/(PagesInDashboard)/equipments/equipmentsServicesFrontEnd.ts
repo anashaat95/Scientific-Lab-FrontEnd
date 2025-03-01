@@ -20,6 +20,7 @@ export const updateEquipmentService = async ({ id, data }: { id: string; data: I
   Object.entries(data).forEach(([key, value]) => {
     if (value !== null) formData.append(`Data.${key}`, value);
   });
+
   const response = await ApiClientFrontEnd.put(`${EQUIPMENTS_BACKEND_ENDPOINT}/${id}`, formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });

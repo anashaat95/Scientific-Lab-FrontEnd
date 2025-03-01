@@ -66,7 +66,7 @@ export default function UpdateEquipmentForm({ companies, yesOrNo, statuses, type
             name="image"
             disabled={isPending}
             imageAlt="Image"
-            imageUrl={(equipment.image as string) ?? "/images/tools.png"}
+            imageUrl={equipment.image && equipment.image !== "" ? (equipment.image as string) : "/images/tools.png"}
             {...controlAndErrors}
           />
         </Grid>

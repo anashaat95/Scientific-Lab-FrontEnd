@@ -1,9 +1,7 @@
 // Server-side component (AuthPageLayoutServer.tsx)
 import CustomLoader from "@/components/CustomLoader";
-import CustomMessage from "@/components/CustomMessage";
 import { GetJwtTokenPayload } from "@/services/jwtTokenService";
 import { fetcherFn } from "@/services/sharedServices";
-import { Box } from "@mui/material";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import "server-only";
@@ -16,14 +14,10 @@ const AuthPageLayoutServer = async ({ title, description, gridSizes, children }:
   const token = await GetJwtTokenPayload();
   if (token) {
     const data = await fetcherFn(() => getUserByIdService(token.sub));
-    if (data.isError)
-      return (
-        <Box display="flex" justifyContent="center" alignItems="center" width="95vw" height="95vh">
-          <CustomMessage type={data.isNetworkError ? "network" : "error"}>{data.errorMessage}</CustomMessage>
-        </Box>
-      );
-    const currentUser: IUser = data?.data?.data;
-    if (currentUser) return redirect("/dashboard");
+    if (!data.isError) {
+      const currentUser: IUser = data?.data?.data;
+      if (currentUser) return redirect("/dashboard");
+    }
   }
 
   return (

@@ -6,7 +6,7 @@ import { Box, Paper, Typography, useMediaQuery } from "@mui/material";
 import BgMain from "./../../public/images/backgrounds/bg-main.jpeg";
 
 const MainPage = () => {
-  const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up("lg"));
+  const smUp = useMediaQuery((theme: any) => theme.breakpoints.up("sm"));
   const lgDown = useMediaQuery((theme: any) => theme.breakpoints.down("lg"));
 
   return (
@@ -24,7 +24,7 @@ const MainPage = () => {
           sx={{
             backgroundColor: "#fff",
             display: "flex",
-            justifyContent: `${lgUp ? "space-between" : "center"}`,
+            justifyContent: `${smUp ? "space-between" : "center"}`,
             alignItems: "center",
             height: "100%",
             flexWrap: "wrap",
@@ -32,7 +32,16 @@ const MainPage = () => {
         >
           <Logo sx={{ margin: "12px 24px" }} />
 
-          <Box sx={{ display: "flex", justifyContent: `${lgUp ? "space-between" : "center"}`, alignItems: "center", gap: 2, mr: "24px" }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: `${smUp ? "space-between" : "center"}`,
+              alignItems: "centrer",
+              gap: 2,
+              mr: `${smUp ? "24px" : "0"}`,
+              mb: `${smUp ? "0" : "12px"}`,
+            }}
+          >
             <GoToButton href="register">SignUp</GoToButton>
             <GoToButton href="login">Login</GoToButton>
           </Box>
