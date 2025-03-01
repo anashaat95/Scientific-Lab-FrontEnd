@@ -28,7 +28,6 @@ const BookingsTable = async ({ data, errorMessage, isNetworkError }: IFetcherDat
   const token = await GetJwtTokenPayload();
   const isAdmin = await isAuthorized([enUserRoles.Admin.toString()]);
   const canAddUpdate = await isAuthorized([enUserRoles.Admin.toString(), enUserRoles.LabSupervisor.toString(), enUserRoles.Researcher.toString()]);
-  console.log(canAddUpdate);
   if (data?.data?.length === 0) return <StartAddElementRightNow title="Bookings" canAdd={canAddUpdate} endpoint={BOOKINGS_FRONTEND_ENDPOINT} />;
 
   const bookings: IBooking[] = data?.data?.sort(

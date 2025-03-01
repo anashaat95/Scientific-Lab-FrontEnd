@@ -8,10 +8,6 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 
   const data = await req.formData();
 
-  data.forEach((value, key) => {
-    console.log(`${key} => ${value}`);
-  });
-
   try {
     const response = await ApiClientBackEnd.put(`equipment/${id}`, data, { headers: { "Content-Type": "multipart/form-data" } });
     return NextResponse.json(JSON.stringify({}));
