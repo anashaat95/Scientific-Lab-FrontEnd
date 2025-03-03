@@ -31,14 +31,26 @@ const AuthRegisterForm = ({ title, children, companies, departments, labs }: IAu
         <Grid container display="flex" justifyContent="center" spacing={2}>
           <Grid item xs={12} sm={6} lg={6}>
             <CustomFormBox name="userName" label="Username" disabled={isPending} {...controlAndErrors} />
-            <CustomFormBox name="first_name" label="First Name" disabled={isPending} {...controlAndErrors} />
-            <CustomFormBox name="last_name" label="Last Name" disabled={isPending} {...controlAndErrors} />
-            <CustomFormBox name="lab_id" label="Lab" items={labs} disabled={isPending} {...controlAndErrors} />
           </Grid>
           <Grid item xs={12} sm={6} lg={6}>
             <CustomFormBox name="email" type="email" label="Email" disabled={isPending} {...controlAndErrors} />
+          </Grid>
+          <Grid item xs={12} sm={6} lg={6}>
+            <CustomFormBox name="first_name" label="First Name" disabled={isPending} {...controlAndErrors} />
+          </Grid>
+          <Grid item xs={12} sm={6} lg={6}>
+            <CustomFormBox name="last_name" label="Last Name" disabled={isPending} {...controlAndErrors} />
+          </Grid>
+          <Grid item xs={12} sm={6} lg={6}>
             <CustomFormBox name="password" type="password" label="Password" disabled={isPending} {...controlAndErrors} />
+          </Grid>
+          <Grid item xs={12} sm={6} lg={6}>
             <CustomFormBox name="confirm_password" type="password" label="Confirm Password" disabled={isPending} {...controlAndErrors} />
+          </Grid>
+          <Grid item xs={12} sm={6} lg={6}>
+            <CustomFormBox name="lab_id" label="Lab" items={labs} disabled={isPending} {...controlAndErrors} />
+          </Grid>
+          <Grid item xs={12} sm={6} lg={6}>
             <CustomFormBox name="department_id" label="Department" items={departments} disabled={isPending} {...controlAndErrors} />
           </Grid>
           <Grid item xs={12} sm={6} lg={6}>

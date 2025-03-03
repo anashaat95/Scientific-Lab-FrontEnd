@@ -17,7 +17,6 @@ const Header = () => {
   let pageTitle = undefined;
 
   if (splittedPath[1] === "account") pageTitle = "Profile";
-
   if (!pageTitle) {
     const foundMenuItem = Menuitems.find((item) => item.href === `/${splittedPath[1]}`);
     pageTitle = foundMenuItem ? foundMenuItem.title : splittedPath.at(-1);

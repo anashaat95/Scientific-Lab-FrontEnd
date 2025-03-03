@@ -37,7 +37,11 @@ export default function AddDepartmentForm({ companies }: IAddDepartmentForm) {
         <Grid container display="flex" justifyContent="center" spacing={2}>
           <Grid item xs={12} sm={12} lg={12}>
             <CustomFormBox name="name" label="Name" disabled={isPending} {...controlAndErrors} />
+          </Grid>
+          <Grid item xs={12} sm={12} lg={12}>
             <CustomFormBox name="location" label="Location" disabled={isPending} {...controlAndErrors} />
+          </Grid>
+          <Grid item xs={12} sm={12} lg={12}>
             <CustomFormBox name="company_id" label="Company" items={companies} disabled={isPending} {...controlAndErrors} />
           </Grid>
         </Grid>

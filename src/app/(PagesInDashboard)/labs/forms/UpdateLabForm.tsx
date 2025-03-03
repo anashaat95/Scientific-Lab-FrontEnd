@@ -31,6 +31,9 @@ export default function UpdateLabForm({ departments, users, lab }: IUpdateLabFor
       <Grid container display="flex" justifyContent="center" spacing={2}>
         <Grid item xs={12} sm={6} lg={6}>
           <CustomFormBox name="name" label="Name" disabled={isPending} {...controlAndErrors} />
+        </Grid>
+        <Grid item xs={12} sm={6} lg={6}>
+          {" "}
           <CustomFormBox
             name="capacity"
             label="Capacity"
@@ -43,12 +46,17 @@ export default function UpdateLabForm({ departments, users, lab }: IUpdateLabFor
         </Grid>
         <Grid item xs={12} sm={6} lg={6}>
           <CustomFormBox name="opening_time" label="Opening Time" type="time" disabled={isPending} {...controlAndErrors} />
+        </Grid>
+        <Grid item xs={12} sm={6} lg={6}>
           <CustomFormBox name="closing_time" label="Closing Time" type="time" disabled={isPending} {...controlAndErrors} />
         </Grid>
-        <Grid item xs={12} sm={12} lg={12}>
+        <Grid item xs={12} sm={6} lg={6}>
           <CustomFormBox name="supervisor_id" label="Supervisor" items={users} disabled={isPending} {...controlAndErrors} />
+        </Grid>
+        <Grid item xs={12} sm={6} lg={6}>
           <CustomFormBox name="department_id" label="Department" items={departments} disabled={isPending} {...controlAndErrors} />
         </Grid>
+        <Grid item xs={12} sm={6} lg={6}></Grid>
       </Grid>
     </AddOrUpdateFormModal>
   );

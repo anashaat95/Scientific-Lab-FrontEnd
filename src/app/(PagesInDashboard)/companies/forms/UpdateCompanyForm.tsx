@@ -32,14 +32,20 @@ export default function UpdateCompanyForm({ cities, countries, company }: IUpdat
         <Grid container display="flex" justifyContent="center" spacing={2}>
           <Grid item xs={12} sm={6} lg={6}>
             <CustomFormBox name="name" label="Name" disabled={isPending} {...controlAndErrors} />
-            <CustomFormBox name="zipCode" label="Zip Code" disabled={isPending} {...controlAndErrors} />
           </Grid>
           <Grid item xs={12} sm={6} lg={6}>
             <CustomFormBox name="street" label="Street" disabled={isPending} {...controlAndErrors} />
+          </Grid>
+          <Grid item xs={12} sm={6} lg={6}>
+            <CustomFormBox name="zipCode" label="Zip Code" disabled={isPending} {...controlAndErrors} />
+          </Grid>
+          <Grid item xs={12} sm={6} lg={6}>
             <CustomFormBox name="website" label="Website" type="url" disabled={isPending} {...controlAndErrors} />
           </Grid>
-          <Grid item xs={12} sm={12} lg={12}>
+          <Grid item xs={12} sm={6} lg={6}>
             <CustomFormBox name="city_id" label="City Id" items={cities} disabled={isPending} {...controlAndErrors} />
+          </Grid>
+          <Grid item xs={12} sm={6} lg={6}>
             <CustomFormBox name="country_id" label="Country Id" items={countries} disabled={isPending} {...controlAndErrors} />
           </Grid>
         </Grid>

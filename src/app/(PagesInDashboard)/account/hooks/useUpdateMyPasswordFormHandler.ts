@@ -5,8 +5,15 @@ import { IUpdateMyPasswordForm } from "../accountInterfaces";
 import { useAccount } from "./useAccount";
 
 const validationSchema = yup.object().shape({
-  old_password: yup.string().min(6, "Old Password must be at least 6 characters").required("Old Password is required"),
-  new_password: yup.string().min(6, "New Password must be at least 6 characters").required("New Password is required"),
+  old_password: yup.string().required("Old Password is required"),
+  new_password: yup
+    .string()
+    .min(8, "Password must be at least 8 characters")
+    .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+    .matches(/[a-z]/, "Password must contain at least one lowercase letter")
+    .matches(/[0-9]/, "Password must contain at least one number")
+    .matches(/[\W_]/, "Password must contain at least one special character")
+    .required("Password is required"),
 
   confirm_new_password: yup
     .string()
